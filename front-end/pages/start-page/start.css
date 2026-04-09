@@ -1,0 +1,54 @@
+.startPageButtons {
+    display: inline-block;
+    padding: 6px 6px;
+    background-color: #B0CEFF;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #07357F;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.startPageButtons:hover {
+    background-color: #91abd4;
+}
+
+#start_Game_Btn_id {
+    width: 306px;
+    font-size: 40px;
+}
+
+#strategies_Btn_id {
+    width: 150px;
+    font-size: 25px;
+}
+
+#about_Us_Btn_id {
+    width: 150px;
+    font-size: 25px;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.topRowButton {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.topRowButton {
+    display: flex;
+    justify-content: center;
+}
+
+#game_Title_id {
+    font-size: 130px;
+    margin-top: 180px;
+    text-shadow: -3px -3px 0 #FFA639, 3px -3px 0 #FFA639, -3px 3px 0 #FFA639, 3px 3px 0 #FFA639;
+}
