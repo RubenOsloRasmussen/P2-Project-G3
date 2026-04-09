@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Strategies</title>
 </head>
+
 <body>
     
+
+    <div id="strategies_Box_id"></div>
 </body>
+
+<script>
+    fetch("strategytexts.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("strategies_Box_id").innerHTML = data;
+        });
+</script>
+
 </html>
