@@ -8,8 +8,11 @@
 
 body {
     font-family: "Radio Canada", sans-serif;
+    color: #000000;
 }
 
 h1 {
     font-family: "Radio Canada Big", sans-serif;
+    color: #4168A9;
+    text-shadow: -1px -1px 0 #FFA639, 1px -1px 0 #FFA639, -1px 1px 0 #FFA639, 1px 1px 0 #FFA639;
 }
