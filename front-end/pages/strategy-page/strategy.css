@@ -1,48 +1,64 @@
 /* Basic CSS Setup */
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.strategyPageLayout {
+    display: flex;
+    gap: 20px;
+    height: 100vh;
+    padding: 20px;
 }
 
-html,
-body {
-    width: 100%;
+.strategyScrollBarSide {
     height: 100%;
+    width: 25%;
+    background-color: #B0CEFF;
+    overflow: auto;
 }
-
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-
-.scroll-bar {
-    height: 100px;
-    width: 130px;
-    border: 1px solid grey;
-    font-family: 'GestaRegular', Arial, Helvetica, sans-serif;
+.strategyScrollBarMain {
+    height: 100%;
+    width: 75%;
+    background-color: #D9E8FF;
     overflow: auto;
 }
 
-::-webkit-scrollbar {
+.strategyScrollBarSide ol{
+    padding: 45px;
+}
+.strategyScrollBarMain{
+    padding: 45px;
+}
+
+.strategyScrollBarSide::-webkit-scrollbar {
+    width: 10px;
+}
+.strategyScrollBarMain::-webkit-scrollbar {
     width: 10px;
 }
 
-::-webkit-scrollbar-track {
+.strategyScrollBarSide::-webkit-scrollbar-track {
+    background: #bdffe6;
+    border-radius: 8px;
+}
+.strategyScrollBarMain::-webkit-scrollbar-track {
     background: #bdffe6;
     border-radius: 8px;
 }
 
-::-webkit-scrollbar-thumb {
+.strategyScrollBarSide::-webkit-scrollbar-thumb {
+    background: #34443e;
+    border-radius: 8px;
+}
+.strategyScrollBarMain::-webkit-scrollbar-thumb {
     background: #34443e;
     border-radius: 8px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.strategyScrollBarSide::-webkit-scrollbar-thumb:hover {
     background: #121e1a;
+}
+.strategyScrollBarMain::-webkit-scrollbar-thumb:hover {
+    background: #121e1a;
+}
+
+.strategyIllustrations img{
+    width: 200px;
 }
