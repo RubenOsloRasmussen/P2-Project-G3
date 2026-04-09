@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <div>
+        <div id="naked_Single_Box_id">
+            <h2 class="strategyTitles">Naked Single</h2>
+            <p class="strategyTexts">The Naked Single only occurs when a cell has only one possible candidate number
+                left after eliminating all other numbers that are already present in its row, column, and 3x3 box. Since
+                there is no other number that can be placed in that cell, the solution is immediately determined. The
+                reason why it is called "naked" is because the correct number is "visible" directly in the cell, and
+                there is no advanced pattern detection that is required.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/NakedSingle.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="hidden_Single_Box_id">
+            <h2 class="strategyTitles">Hidden Single</h2>
+            <p class="strategyTexts">The Hidden Single is a cell with multiple candidates, but one of those candidates
+                cannot be in any other cell in the row, column, or box. That means that the candidate is hidden among
+                the other candidates. When the hidden solution is found, it is the solution to that cell. In most Sudoku
+                puzzles, the first five to ten cells that get solved will be hidden singles. The way to spot a hidden
+                single is different depending on if the candidates can be seen for the remaining unsolved cells or not.
+            </p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/HiddenSingle.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="locked_Candidates_Box_id">
+            <h2 class="strategyTitles">Locked Candidates (Pointing Pair/Triple)</h2>
+            <p class="strategyTexts">The Locked Candidates occur when a candidate in a 3x3 box is restricted to one row
+                or column. If that were to occur, then the candidate can be removed from the rest of that row or column
+                outside the box.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/LockedCandidates.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="naked_Pair_Box_id">
+            <h2 class="strategyTitles">Naked Pair</h2>
+            <p class="strategyTexts">The Naked Pair is when there are two cells in the same row, column, or box that
+                have the same pair of candidates. This is a valuable strategy because these two candidates can only
+                appear in these two cells. This means that they will not appear in any other cell in the respective row,
+                column, or box.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/NakedPair.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="naked_Triple_Box_id">
+            <h2 class="strategyTitles">Naked Triple</h2>
+            <p class="strategyTexts">The Naked Triple occurs when three cells each have the same candidates. Those
+                numbers need to fill those three cells in some order. They can be eliminated from other cells within
+                the unit. This concept is based on Naked Pairs.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/NakedTriple.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="triple_Hidden_Box_id">
+            <h2 class="strategyTitles">Hidden Triple</h2>
+            <p class="strategyTexts">The Hidden Triple occurs when three cells all contain exactly the same three
+                potential values. Other candidates may be present in those cells. They can be eliminated from other
+                cells
+                in the same unit. This logic expands on Naked Pairs. This strategy requires closer attention to detect
+                possible candidates, than a Naked Triple.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/HiddenTriple.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="x_Wing_Box_id">
+            <h2 class="strategyTitles">X-Wing</h2>
+            <p class="strategyTexts">X-Wing by definition is also known as a 2x2, is a single candidate strategy where 2
+                of the same candidates are limited to the same rows or columns. There are different types of X-Wing.</p>
+            <p class="strategyTexts">X-Wing Type 1 is asymmetric, that is, when the X-Wing can be seen through one set
+                eitherof the rows or
+                columns.
+                There are base sets, which are rows or columns where the X-Wing exists. Then there are cover sets where
+                there will be made eliminations.</p>
+            <p class="strategyTexts">X-Wing Type 2 is symmetric, that is, when the 2 X-Wings make the same
+                eliminations, they are symmetrical.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/XWing.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="x_Y_Wing_Box_id">
+            <h2 class="strategyTitles">XY-Wing</h2>
+            <p class="strategyTexts">The XY-Wing strategy involves the three cells that are connected through shared
+                candidates. One pivot cell contains two candidates. Two wing cells each have on candidate in common with
+                the pivot. This creates a forced elimination.
+            </p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/XYWing.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="x_Y_Z_Wing_Box_id">
+            <h2 class="strategyTitles">XYZ-Wing</h2>
+            <p class="strategyTexts">The XYZ-Wing is similar to XY-Wing, but the difference is that it features a pivot
+                that has three candidates instead of two. Two other cells restrict the placement of the candidate. The
+                common candidate can be eliminated from the cells that overlap. The XYZ-Wing is a bit more complicated
+                than XY-Wing.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/XYZWing.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="w_Wing_Box_id">
+            <h2 class="strategyTitles">W-Wing</h2>
+            <p class="strategyTexts">The W-Wing connects two equivalent bi-value cells through a strong connection
+                elsewhere. A linking possibility imposes logical limitations. This allows for the elimination of a
+                shared candidate. What it does is that it combines pair logic with chain reasoning.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/WWing.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="simple_Coloring_Box_id">
+            <h2 class="strategyTitles">Simple Coloring</h2>
+            <p class="strategyTexts">The Simple Coloring tracks that one candidate number uses two alternative colours
+                across the grid. It is based on strong links, which means that when a candidate appears twice in a row,
+                column, or box, then one of those cells must contain the number. Simply put, by coloring these linked
+                cells alternatively, chains of possibilities are created.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/SimpleColoring.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="alternating_Inference_Chains_Aic_Box_id">
+            <h2 class="strategyTitles">Alternating Inference Chains (AIC)</h2>
+            <p class="strategyTexts">The AIC links candidates together through a chain of strong and weak logical
+                connections. This means that if there is a strong link, one candidate is false and the other must be
+                true. If there is a weak link, then both candidates cannot be true at the same time.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/AIC.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="forcing_Chains_Box_id">
+            <h2 class="strategyTitles">Forcing Chains</h2>
+            <p class="strategyTexts">The Forcing Chain assumes that there is one candidate and then it follows the
+                logical consequences. If contradictions occur, then the candidate will be eliminated. This strategy is
+                structured; it is done without guessing.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/ForcingChains.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="almost_Locked_Sets_Als_Box_id">
+            <h2 class="strategyTitles">Almost Locked Sets (ALS)</h2>
+            <p class="strategyTexts">The ALS refers to a group of cells that have n + 1 candidates spread over n cells.
+                One of these candidates needs to be ruled out based on logical reasoning. ALS can connect with different
+                patterns. They allow for complex eliminations.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/ALS.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="sue_De_Coq_Box_id">
+            <h2 class="strategyTitles">Sue de Coq</h2>
+            <p class="strategyTexts">The Sue de Coq integrates the interactions of rows, columns, and boxes. This
+                creates a complicated relationship of subsets. Candidates can be eliminated from units that overlap.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/SueDeCoq.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="swordfish_Box_id">
+            <h2 class="strategyTitles">Swordfish</h2>
+            <p class="strategyTexts">The Swordfish is a variation of the X-Wing strategy that uses three rows and
+                columns. A number shows up in the same column placement across three separate rows. This creates a form
+                of logical elimination pattern. The potential candidate can be eliminated from other cells in these
+                columns. This involves reviewing several units.</p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/Swordfish.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+
+        <div id="jellyfish_Box_id">
+            <h2 class="strategyTitles">Jellyfish</h2>
+            <p class="strategyTexts">The Jellyfish expands the concept of fish to grid of four rows and four columns. A
+                candidate positions itself in a structured pattern. This creates elimination opportunities in
+                intersecting columns or rows.
+            </p>
+            <figure class="strategyIllustrations">
+                <img src="illustrations/Jellyfish.png">
+                <figcaption class="strategyIllustrationCaptions">Caption</figcaption>
+            </figure>
+        </div>
+    </div>
+
+</body>
+
+</html>
