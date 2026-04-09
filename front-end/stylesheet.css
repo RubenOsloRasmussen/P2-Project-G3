@@ -1,0 +1,15 @@
+/* Basic CSS Setup */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Radio Canada", sans-serif;
+}
+
+h1 {
+    font-family: "Radio Canada Big", sans-serif;
+}
