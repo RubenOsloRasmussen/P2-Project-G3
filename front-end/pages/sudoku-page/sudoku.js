@@ -57,7 +57,9 @@ class SudokuBoard {
                 /*
                 We add a new cell to a specific Sudoku block by adding a new input field.
                 */
-                sudokuBoardElements[blockNumber].innerHTML += `<input type="text" class="input_Cell" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'')};" value=${this.initialCellsArr[rowIndex][columnIndex] ? this.initialCellsArr[rowIndex][columnIndex] : ""}>`;
+                sudokuBoardElements[blockNumber].innerHTML
+                    += `<input type="text" class="input_Cell" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'')};" 
+                    value=${this.initialCellsArr[rowIndex][columnIndex] ? this.initialCellsArr[rowIndex][columnIndex] : ""}>`;
             }
         }
     }
@@ -99,19 +101,51 @@ class SudokuBoard {
 
 /* ## TEST SECTION ## */
 
+//let ourCellsArr = [
+//    [null, null, 7, null, null, null, null, null, null],
+//    [null, null, 5, null, 4, null, null, 7, null],
+//    [null, 6, 9, 5, null, null, null, 3, 1],
+
+//    [null, null, null, 4, null, 5, 8, null, 2],
+//    [null, 5, null, null, 2, null, null, 4, null],
+//    [6, null, 2, 3, null, 1, null, null, null],
+
+//    [2, 9, null, null, null, 3, 5, 8, null],
+//    [null, 3, null, null, 1, null, 2, null, null],
+//    [null, null, null, null, null, null, 3, null, null]
+//];
+
+
+//this is the string from which a sudoku is made, left to right, top to bottom.
+// a "." means an empty cell
+let sudokuString = "..61..97........3....734..5....49..2.15...86.9..68....6..293....9........51..74.."
+
+//The sudoku board is initialized as an undefined 9*9 matrix
 let ourCellsArr = [
-    [null, null, 7, null, null, null, null, null, null],
-    [null, null, 5, null, 4, null, null, 7, null],
-    [null, 6, 9, 5, null, null, null, 3, 1],
+    ["", , , , , , , , ""],
+    ["", , , , , , , , ""],
+    ["", , , , , , , , ""],
+    ["", , , , , , , , ""],
+    ["", , , , , , , , ""],
+    ["", , , , , , , , ""],
+    ["", , , , , , , , ""],
+    ["", , , , , , , , ""],
+    ["", , , , , , , , ""],
+]
 
-    [null, null, null, 4, null, 5, 8, null, 2],
-    [null, 5, null, null, 2, null, null, 4, null],
-    [6, null, 2, 3, null, 1, null, null, null],
-
-    [2, 9, null, null, null, 3, 5, 8, null],
-    [null, 3, null, null, 1, null, 2, null, null],
-    [null, null, null, null, null, null, 3, null, null]
-];
+//using a nested for loop, each character in the string is read from left to right,
+//if it reads a "." then null is placed in the matrix in that point.
+//otherwise, it will place whatever was in the spot, into the matrix.
+for (var i = 0; i < 9; i++) {
+    for (var j = 0; j < 9; j++) {
+        if (sudokuString[j + i * 9] !== ".") {
+            ourCellsArr[i][j] = sudokuString[j + i * 9]
+        }
+        if (sudokuString[j + i * 9] === ".") {
+            ourCellsArr[i][j] = null
+        }
+    }
+}
 
 const OurSudokuBoard = new SudokuBoard(ourCellsArr); 
 
