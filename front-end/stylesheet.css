@@ -1,19 +1,118 @@
-/* Basic CSS Setup */
+/* ===== CSS Variables ===== */
+:root {
+    --primary-blue: #4168A9;
+    --accent-orange: #FFA639;
+    --light-blue: #B0CEFF;
+    --lighter-blue: #D9E8FF;
+    --dark-blue: #07357F;
+    --teal-accent: #bdffe6;
+    --dark-text: #000000;
+    --scrollbar-dark: #34443e;
+    
+    --font-main: "Radio Canada", sans-serif;
+    --font-heading: "Radio Canada Big", sans-serif;
+    
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 20px;
+    --spacing-xl: 45px;
+    
+    --border-radius: 8px;
+    --transition: 0.3s ease;
+}
 
+/* ===== Reset & Defaults ===== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: "Radio Canada", sans-serif;
-    color: #000000;
+html {
+    scroll-behavior: smooth;
 }
 
+body {
+    font-family: var(--font-main);
+    color: var(--dark-text);
+    background-color: #ffffff;
+    line-height: 1.6;
+}
+
+/* ===== Typography ===== */
 h1 {
-    font-family: "Radio Canada Big", sans-serif;
-    color: #4168A9;
-    text-shadow: -1px -1px 0 #FFA639, 1px -1px 0 #FFA639, -1px 1px 0 #FFA639, 1px 1px 0 #FFA639;
+    font-family: var(--font-heading);
+    color: var(--primary-blue);
+    text-shadow: -1px -1px 0 var(--accent-orange), 1px -1px 0 var(--accent-orange), 
+                 -1px 1px 0 var(--accent-orange), 1px 1px 0 var(--accent-orange);
     text-align: center;
+}
+
+h2 {
+    font-family: var(--font-heading);
+    color: var(--primary-blue);
+    margin: var(--spacing-md) 0;
+}
+
+h3, h4, h5, h6 {
+    font-family: var(--font-main);
+    color: var(--primary-blue);
+    margin: var(--spacing-sm) 0;
+}
+
+p {
+    margin-bottom: var(--spacing-md);
+}
+
+a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ===== Common Elements ===== */
+button {
+    font-family: var(--font-main);
+    cursor: pointer;
+    transition: all var(--transition);
+    border: none;
+}
+
+input, textarea, select {
+    font-family: var(--font-main);
+}
+
+/* ===== Utility Classes ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+
+.p-sm { padding: var(--spacing-sm); }
+.p-md { padding: var(--spacing-md); }
+.p-lg { padding: var(--spacing-lg); }
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    :root {
+        font-size: 14px;
+    }
 }

@@ -1,0 +1,31 @@
+/* Basic CSS Setup */
+
+body {
+    margin: 0;
+    background-color: white;
+    font-family: "Radio Canada", sans-serif;
+}
+
+.aboutUsBox {
+    background-color: #D9E8FF;
+    margin: 40px;
+    padding: 40px 60px;
+    border-radius: 10px;
+}
+
+.aboutUsTitle {
+    text-align: center;
+    font-family: "Radio Canada Big", sans-serif;
+    font-size: 90px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    
+}
+
+.aboutUsText {
+    text-align: center;
+    font-size: 20px;
+    max-width: 850px;
+    margin: 0 auto 20px auto;
+    line-height: 1.5;
+}
