@@ -1,22 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="/stylesheet.css">
+
+    <!-- Start page stylesheet -->
+    <link rel="stylesheet" href="/pages/start-page/start.css">
+
+    <!-- Google Fonts preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Text font -->
+    <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap"
+        rel="stylesheet">
+
+    <!-- Title font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap"
+        rel="stylesheet">
+
+    <title>Start Page</title>
 </head>
+
 <body>
-    <h1>SudokuElo</h1>
+    <h1 id="game_Title_id">SudokuElo</h1>
     <nav>
-        <a href="/pages/sudoku-page/sudoku.html">
-            <button id="start_Game_Btn_id">Start Game</button>
-        </a>
-        <a href="/pages/strategy-page/strategy.html">
-        <button id="strategies_Btn_id">Strategies</button>
-        </a>
-        <a href="/pages/aboutus-page/aboutus.html">
-        <button id="about_Us_Btn_id">About Us</button>
-        </a>
+        <!-- First row -->
+        <div class="topRowButton">
+            <a href="/pages/sudoku-page/sudoku.html" class="startPageButtons" id="start_Game_Btn_id">
+                Start Game
+            </a>
+        </div>
+
+        <!-- Second row -->
+
+        <div class="bottomRowButton">
+            <a href="/pages/strategy-page/strategy.html" class="startPageButtons" id="strategies_Btn_id">
+                Strategies
+            </a>
+
+            <a href="/pages/aboutus-page/aboutus.html" class="startPageButtons" id="about_Us_Btn_id">
+                About Us
+            </a>
+        </div>
     </nav>
 </body>
+
 </html>

@@ -1,0 +1,64 @@
+/* Basic CSS Setup */
+
+.strategyPageLayout {
+    display: flex;
+    gap: 20px;
+    height: 100vh;
+    padding: 20px;
+}
+
+.strategyScrollBarSide {
+    height: 100%;
+    width: 25%;
+    background-color: #B0CEFF;
+    overflow: auto;
+}
+.strategyScrollBarMain {
+    height: 100%;
+    width: 75%;
+    background-color: #D9E8FF;
+    overflow: auto;
+}
+
+.strategyScrollBarSide ol{
+    padding: 45px;
+}
+.strategyScrollBarMain{
+    padding: 45px;
+}
+
+.strategyScrollBarSide::-webkit-scrollbar {
+    width: 10px;
+}
+.strategyScrollBarMain::-webkit-scrollbar {
+    width: 10px;
+}
+
+.strategyScrollBarSide::-webkit-scrollbar-track {
+    background: #bdffe6;
+    border-radius: 8px;
+}
+.strategyScrollBarMain::-webkit-scrollbar-track {
+    background: #bdffe6;
+    border-radius: 8px;
+}
+
+.strategyScrollBarSide::-webkit-scrollbar-thumb {
+    background: #34443e;
+    border-radius: 8px;
+}
+.strategyScrollBarMain::-webkit-scrollbar-thumb {
+    background: #34443e;
+    border-radius: 8px;
+}
+
+.strategyScrollBarSide::-webkit-scrollbar-thumb:hover {
+    background: #121e1a;
+}
+.strategyScrollBarMain::-webkit-scrollbar-thumb:hover {
+    background: #121e1a;
+}
+
+.strategyIllustrations img{
+    width: 200px;
+}
