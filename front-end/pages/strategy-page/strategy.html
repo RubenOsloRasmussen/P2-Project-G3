@@ -1,11 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="/stylesheet.css">
+    <!-- Strategy page stylesheet -->
+    <link rel="stylesheet" href="strategy.css">
+
+    <!-- Google Fonts preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Text font -->
+    <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap"
+        rel="stylesheet">
+
+    <!-- Title font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap"
+        rel="stylesheet">
+
+    <title>Strategies</title>
 </head>
+
 <body>
-    
+    <div class="strategyPageLayout">
+        <div class="strategyScrollBarSide" id="strategies_Side_id"></div>
+        <div class="strategyScrollBarMain" id="strategies_Box_id"></div>
+    </div>
 </body>
+
+<script>
+    fetch("strategytexts.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("strategies_Box_id").innerHTML = data;
+        });
+
+
+    fetch("strategysidebar.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("strategies_Side_id").innerHTML = data;
+        });
+</script>
+
 </html>
