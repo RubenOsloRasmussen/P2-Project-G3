@@ -22,6 +22,7 @@
         rel="stylesheet">
 
     <title>Document</title>
+    <link rel="stylesheet" href="sudoku.css"></link>
 </head>
 
 <body>
@@ -30,9 +31,9 @@
 
         </div>
 
-        <div>
-            <div> <!--above sudoku board-->
-                <div id="pause_b_id">
+        <div id="main_Content">
+            <div id="left_container"> <!--above sudoku board-->
+                <div id="pause_b_id"> 
 
                 </div>
                 <div id="timer_id">
@@ -40,6 +41,7 @@
                 </div>
             </div>
             <div id="sudoku_Board_Container_id">
+              
                 <!--sudoku board-->
                 <!--TODO: each block (lowest div) should be able to contain a number from 1 to 9,
     and interact with sudoku algorithms-->
@@ -49,15 +51,17 @@
     7 8 9
     same with blocks (which are 9 cells grouped together)
     -->
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
-                <div class="block"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+            </div>
+            <div id="right_Container">
 
             </div>
         </div>
