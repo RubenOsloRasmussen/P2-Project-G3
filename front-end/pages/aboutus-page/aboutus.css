@@ -8,17 +8,27 @@ body {
 
 .aboutUsBox {
     background-color: #D9E8FF;
-    margin: 40px;
-    padding: 40px 60px;
-    border-radius: 10px;
+    width: 90vw;
+    height: 90vh;
+    border-radius: 20px;
+    margin: 5vh auto;
 }
 
 .aboutUsTitle {
     text-align: center;
     font-family: "Radio Canada Big", sans-serif;
-    font-size: 90px;
-    margin-top: 0;
-    margin-bottom: 30px;
+    font-size: 128px;
+    font-weight: 700;
+    color: #4168A9;
+
+    text-shadow: 
+    3px 3px 0px #E79E47,
+    -1px -1px 0px #E79E47, 
+    1px -1px 0px #E79E47, 
+    -1px 1px 0px #E79E47;
+
+    margin-top: 10px;
+    margin-bottom: 10px;
     
 }
 
