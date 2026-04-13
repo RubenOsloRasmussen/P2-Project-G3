@@ -1,5 +1,6 @@
 /* Basic CSS Setup */
 
+/* Layout */
 .strategyPageLayout {
     display: flex;
     gap: 20px;
@@ -7,58 +8,121 @@
     padding: 20px;
 }
 
-.strategyScrollBarSide {
-    height: 100%;
-    width: 25%;
-    background-color: #B0CEFF;
-    overflow: auto;
+/* Link and bullet colors - Side panel*/
+#strategy_List_id li::marker {
+    color: #07357F;
 }
+
+#strategy_List_id a,
+a:visited,
+a:active {
+    color: #07357F;
+}
+
+#strategy_List_id a:hover {
+    color: #03193d;
+}
+
+/* Bullet (number) colors and spacing - Main panel*/
+#main_Strategy_List_id li::marker {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#main_Strategy_List_id li {
+    margin-bottom: 20px;
+}
+
+/* Scrollbar styling - General and content*/
+.strategyScrollBarSide,
 .strategyScrollBarMain {
     height: 100%;
-    width: 75%;
-    background-color: #D9E8FF;
     overflow: auto;
 }
 
-.strategyScrollBarSide ol{
-    padding: 45px;
-}
-.strategyScrollBarMain{
-    padding: 45px;
+.strategyScrollBarSide {
+    width: 25%;
+    background-color: #B0CEFF;
+    /* (top and bottom) (left and right) */
+    padding: 20px 45px;
+    font-size: 25px;
+    line-height: 55px;
+    position: relative;
 }
 
-.strategyScrollBarSide::-webkit-scrollbar {
-    width: 10px;
+.strategyScrollBarMain {
+    width: 75%;
+    background-color: #D9E8FF;
+    /* top right bottom left */
+    padding: 20px 10px 20px 50px;
 }
+
+/* Scrollbar styling - Track*/
+.strategyScrollBarSide::-webkit-scrollbar,
 .strategyScrollBarMain::-webkit-scrollbar {
     width: 10px;
 }
 
+.strategyScrollBarSide::-webkit-scrollbar-track,
 .strategyScrollBarSide::-webkit-scrollbar-track {
-    background: #bdffe6;
-    border-radius: 8px;
-}
-.strategyScrollBarMain::-webkit-scrollbar-track {
-    background: #bdffe6;
+    background: #D9D9D9;
     border-radius: 8px;
 }
 
-.strategyScrollBarSide::-webkit-scrollbar-thumb {
-    background: #34443e;
-    border-radius: 8px;
-}
+/* Scrollbar styling - Thumb*/
+.strategyScrollBarSide::-webkit-scrollbar-thumb,
 .strategyScrollBarMain::-webkit-scrollbar-thumb {
-    background: #34443e;
+    background: #6e6e6e;
     border-radius: 8px;
 }
 
-.strategyScrollBarSide::-webkit-scrollbar-thumb:hover {
-    background: #121e1a;
-}
+.strategyScrollBarSide::-webkit-scrollbar-thumb:hover,
 .strategyScrollBarMain::-webkit-scrollbar-thumb:hover {
-    background: #121e1a;
+    background: #4c4c4c;
 }
 
-.strategyIllustrations img{
+/* Illustration size */
+.strategyIllustrations img {
     width: 200px;
+}
+
+/* Tooltip */
+.tooltip {
+    position: absolute;
+    top: 25px;
+    left: 22%;
+    z-index: 10;
+}
+
+/* Tooltip - Button */
+.tooltipButton {
+    width: 35px;
+    height: 35px;
+    font-family: "Radio Canada", sans-serif;
+    font-size: 25px;
+    border-radius: 50%;
+    border: none;
+    background-color: #D9D9D9;
+    cursor: pointer;
+    z-index: 11;
+}
+
+.tooltipButton:hover {
+    background-color: #b6b6b6;
+}
+
+/* Tooltip - Popup */
+.tooltipText {
+    position: absolute;
+    top: 45px;
+    width: 350px;
+    background-color: #FFFFFF;
+    border-color: #4168A9;
+    border-radius: 2px;
+    padding: 10px;
+    visibility: hidden;
+}
+
+.tooltip:hover .tooltipText {
+    visibility: visible;
 }
