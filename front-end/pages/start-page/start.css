@@ -1,6 +1,6 @@
 .startPageButtons {
     display: inline-block;
-    padding: 6px 6px;
+    padding: 10px 0;
     background-color: #B0CEFF;
     border-radius: 8px;
     text-decoration: none;
@@ -8,10 +8,13 @@
     border: none;
     cursor: pointer;
     text-align: center;
+    font-family: var(--font-main);
+    line-height: 1.2;
 }
 
 .startPageButtons:hover {
     background-color: #91abd4;
+    text-decoration: none;
 }
 
 #start_Game_Btn_id {
@@ -33,22 +36,42 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 6px;
 }
 
 .topRowButton {
     display: flex;
     justify-content: center;
-    width: 100%;
 }
 
-.topRowButton {
+.bottomRowButton {
     display: flex;
     justify-content: center;
+    gap: 6px;
 }
 
 #game_Title_id {
     font-size: 130px;
-    margin-top: 180px;
     text-shadow: -3px -3px 0 #FFA639, 3px -3px 0 #FFA639, -3px 3px 0 #FFA639, 3px 3px 0 #FFA639;
+    margin: 0;
+    text-align: center;
+}
+
+.blueBox {
+    background-color: #D9E8FF;
+    width: 90vw;
+    height: 90vh;
+    border-radius: 10px;
+    margin: 5vh auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.startContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
 }
