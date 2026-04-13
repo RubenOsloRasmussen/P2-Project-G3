@@ -89,8 +89,8 @@ a:active {
 /* Tooltip */
 .tooltip {
     position: absolute;
-    top: 30px;
-    left: 21%;
+    top: 25px;
+    left: 22%;
     z-index: 10;
 }
 
@@ -120,9 +120,9 @@ a:active {
     border-color: #4168A9;
     border-radius: 2px;
     padding: 10px;
-    opacity: 0;
+    visibility: hidden;
 }
 
 .tooltip:hover .tooltipText {
-    opacity: 1;
+    visibility: visible;
 }
