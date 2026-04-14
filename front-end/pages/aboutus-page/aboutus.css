@@ -12,7 +12,20 @@ body {
     height: 90vh;
     border-radius: 20px;
     margin: 5vh auto;
+
+     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
+.startContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+
 
 .aboutUsTitle {
     text-align: center;
