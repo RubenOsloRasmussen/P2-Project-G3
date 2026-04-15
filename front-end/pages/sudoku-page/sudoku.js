@@ -133,16 +133,21 @@ let ourCellsArr = [
     ["", , , , , , , , ""],
 ]
 
+stringParser(ourCellsArr)
+
 //using a nested for loop, each character in the string is read from left to right,
 //if it reads a "." then null is placed in the matrix in that point.
 //otherwise, it will place whatever was in the spot, into the matrix.
-for (var i = 0; i < 9; i++) {
-    for (var j = 0; j < 9; j++) {
-        if (sudokuString[j + i * 9] !== ".") {
-            ourCellsArr[i][j] = sudokuString[j + i * 9]
-        }
-        if (sudokuString[j + i * 9] === ".") {
-            ourCellsArr[i][j] = null
+function stringParser(string) {
+    for (var i = 0; i < 9; i++) {
+        for (var j = 0; j < 9; j++) {
+            if (isNaN(Number(sudokuString[j + i * 9])) === false & sudokuString[j + i * 9] != "0") {
+                ourCellsArr[i][j] = Number(sudokuString[j + i * 9])
+            } else if (sudokuString[j + i * 9] === ".") {
+                ourCellsArr[i][j] = null
+            } else {
+                console.log("could not print value at placement ", (j + i * 9), " in string")
+            }
         }
     }
 }
