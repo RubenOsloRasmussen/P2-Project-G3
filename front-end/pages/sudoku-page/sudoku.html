@@ -30,14 +30,21 @@
 
 <body>
     <div class="blueBox">
+        <!-- Settings and strategy icons -->
+         <div id="top_right_icons">
+            <div class="icon">⚙️</div>
+            <div class="icon">📖</div>
+         </div>
         <div id="main_Content">
+
+           <!--sudoku board and notation-->
+          <div id="sudoku_Board_and_notation_id">
+
             <div id="left_container">
-                <div id="pause_b_id"></div>
-                <div id="timer_id"></div>
+                <div id="pause_b_id">||</div>
+                <div id="timer_id">05:38</div>
             </div>
 
-                <!--sudoku board and notation-->
-            <div id="sudoku_Board_and_notation_id">
               
                 <!--sudoku board-->
             <div id="sudoku_Board_Container_id">
@@ -62,19 +69,20 @@
                     <div class="sudoku_Block_class"></div>
             </div>
                 <!--notation-->
-            <div id="notation_Boxes">
-        <div class="notation_Box"></div>
-        <div class="notation_Box"></div>
-        <div class="notation_Box"></div>
-        <div class="notation_Box"></div>
-        <div class="notation_Box"></div>
-        <div class="notation_Box"></div>
-    </div>
-</div>
-            <div id="right_Container">
-
-            </div>
+         <div id="notation_Boxes">
+            <button class="notation_Box">7</button>
+            <button class="notation_Box small-notes">1 2<br>9</button>
+            <button class="notation_Box small-notes">2 8</button>
+            <button class="notation_Box icon-box">⬛</button>
+            <button class="notation_Box icon-box">◻</button>
+            <button class="notation_Box icon-box">-</button>
+            <button id="forfeit_btn">Forfeit</button>
         </div>
+    
+    </div>
+
+</div>
+</div>
         
     <script src="./sudoku.js"></script>
 </body>
