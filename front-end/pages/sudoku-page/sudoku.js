@@ -160,7 +160,7 @@ async function stringParser(string) {
 }
 
 async function LoadStringData() {
-    let response = await fetch("./SudokuPuzzles.txt");
+    let response = await fetch("./SudokuPuzzles.csv");
 
     if (!response.ok) {
         console.log("Error: couldn't load StringData", response.status);
@@ -173,7 +173,7 @@ async function LoadStringData() {
     return stringData;
 }
 
-async function GetSudokuString(Number) {
+async function GetSudokuString(number) {
     let response = await LoadStringData();
 
     if (response == null) {
@@ -183,7 +183,7 @@ async function GetSudokuString(Number) {
 
     let sudokuStrings = response.split(",");
 
-    let sudokuString = sudokuStrings[1 + sudokuNumber * 3]
+    let sudokuString = sudokuStrings[sudokuNumber * 4]
 
     console.log(sudokuString)
 
@@ -206,7 +206,6 @@ StringToSudoku(sudokuNumber)
 
 
 
-OurSudokuBoard.setupBoard();
 
 // This is the button code, that adds the activeNotation class to the clicked button
 const buttons = document.querySelectorAll('#notation_Boxes button:not(#forfeit_btn)');
