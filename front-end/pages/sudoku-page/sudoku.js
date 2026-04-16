@@ -150,3 +150,18 @@ for (var i = 0; i < 9; i++) {
 const OurSudokuBoard = new SudokuBoard(ourCellsArr); 
 
 OurSudokuBoard.setupBoard();
+
+// This is the button code, that adds the activeNotation class to the clicked button
+const buttons = document.querySelectorAll('#notation_Boxes button:not(#forfeit_btn)');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+
+        // remove active from all
+        buttons.forEach((btn) => btn.classList.remove('activeNotation'));
+        
+        // add to clicked one
+        button.classList.add('activeNotation');
+    
+    });
+});
