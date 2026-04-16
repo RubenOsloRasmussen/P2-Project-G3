@@ -115,14 +115,17 @@ class SudokuBoard {
 //    [null, null, null, null, null, null, 3, null, null]
 //];
 
-//fetch("/Sudokupuzzles.txt").then(function (response) {
-//    console.log(response)
-//})
-
+//fetch("./SudokuPuzzles.txt")
+//    .then(function (response) {
+//        return response.text();
+//    })
+//    .then(function (SudokuPuzzles) {
+//        console.log(SudokuPuzzles);
+//    })
 
 //this is the string from which a sudoku is made, left to right, top to bottom.
 // a "." means an empty cell
-let sudokuString = "..61..97........3....734..5....49..2.15...86.9..68....6..293....9........51..74.."
+//let sudokuString = "..61..97........3....734..5....49..2.15...86.9..68....6..293....9........51..74.."
 
 //The sudoku board is initialized as an undefined 9*9 matrix
 let ourCellsArr = [
@@ -137,12 +140,12 @@ let ourCellsArr = [
     ["", , , , , , , , ""],
 ]
 
-stringParser(ourCellsArr)
-
 //using a nested for loop, each character in the string is read from left to right,
 //if it reads a "." then null is placed in the matrix in that point.
 //otherwise, it will place whatever was in the spot, into the matrix.
-function stringParser(string) {
+async function stringParser(string) {
+    sudokuString = await GetSudokuString(sudokuNumber);
+
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
             if (isNaN(Number(sudokuString[j + i * 9])) === false & sudokuString[j + i * 9] != "0") {
@@ -156,6 +159,50 @@ function stringParser(string) {
     }
 }
 
-const OurSudokuBoard = new SudokuBoard(ourCellsArr); 
+async function LoadStringData() {
+    let response = await fetch("./SudokuPuzzles.txt");
 
-OurSudokuBoard.setupBoard();
+    if (!response.ok) {
+        console.log("Error: couldn't load StringData", response.status);
+        return null;
+    }
+
+    let stringData = await response.text()
+    console.log(stringData)
+    console.log("the datadump is ", stringData.length, " characters long")
+    return stringData;
+}
+
+async function GetSudokuString(Number) {
+    let response = await LoadStringData();
+
+    if (response == null) {
+        console.log("could not load sudoku string")
+        return;
+    }
+
+    let sudokuStrings = response.split(",");
+
+    let sudokuString = sudokuStrings[1 + sudokuNumber * 3]
+
+    console.log(sudokuString)
+
+    return sudokuString;
+}
+
+let sudokuNumber = 1
+let sudokuString = null
+
+async function StringToSudoku(Number) {
+    await stringParser(ourCellsArr, sudokuString)
+
+    const OurSudokuBoard = await new SudokuBoard(ourCellsArr);
+
+    await OurSudokuBoard.setupBoard();
+
+}
+
+StringToSudoku(sudokuNumber)
+
+
+
