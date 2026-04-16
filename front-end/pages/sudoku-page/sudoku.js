@@ -58,7 +58,7 @@ class SudokuBoard {
                 We add a new cell to a specific Sudoku block by adding a new input field.
                 */
                 sudokuBoardElements[blockNumber].innerHTML
-                    += `<input type="text" class="input_Cell" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'')};" 
+                    += `<input type="text" class="input_Cell" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" 
                     value=${this.initialCellsArr[rowIndex][columnIndex] ? this.initialCellsArr[rowIndex][columnIndex] : ""}>`;
             }
         }
@@ -206,3 +206,19 @@ StringToSudoku(sudokuNumber)
 
 
 
+OurSudokuBoard.setupBoard();
+
+// This is the button code, that adds the activeNotation class to the clicked button
+const buttons = document.querySelectorAll('#notation_Boxes button:not(#forfeit_btn)');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+
+        // remove active from all
+        buttons.forEach((btn) => btn.classList.remove('activeNotation'));
+        
+        // add to clicked one
+        button.classList.add('activeNotation');
+    
+    });
+});
