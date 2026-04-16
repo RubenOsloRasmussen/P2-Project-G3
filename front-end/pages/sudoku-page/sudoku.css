@@ -1,5 +1,6 @@
 * {
-    box-sizing: border-box; /* include padding and border in total width calculation */
+    box-sizing: border-box;
+    /* include padding and border in total width calculation */
 }
 
 #sudoku_Board_Container_id {
@@ -8,7 +9,7 @@
     background-color: #4168A9;
     height: 550px;
     width: 550px;
-    border: 5px solid #4168A9;  
+    border: 5px solid #4168A9;
 }
 
 .sudoku_Block_class {
@@ -65,7 +66,7 @@ body {
 }
 
 .icon {
-    font-size: 32px;
+    font-size: 44px;
     cursor: pointer;
 
     display: flex;
@@ -106,27 +107,78 @@ body {
     margin-top: 10px;
 }
 
-.notation_Box {
+#notation_Boxes button:not(#forfeit_btn) {
     width: 55px;
     height: 55px;
-    background-color: #B0CEFF; 
-    border: 2px solid #4168A9;   
+    background-color: #B0CEFF;
+    border: 2px solid #4168A9;
     border-radius: 6px;
+}
 
+.notationBoxNotation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+}
+
+.notationBoxCornerNotation {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 4px;
+}
+
+.topText {
+    display: flex;
+    gap: 4px;
+    justify-content: flex-start;
+}
+
+.bottomText {
+    align-self: flex-end;
+}
+
+.notationBoxCenterNotation {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.notation_Box.smallText {
-    font-size: 12px;
-    text-align: center;
-    line-height: 1.1;
-    flex-direction: column;
+.notationBoxColorCell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.notation_Box.selected {
-    background-color: #8FB6F5;
+#color_Cell_Icon_id {
+    width: 35px;
+    height: 35px;
+    background-color: #4168A9;
+}
+
+#color_Corner_Icon_id {
+    width: 25px;
+    height: 15px;
+    background-color: #4168A9;
+}
+
+#color_Center_Icon_id {
+    width: 25px;
+    height: 15px;
+    background-color: #4168A9;
+}
+
+.notationBoxColorCorner {
+    display: flex;
+    padding: 8px;
+}
+
+.notationBoxColorCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #forfeit_btn {
