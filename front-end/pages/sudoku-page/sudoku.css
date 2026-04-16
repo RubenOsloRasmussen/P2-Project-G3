@@ -115,6 +115,10 @@ body {
     border-radius: 6px;
 }
 
+#notation_Boxes button:not(#forfeit_btn).activeNotation {
+    background-color: #6980a988;
+}
+
 .notationBoxNotation {
     display: flex;
     justify-content: center;
