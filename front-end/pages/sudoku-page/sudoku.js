@@ -115,6 +115,10 @@ class SudokuBoard {
 //    [null, null, null, null, null, null, 3, null, null]
 //];
 
+//fetch("/Sudokupuzzles.txt").then(function (response) {
+//    console.log(response)
+//})
+
 
 //this is the string from which a sudoku is made, left to right, top to bottom.
 // a "." means an empty cell
