@@ -21,7 +21,8 @@ allowing them to play mere difficult sudokus.
 
 ## Credits
 This project is developed by the student group CS-26-SW-2-03 from Aalborg University, Department of Computer Science. <br />
-During development the group was supported by supervisor Abduvoris Abduvakhobov.
+During development the group was supported by supervisor Abduvoris Abduvakhobov.  <br />
+This project uses a public dataset of sudokus made by Sheng-Wei Synn Wang (https://github.com/synnwang).
 
 ## License
 MIT © 2025 CS-26-SW-2-03
