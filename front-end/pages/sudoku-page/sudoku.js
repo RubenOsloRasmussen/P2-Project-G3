@@ -1,3 +1,11 @@
+function SudokuCell(number, lockedState, cornerNotation, centerNotation, colorNumber) {
+    this.number = number; // Int, the number in the given cell
+    this.locked = lockedState; // Bool, is this number permanent?
+    this.cornerNotation = cornerNotation; // Array of ints, the numbers currently in corner notation in this cell
+    this.centerNotation = centerNotation; // Array of ints, the numbers currently in center notation in this cell
+    this.colorNumber = colorNumber; // Int, the index of the color of the cell. E.g. 1=blue, 2=red etc.
+}
+
 class SudokuBoard {
     /* 
         The constructor method is executed, whenever we create an instance of a class using the 'new' keyword.
@@ -13,7 +21,7 @@ class SudokuBoard {
             which row-major version order, we are using.
     */
     constructor(initialCellsArr) {
-        this.initialCellsArr = initialCellsArr; 
+        this.initialCellsArr = initialCellsArr;
         // "this" refers to the instance (the object)
         // In this case, we create a new property of the instance, and assign it the initial array containing the Sudoku puzzle.
     }
@@ -53,13 +61,13 @@ class SudokuBoard {
         for (let rowIndex = 0; rowIndex <= 8; rowIndex++) {
             for (let columnIndex = 0; columnIndex <= 8; columnIndex++) {
                 let blockNumber = this.getBlockNumber(rowIndex, columnIndex, sudokuBoardElements);
-                
+
                 /*
                 We add a new cell to a specific Sudoku block by adding a new input field.
                 */
                 sudokuBoardElements[blockNumber].innerHTML
                     += `<input type="text" class="input_Cell" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" 
-                    value=${this.initialCellsArr[rowIndex][columnIndex] ? this.initialCellsArr[rowIndex][columnIndex] : ""}>`;
+                    value=${this.initialCellsArr[rowIndex][columnIndex].number ? this.initialCellsArr[rowIndex][columnIndex].number : ""}>`;
             }
         }
     }
@@ -149,9 +157,9 @@ async function stringParser(string) {
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
             if (isNaN(Number(sudokuString[j + i * 9])) === false & sudokuString[j + i * 9] != "0") {
-                ourCellsArr[i][j] = Number(sudokuString[j + i * 9])
+                ourCellsArr[i][j] = new SudokuCell(Number(sudokuString[j + i * 9]), true, null, null, null);
             } else if (sudokuString[j + i * 9] === ".") {
-                ourCellsArr[i][j] = null
+                ourCellsArr[i][j] = new SudokuCell(null, false, null, null, null);
             } else {
                 console.log("could not print value at placement ", (j + i * 9), " in string")
             }
@@ -215,9 +223,9 @@ buttons.forEach((button) => {
 
         // remove active from all
         buttons.forEach((btn) => btn.classList.remove('activeNotation'));
-        
+
         // add to clicked one
         button.classList.add('activeNotation');
-    
+
     });
 });
