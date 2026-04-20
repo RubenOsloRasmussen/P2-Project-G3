@@ -8,7 +8,7 @@
  * are no mistakes in the block, 1 if there is one mistake and so on.
  */
 export function checkBlock(rowIndex, columnIndex, ourCellsArr) {
-    let newNumber = ourCellsArr[rowIndex][columnIndex];
+    let newNumber = ourCellsArr[rowIndex][columnIndex].number;
     let duplicatesFound = -1;
 
     // Calculate the row and column index of the top left cell in the new number's block.
@@ -34,7 +34,7 @@ export function checkBlock(rowIndex, columnIndex, ourCellsArr) {
  * are no mistakes in the block, 1 if there is one mistake and so on.
  */
 export function checkRow(rowIndex, columnIndex, ourCellsArr) {
-    let newNumber = ourCellsArr[rowIndex][columnIndex];
+    let newNumber = ourCellsArr[rowIndex][columnIndex].number;
     let duplicatesFound = -1;
 
     // Checks every cell in the row for duplicates.
@@ -54,7 +54,7 @@ export function checkRow(rowIndex, columnIndex, ourCellsArr) {
  * are no mistakes in the block, 1 if there is one mistake and so on.
  */
 export function checkColumn(rowIndex, columnIndex, ourCellsArr) {
-    let newNumber = ourCellsArr[rowIndex][columnIndex];
+    let newNumber = ourCellsArr[rowIndex][columnIndex].number;
     let duplicatesFound = -1;
 
     // Checks every cell in the column for duplicates.
