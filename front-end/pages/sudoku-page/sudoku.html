@@ -32,8 +32,8 @@
     <div class="blueBox">
         <!-- Settings and strategy icons -->
          <div id="top_right_icons">
-            <div class="icon">⚙️</div>
-            <div class="icon">📖</div>
+            <div class="icon" id="settings_icon_id">⚙️</div>
+            <div class="icon" id="strategy_icon_id">📖</div>
          </div>
         <div id="main_Content">
 
@@ -44,6 +44,19 @@
                 <div id="pause_b_id">||</div>
                 <div id="timer_id">05:38</div>
             </div>
+
+            <!--Settings Popup-->
+          <div id="settings_Pop_Up" class="hidden">
+            <button id="close_Settings_Btn">close</button>
+
+            <!--Timer, notation, highlight, auto. can., and text scale-->
+            <div class="settingsRow">
+                <span>VISIBLE TIMER </span>
+                <button class="toggleSwitchActive" id="timerToggle">
+                    <span class="toggleKnob"></span>
+                </button>
+            </div>
+
 
               
                 <!--sudoku board-->
