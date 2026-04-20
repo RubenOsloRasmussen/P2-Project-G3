@@ -18,7 +18,7 @@ export function checkBlock(rowIndex, columnIndex, ourCellsArr) {
     // Checks every cell in the block for duplicates.
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-            if (newNumber === ourCellsArr[startRowIndex + i][startColumnIndex + j]) duplicatesFound++;
+            if (newNumber === ourCellsArr[startRowIndex + i][startColumnIndex + j].number) duplicatesFound++;
         }
     }
 
@@ -39,7 +39,7 @@ export function checkRow(rowIndex, columnIndex, ourCellsArr) {
 
     // Checks every cell in the row for duplicates.
     for (let i = 0; i < 9; i++) {
-        if (newNumber === ourCellsArr[rowIndex][i]) duplicatesFound++;
+        if (newNumber === ourCellsArr[rowIndex][i].number) duplicatesFound++;
     }
 
     return duplicatesFound;
@@ -59,7 +59,7 @@ export function checkColumn(rowIndex, columnIndex, ourCellsArr) {
 
     // Checks every cell in the column for duplicates.
     for (let j = 0; j < 9; j++) {
-        if (newNumber === ourCellsArr[j][columnIndex]) duplicatesFound++;
+        if (newNumber === ourCellsArr[j][columnIndex].number) duplicatesFound++;
     }
 
     return duplicatesFound;
@@ -79,7 +79,7 @@ export function validateBlock(startRowIndex, startColumnIndex, ourCellsArr) {
     let numberArray = [];
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-            numberArray.push(ourCellsArr[startRowIndex + i][startColumnIndex + j]);
+            numberArray.push(ourCellsArr[startRowIndex + i][startColumnIndex + j].number);
         }
     }
 
@@ -103,7 +103,7 @@ export function validateRow(rowIndex, ourCellsArr) {
     let numberArray = [];
 
     for (let i = 0; i < 9; i++) {
-        numberArray.push(ourCellsArr[rowIndex][i]);
+        numberArray.push(ourCellsArr[rowIndex][i].number);
     }
 
     for (let i = 1; i < 10; i++) {
@@ -126,7 +126,7 @@ export function validateColumn(columnIndex, ourCellsArr) {
     let numberArray = [];
 
     for (let j = 0; j < 9; j++) {
-        numberArray.push(ourCellsArr[j][columnIndex]);
+        numberArray.push(ourCellsArr[j][columnIndex].number);
     }
 
     for (let i = 1; i < 10; i++) {
