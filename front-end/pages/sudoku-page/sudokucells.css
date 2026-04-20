@@ -1,5 +1,8 @@
 /* -------------Cell colouring-------------- */
-
+/* 
+    each cell is given a variable, such that we
+    can change the colour of each cell individually
+*/
 :root {
     --cell-0-color: white;
     --cell-1-color: white;
@@ -84,9 +87,14 @@
     --cell-80-color: white;
 }
 
-/* -----------Cell id's----------- */
+/* -----------Cell ids----------- */
+/*
+    the ids for each cell in the sudoku board
+    are stored here. Each can be edited and changed 
+    separately. 
+*/
 
-#cell_0_id  {
+#cell_0_id {
     background-color: var(--cell-0-color, white);
 }
 
