@@ -1,0 +1,411 @@
+/* -------------Cell colouring-------------- */
+
+:root {
+    --cell-0-color: white;
+    --cell-1-color: white;
+    --cell-2-color: white;
+    --cell-3-color: white;
+    --cell-4-color: white;
+    --cell-5-color: white;
+    --cell-6-color: white;
+    --cell-7-color: white;
+    --cell-8-color: white;
+    --cell-9-color: white;
+    --cell-10-color: white;
+    --cell-11-color: white;
+    --cell-12-color: white;
+    --cell-13-color: white;
+    --cell-14-color: white;
+    --cell-15-color: white;
+    --cell-16-color: white;
+    --cell-17-color: white;
+    --cell-18-color: white;
+    --cell-19-color: white;
+    --cell-20-color: white;
+    --cell-21-color: white;
+    --cell-22-color: white;
+    --cell-23-color: white;
+    --cell-24-color: white;
+    --cell-25-color: white;
+    --cell-26-color: white;
+    --cell-27-color: white;
+    --cell-28-color: white;
+    --cell-29-color: white;
+    --cell-30-color: white;
+    --cell-31-color: white;
+    --cell-32-color: white;
+    --cell-33-color: white;
+    --cell-34-color: white;
+    --cell-35-color: white;
+    --cell-36-color: white;
+    --cell-37-color: white;
+    --cell-38-color: white;
+    --cell-39-color: white;
+    --cell-40-color: white;
+    --cell-41-color: white;
+    --cell-42-color: white;
+    --cell-43-color: white;
+    --cell-44-color: white;
+    --cell-45-color: white;
+    --cell-46-color: white;
+    --cell-47-color: white;
+    --cell-48-color: white;
+    --cell-49-color: white;
+    --cell-50-color: white;
+    --cell-51-color: white;
+    --cell-52-color: white;
+    --cell-53-color: white;
+    --cell-54-color: white;
+    --cell-55-color: white;
+    --cell-56-color: white;
+    --cell-57-color: white;
+    --cell-58-color: white;
+    --cell-59-color: white;
+    --cell-60-color: white;
+    --cell-61-color: white;
+    --cell-62-color: white;
+    --cell-63-color: white;
+    --cell-64-color: white;
+    --cell-65-color: white;
+    --cell-66-color: white;
+    --cell-67-color: white;
+    --cell-68-color: white;
+    --cell-69-color: white;
+    --cell-70-color: white;
+    --cell-71-color: white;
+    --cell-72-color: white;
+    --cell-73-color: white;
+    --cell-74-color: white;
+    --cell-75-color: white;
+    --cell-76-color: white;
+    --cell-77-color: white;
+    --cell-78-color: white;
+    --cell-79-color: white;
+    --cell-80-color: white;
+}
+
+/* -----------Cell id's----------- */
+
+#cell_0_id  {
+    background-color: var(--cell-0-color, white);
+}
+
+#cell_1_id {
+    background-color: var(--cell-1-color, white);
+}
+
+#cell_2_id {
+    background-color: var(--cell-2-color, white);
+}
+
+#cell_3_id {
+    background-color: var(--cell-3-color, white);
+}
+
+#cell_4_id {
+    background-color: var(--cell-4-color, white);
+}
+
+#cell_5_id {
+    background-color: var(--cell-5-color, white);
+}
+
+#cell_6_id {
+    background-color: var(--cell-6-color, white);
+}
+
+#cell_7_id {
+    background-color: var(--cell-7-color, white);
+}
+
+#cell_8_id {
+    background-color: var(--cell-8-color, white);
+}
+
+#cell_9_id {
+    background-color: var(--cell-9-color, white);
+}
+
+#cell_10_id {
+    background-color: var(--cell-10-color, white);
+}
+
+#cell_11_id {
+    background-color: var(--cell-11-color, white);
+}
+
+#cell_12_id {
+    background-color: var(--cell-12-color, white);
+}
+
+#cell_13_id {
+    background-color: var(--cell-13-color, white);
+}
+
+#cell_14_id {
+    background-color: var(--cell-14-color, white);
+}
+
+#cell_15_id {
+    background-color: var(--cell-15-color, white);
+}
+
+#cell_16_id {
+    background-color: var(--cell-16-color, white);
+}
+
+#cell_17_id {
+    background-color: var(--cell-17-color, white);
+}
+
+#cell_18_id {
+    background-color: var(--cell-18-color, white);
+}
+
+#cell_19_id {
+    background-color: var(--cell-19-color, white);
+}
+
+#cell_20_id {
+    background-color: var(--cell-20-color, white);
+}
+
+#cell_21_id {
+    background-color: var(--cell-21-color, white);
+}
+
+#cell_22_id {
+    background-color: var(--cell-22-color, white);
+}
+
+#cell_23_id {
+    background-color: var(--cell-23-color, white);
+}
+
+#cell_24_id {
+    background-color: var(--cell-24-color, white);
+}
+
+#cell_25_id {
+    background-color: var(--cell-25-color, white);
+}
+
+#cell_26_id {
+    background-color: var(--cell-26-color, white);
+}
+
+#cell_27_id {
+    background-color: var(--cell-27-color, white);
+}
+
+#cell_28_id {
+    background-color: var(--cell-28-color, white);
+}
+
+#cell_29_id {
+    background-color: var(--cell-29-color, white);
+}
+
+#cell_30_id {
+    background-color: var(--cell-30-color, white);
+}
+
+#cell_31_id {
+    background-color: var(--cell-31-color, white);
+}
+
+#cell_32_id {
+    background-color: var(--cell-32-color, white);
+}
+
+#cell_33_id {
+    background-color: var(--cell-33-color, white);
+}
+
+#cell_34_id {
+    background-color: var(--cell-34-color, white);
+}
+
+#cell_35_id {
+    background-color: var(--cell-35-color, white);
+}
+
+#cell_36_id {
+    background-color: var(--cell-36-color, white);
+}
+
+#cell_37_id {
+    background-color: var(--cell-37-color, white);
+}
+
+#cell_38_id {
+    background-color: var(--cell-38-color, white);
+}
+
+#cell_39_id {
+    background-color: var(--cell-39-color, white);
+}
+
+#cell_40_id {
+    background-color: var(--cell-40-color, white);
+}
+
+#cell_41_id {
+    background-color: var(--cell-41-color, white);
+}
+
+#cell_42_id {
+    background-color: var(--cell-42-color, white);
+}
+
+#cell_43_id {
+    background-color: var(--cell-43-color, white);
+}
+
+#cell_44_id {
+    background-color: var(--cell-44-color, white);
+}
+
+#cell_45_id {
+    background-color: var(--cell-45-color, white);
+}
+
+#cell_46_id {
+    background-color: var(--cell-46-color, white);
+}
+
+#cell_47_id {
+    background-color: var(--cell-47-color, white);
+}
+
+#cell_48_id {
+    background-color: var(--cell-48-color, white);
+}
+
+#cell_49_id {
+    background-color: var(--cell-49-color, white);
+}
+
+#cell_50_id {
+    background-color: var(--cell-50-color, white);
+}
+
+#cell_51_id {
+    background-color: var(--cell-51-color, white);
+}
+
+#cell_52_id {
+    background-color: var(--cell-52-color, white);
+}
+
+#cell_53_id {
+    background-color: var(--cell-53-color, white);
+}
+
+#cell_54_id {
+    background-color: var(--cell-54-color, white);
+}
+
+#cell_55_id {
+    background-color: var(--cell-55-color, white);
+}
+
+#cell_56_id {
+    background-color: var(--cell-56-color, white);
+}
+
+#cell_57_id {
+    background-color: var(--cell-57-color, white);
+}
+
+#cell_58_id {
+    background-color: var(--cell-58-color, white);
+}
+
+#cell_59_id {
+    background-color: var(--cell-59-color, white);
+}
+
+#cell_60_id {
+    background-color: var(--cell-60-color, white);
+}
+
+#cell_61_id {
+    background-color: var(--cell-61-color, white);
+}
+
+#cell_62_id {
+    background-color: var(--cell-62-color, white);
+}
+
+#cell_63_id {
+    background-color: var(--cell-63-color, white);
+}
+
+#cell_64_id {
+    background-color: var(--cell-64-color, white);
+}
+
+#cell_65_id {
+    background-color: var(--cell-65-color, white);
+}
+
+#cell_66_id {
+    background-color: var(--cell-66-color, white);
+}
+
+#cell_67_id {
+    background-color: var(--cell-67-color, white);
+}
+
+#cell_68_id {
+    background-color: var(--cell-68-color, white);
+}
+
+#cell_69_id {
+    background-color: var(--cell-69-color, white);
+}
+
+#cell_70_id {
+    background-color: var(--cell-70-color, white);
+}
+
+#cell_71_id {
+    background-color: var(--cell-71-color, white);
+}
+
+#cell_72_id {
+    background-color: var(--cell-72-color, white);
+}
+
+#cell_73_id {
+    background-color: var(--cell-73-color, white);
+}
+
+#cell_74_id {
+    background-color: var(--cell-74-color, white);
+}
+
+#cell_75_id {
+    background-color: var(--cell-75-color, white);
+}
+
+#cell_76_id {
+    background-color: var(--cell-76-color, white);
+}
+
+#cell_77_id {
+    background-color: var(--cell-77-color, white);
+}
+
+#cell_78_id {
+    background-color: var(--cell-78-color, white);
+}
+
+#cell_79_id {
+    background-color: var(--cell-79-color, white);
+}
+
+#cell_80_id {
+    background-color: var(--cell-80-color, white);
+}

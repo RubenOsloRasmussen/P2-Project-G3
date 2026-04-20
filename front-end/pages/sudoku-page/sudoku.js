@@ -66,8 +66,8 @@ class SudokuBoard {
                 We add a new cell to a specific Sudoku block by adding a new input field.
                 */
                 sudokuBoardElements[blockNumber].innerHTML
-                    += `<input type="text" class="input_Cell" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" 
-                    value=${this.initialCellsArr[rowIndex][columnIndex].number ? this.initialCellsArr[rowIndex][columnIndex].number : ""}>`;
+                    += `<input type="text" id="cell_${(columnIndex+rowIndex*9)}_id" class="input_Cell" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" 
+                    value=${this.initialCellsArr[rowIndex][columnIndex].number ? this.initialCellsArr[rowIndex][columnIndex].number : ""} >`;
             }
         }
     }
