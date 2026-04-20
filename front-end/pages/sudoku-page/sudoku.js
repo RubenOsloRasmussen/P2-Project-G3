@@ -191,7 +191,7 @@ async function GetSudokuString(number) {
 
     let sudokuStrings = response.split(",");
 
-    let sudokuString = sudokuStrings[sudokuNumber * 4]
+    let sudokuString = sudokuStrings[1 + sudokuNumber * 4]
 
     console.log(sudokuString)
 
