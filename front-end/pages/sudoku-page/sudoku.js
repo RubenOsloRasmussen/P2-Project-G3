@@ -65,9 +65,12 @@ class SudokuBoard {
                 /*
                 We add a new cell to a specific Sudoku block by adding a new input field.
                 */
-                sudokuBoardElements[blockNumber].innerHTML
-                    += `<input type="text" class="input_Cell" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" 
-                    value=${this.initialCellsArr[rowIndex][columnIndex].number ? this.initialCellsArr[rowIndex][columnIndex].number : ""}>`;
+               // https://www.w3schools.com/Js/js_htmldom_methods.asp
+                let input_Cell = document.createElement("div");
+                input_Cell.setAttribute("class", "input_Cell");
+                input_Cell.setAttribute("class", "locked_Cell");
+                input_Cell.textContent = this.initialCellsArr[rowIndex][columnIndex].number ? this.initialCellsArr[rowIndex][columnIndex].number : "";
+                sudokuBoardElements[blockNumber].appendChild(input_Cell);
             }
         }
     }
