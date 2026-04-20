@@ -13,11 +13,12 @@ body {
     border-radius: 20px;
     margin: 5vh auto;
 
-     display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 .startContent {
     display: flex;
     flex-direction: column;
@@ -26,23 +27,9 @@ body {
 }
 
 
-
 .aboutUsTitle {
-    text-align: center;
-    font-family: "Radio Canada Big", sans-serif;
-    font-size: 128px;
-    font-weight: 700;
-    color: #4168A9;
-
-    text-shadow: 
-    3px 3px 0px #E79E47,
-    -1px -1px 0px #E79E47, 
-    1px -1px 0px #E79E47, 
-    -1px 1px 0px #E79E47;
-
-    margin-top: 10px;
-    margin-bottom: 10px;
-    
+    font-size: 130px;
+    margin: 0;
 }
 
 .aboutUsText {
