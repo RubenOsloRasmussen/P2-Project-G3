@@ -1,51 +1,47 @@
 /* Basic CSS Setup */
 
+/* General formatting */
 body {
     margin: 0;
     background-color: white;
     font-family: "Radio Canada", sans-serif;
 }
 
-.aboutUsBox {
+/* Background box formatting */
+.AboutUsBox {
     background-color: #D9E8FF;
     width: 90vw;
     height: 90vh;
     border-radius: 20px;
     margin: 5vh auto;
-
-     display: flex;
+    
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.startContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-}
 
-
-
-.aboutUsTitle {
+/* Title formatting */
+.AboutUsTitle {
     text-align: center;
     font-family: "Radio Canada Big", sans-serif;
     font-size: 128px;
     font-weight: 700;
     color: #4168A9;
 
-    text-shadow: 
-    3px 3px 0px #E79E47,
-    -1px -1px 0px #E79E47, 
-    1px -1px 0px #E79E47, 
-    -1px 1px 0px #E79E47;
+    text-shadow:
+        3px 3px 0px #E79E47,
+        -1px -1px 0px #E79E47,
+        1px -1px 0px #E79E47,
+        -1px 1px 0px #E79E47;
 
     margin-top: 10px;
     margin-bottom: 10px;
-    
+
 }
 
-.aboutUsText {
+/* Text formatting */
+.AboutUsText {
     text-align: center;
     font-size: 20px;
     max-width: 850px;
