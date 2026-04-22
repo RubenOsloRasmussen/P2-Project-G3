@@ -1,12 +1,16 @@
-function SudokuCell(number, lockedState, cornerNotation, centerNotation, colorNumber) {
+import { focusDiv } from './notation.js';
+
+function SudokuCell(number, lockedState, cornerNotation, centerNotation, colorNumber, rowIndex, columnIndex) {
     this.number = number; // Int, the number in the given cell
     this.locked = lockedState; // Bool, is this number permanent?
     this.cornerNotation = cornerNotation; // Array of ints, the numbers currently in corner notation in this cell
     this.centerNotation = centerNotation; // Array of ints, the numbers currently in center notation in this cell
     this.colorNumber = colorNumber; // Int, the index of the color of the cell. E.g. 1=blue, 2=red etc.
+    this.rowIndex = rowIndex;
+    this.columnIndex = columnIndex;
 }
 
-class SudokuBoard {
+export class SudokuBoard {
     /* 
         The constructor method is executed, whenever we create an instance of a class using the 'new' keyword.
         E.g.: const OurSudokuBoard = new SudokuBoard(ourCellsArr); 
@@ -69,10 +73,29 @@ class SudokuBoard {
                 let input_Cell = document.createElement("div");
                 input_Cell.setAttribute("class", "input_Cell locked_Cell");
                 input_Cell.textContent = this.initialCellsArr[rowIndex][columnIndex].number ? this.initialCellsArr[rowIndex][columnIndex].number : "";
+                input_Cell.cell = this.initialCellsArr[rowIndex][columnIndex];
                 sudokuBoardElements[blockNumber].appendChild(input_Cell);
             }
         }
     }
+
+    /* 
+    <div class="top_Corner_Notation notation_Block">
+                <div class="notation_Number">1</div>
+                <div class="notation_Number">2</div>
+                <div class="notation_Number">3</div>
+                <div class="notation_Number">4</div>
+            </div>
+            <div class="center_Notation notation_Block">
+                <div class="notation_Number">4</div>
+            </div>
+            <div class="bottom_Corner_Notation notation_Block">
+                <div class="notation_Number">1</div>
+                <div class="notation_Number">2</div>
+                <div class="notation_Number">3</div>
+                <div class="notation_Number">4</div>
+            </div>
+    */
 
     /*
         ## Explanation
@@ -150,23 +173,49 @@ let ourCellsArr = [
     ["", , , , , , , , ""],
 ]
 
+async function InitSudokuBoard() {
+    await stringParser();
+
+    const OurSudokuBoard = new SudokuBoard(ourCellsArr);
+
+    OurSudokuBoard.setupBoard();
+}
+
+let sudokuNumber = 1;
+let sudokuString = null;
 //using a nested for loop, each character in the string is read from left to right,
 //if it reads a "." then null is placed in the matrix in that point.
 //otherwise, it will place whatever was in the spot, into the matrix.
-async function stringParser(string) {
-    sudokuString = await GetSudokuString(sudokuNumber);
+async function stringParser() {
+    sudokuString = await GetSudokuString();
 
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
-            if (isNaN(Number(sudokuString[j + i * 9])) === false & sudokuString[j + i * 9] != "0") {
-                ourCellsArr[i][j] = new SudokuCell(Number(sudokuString[j + i * 9]), true, null, null, null);
+            if (isNaN(Number(sudokuString[j + i * 9])) === false && sudokuString[j + i * 9] != "0") {
+                ourCellsArr[i][j] = new SudokuCell(Number(sudokuString[j + i * 9]), true, null, null, null, i, j);
             } else if (sudokuString[j + i * 9] === ".") {
-                ourCellsArr[i][j] = new SudokuCell(null, false, null, null, null);
+                ourCellsArr[i][j] = new SudokuCell(null, false, null, null, null, i, j);
             } else {
                 console.log("could not print value at placement ", (j + i * 9), " in string")
             }
         }
     }
+}
+
+async function GetSudokuString() {
+    let response = await LoadStringData();
+
+    if (response == null) {
+        console.log("could not load sudoku string");
+        return;
+    }
+
+    let sudokuStrings = response.split(",");
+    let sudokuString = sudokuStrings[sudokuNumber * 4];
+
+    console.log(sudokuString)
+
+    return sudokuString;
 }
 
 async function LoadStringData() {
@@ -183,36 +232,7 @@ async function LoadStringData() {
     return stringData;
 }
 
-async function GetSudokuString(number) {
-    let response = await LoadStringData();
-
-    if (response == null) {
-        console.log("could not load sudoku string")
-        return;
-    }
-
-    let sudokuStrings = response.split(",");
-
-    let sudokuString = sudokuStrings[sudokuNumber * 4]
-
-    console.log(sudokuString)
-
-    return sudokuString;
-}
-
-let sudokuNumber = 1
-let sudokuString = null
-
-async function StringToSudoku(Number) {
-    await stringParser(ourCellsArr, sudokuString)
-
-    const OurSudokuBoard = await new SudokuBoard(ourCellsArr);
-
-    await OurSudokuBoard.setupBoard();
-
-}
-
-StringToSudoku(sudokuNumber)
+InitSudokuBoard()
 
 
 
