@@ -1,4 +1,4 @@
-import { RowAndColumnToIndex } from 'helperfunctions';
+import { rowAndColumnToIndex } from 'helperfunctions';
 
 
 export function findSameNumberInstances(rowIndex, columnIndex, ourCellsArr) {
@@ -9,7 +9,7 @@ export function findSameNumberInstances(rowIndex, columnIndex, ourCellsArr) {
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
             if (ourCellsArr[i][j].number === number) {
-                instancesIndexArray.push(RowAndColumnToIndex(i, j));
+                instancesIndexArray.push(rowAndColumnToIndex(i, j));
             }
         }
     }
@@ -27,7 +27,7 @@ export function findSameBlockInstances(rowIndex, columnIndex, ourCellsArr) {
     // Saves the index of every cell in the block.
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-            instancesIndexArray.push(RowAndColumnToIndex(startRowIndex+i, startColumnIndex+j));
+            instancesIndexArray.push(rowAndColumnToIndex(startRowIndex+i, startColumnIndex+j));
         }
     }
 
@@ -39,7 +39,7 @@ export function findSameRowInstances(rowIndex, columnIndex, ourCellsArr) {
 
     // Saves the index of every cell in the row.
     for (let i = 0; i < 9; i++) {
-        instancesIndexArray.push(RowAndColumnToIndex(rowIndex, i));
+        instancesIndexArray.push(rowAndColumnToIndex(rowIndex, i));
     }
 
     return instancesIndexArray;
@@ -50,7 +50,7 @@ export function findSameColumnInstances(rowIndex, columnIndex, ourCellsArr) {
 
     // Saves the index of every cell in the column.
     for (let i = 0; i < 9; i++) {
-        instancesIndexArray.push(RowAndColumnToIndex(i, columnIndex));
+        instancesIndexArray.push(rowAndColumnToIndex(i, columnIndex));
     }
 
     return instancesIndexArray;
