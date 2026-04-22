@@ -205,3 +205,21 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.notation_Cells {
+    position: absolute;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.input_Cell:hover {
+    cursor: pointer;
+}
+
+.notation_Block {
+    display: flex;
+    justify-content: center;
+}
+
+.notation_Number {
+    padding: 0px 2px;
+}   
