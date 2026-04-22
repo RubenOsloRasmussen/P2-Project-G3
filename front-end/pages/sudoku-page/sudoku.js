@@ -67,8 +67,7 @@ class SudokuBoard {
                 */
                // https://www.w3schools.com/Js/js_htmldom_methods.asp
                 let input_Cell = document.createElement("div");
-                input_Cell.setAttribute("class", "input_Cell");
-                input_Cell.setAttribute("class", "locked_Cell");
+                input_Cell.setAttribute("class", "input_Cell locked_Cell");
                 input_Cell.textContent = this.initialCellsArr[rowIndex][columnIndex].number ? this.initialCellsArr[rowIndex][columnIndex].number : "";
                 sudokuBoardElements[blockNumber].appendChild(input_Cell);
             }
