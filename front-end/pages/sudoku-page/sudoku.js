@@ -1,4 +1,4 @@
-import { focusDiv } from './notation.js';
+
 
 function SudokuCell(number, lockedState, cornerNotation, centerNotation, colorNumber, rowIndex, columnIndex) {
     this.number = number; // Int, the number in the given cell
@@ -71,6 +71,7 @@ export class SudokuBoard {
                 */
                // https://www.w3schools.com/Js/js_htmldom_methods.asp
                 let input_Cell = document.createElement("div");
+                this.initialCellsArr[rowIndex][columnIndex].htmlElement = input_Cell;
                 input_Cell.setAttribute("class", "input_Cell locked_Cell");
                 input_Cell.textContent = this.initialCellsArr[rowIndex][columnIndex].number ? this.initialCellsArr[rowIndex][columnIndex].number : "";
                 input_Cell.cell = this.initialCellsArr[rowIndex][columnIndex];
@@ -173,12 +174,29 @@ let ourCellsArr = [
     ["", , , , , , , , ""],
 ]
 
+let ourSudokuBoard = null;
+
 async function InitSudokuBoard() {
     await stringParser();
 
-    const OurSudokuBoard = new SudokuBoard(ourCellsArr);
+    ourSudokuBoard = new SudokuBoard(ourCellsArr);
 
-    OurSudokuBoard.setupBoard();
+    ourSudokuBoard.setupBoard();
+}
+
+export async function getSudokuBoard() {
+    let notGotten = true;
+    while (notGotten) {
+        if (ourSudokuBoard) {
+            notGotten = false;
+            return ourSudokuBoard;
+        }
+        await sleep(200); 
+    }
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 let sudokuNumber = 1;
@@ -232,7 +250,7 @@ async function LoadStringData() {
     return stringData;
 }
 
-InitSudokuBoard()
+InitSudokuBoard();
 
 
 

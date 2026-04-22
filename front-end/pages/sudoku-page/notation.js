@@ -1,7 +1,8 @@
-import { SudokuBoard } from "./sudoku.js"
+import { SudokuBoard, getSudokuBoard } from "./sudoku.js"
 
 const FOCUS_COLOR = "#bbd0f5";
-const HIGHLIGHT_COLOR = "#c1d0ea";
+const HIGHLIGHT_COLOR = "#e2edff";
+let sudokuBoard = null;
 
 class cornerNotationCell {
     constructor() {
@@ -38,9 +39,20 @@ function setupCenterNotation() {
 
 }
 
+let coloredCells = [];
+
+function removeCellsColor() {
+    coloredCells.forEach((element, index) => {
+        console.log("element", element);
+        element.style.backgroundColor = "white";
+    })
+    coloredCells = [];
+}
+
 let targetCell = null;
     
 export function focusDiv(e) {
+    removeCellsColor();
     console.log("hey")
     if (targetCell instanceof HTMLElement) {
         targetCell.style.backgroundColor = "white";
@@ -57,14 +69,26 @@ export function focusDiv(e) {
     console.log(e.currentTarget.cell);
     
     let sudokuBoardElements = document.getElementsByClassName("sudoku_Block_class");
-    for (const cellElement of sudokuBoardElements[SudokuBoard.getBlockNumber(e.currentTarget.cell.rowIndex, e.currentTarget.cell.columnIndex)].children) {
-        if (cellElement.cell.rowIndex == e.target.cell.rowIndex && cellElement.cell.columnIndex == e.target.cell.columnIndex) return;
-        e.target.style.backgroundColor = HIGHLIGHT_COLOR;
+    
+    for (const cellElement of sudokuBoardElements[sudokuBoard.getBlockNumber(e.currentTarget.cell.rowIndex, e.currentTarget.cell.columnIndex)].children) {
+        console.log("here11");
+        
+        if (cellElement.cell.rowIndex == e.target.cell.rowIndex && cellElement.cell.columnIndex == e.target.cell.columnIndex) continue;
+        cellElement.style.backgroundColor = HIGHLIGHT_COLOR;
+        coloredCells.push(cellElement);
+    }
 
-        for (let i = 0; i <= 8; i++) {
-            e.target.style.backgroundColor = HIGHLIGHT_COLOR;
+    for (let i = 0; i <= 8; i++) {
+        if (e.currentTarget.cell.columnIndex != i) {
+            sudokuBoard.initialCellsArr[e.currentTarget.cell.rowIndex][i].htmlElement.style.backgroundColor = HIGHLIGHT_COLOR;
+            coloredCells.push(sudokuBoard.initialCellsArr[e.currentTarget.cell.rowIndex][i].htmlElement);
+        }
+        if (e.currentTarget.cell.rowIndex != i) { 
+            sudokuBoard.initialCellsArr[i][e.currentTarget.cell.columnIndex].htmlElement.style.backgroundColor = HIGHLIGHT_COLOR;
+            coloredCells.push(sudokuBoard.initialCellsArr[i][e.currentTarget.cell.columnIndex].htmlElement);
         }
     }
+    
 
 }
 
@@ -80,8 +104,15 @@ export function insertCellNumber(e) {
     
 }
 
+sudokuBoard = await getSudokuBoard();
+
 let inputCells = document.getElementsByClassName("input_Cell");
+for (let cell of inputCells) {
+    cell.addEventListener("click", focusDiv);
+}
     
-    for (let cell of inputCells) {
-      cell.addEventListener("click", focusDiv);
-    }
+
+
+
+    
+    
