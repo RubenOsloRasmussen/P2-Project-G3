@@ -45,7 +45,7 @@ class SudokuBoard {
         Adds HTML to display the cells given from the initialCellsArr when the class was constructed
     */
     setupBoard() {
-        let sudokuBoardElements = document.getElementsByClassName("sudoku-block-class");
+        let sudokuBoardElements = document.getElementsByClassName("SudokuBlockClass");
 
         /* 
             We loop through every cell in the board array, so we can display it on the web page
