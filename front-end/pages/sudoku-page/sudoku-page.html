@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="/stylesheet.css">
+
+    <!-- Start page stylesheet -->
+    <link rel="stylesheet" href="/pages/sudoku-page/sudoku.css">
+
+    <!-- Google Fonts preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Text font -->
+    <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap"
+        rel="stylesheet">
+
+    <!-- Title font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap"
+        rel="stylesheet">
+
+    <title>Document</title>
+    <link rel="stylesheet" href="sudoku.css"></link>
+</head>
+
+<body>
+    <div class="BlueBox">
+        <!-- Settings and strategy icons -->
+         <div id="top-right-icons">
+              <div class="Icon" id="settings-icon">⚙️</div>
+              <div class="Icon" id="strategy-icon">📖</div>
+         </div>
+        <div id="main-content">
+
+           <!--sudoku board and notation-->
+          <div id="sudoku-board-and-notation-id">
+
+            <div id="left-container">
+                <div id="pause-b-id">||</div>
+                <div id="timer-id">05:38</div>
+            </div>
+
+              
+                <!--sudoku board-->
+            <div id="sudoku-board-container-id">
+              
+                <!--sudoku board-->
+                <!--TODO: each block (lowest div) should be able to contain a number from 1 to 9,
+    and interact with sudoku algorithms-->
+                <!--cells are structured from top left to bottom right going like this:
+    1 2 3
+    4 5 6
+    7 8 9
+    same with blocks (which are 9 cells grouped together)
+    -->
+                    <div class="SudokuBlockClass"></div>
+                    <div class="SudokuBlockClass"></div>
+                    <div class="SudokuBlockClass"></div>
+                    <div class="SudokuBlockClass"></div>
+                    <div class="SudokuBlockClass"></div>
+                    <div class="SudokuBlockClass"></div>
+                    <div class="SudokuBlockClass"></div>
+                    <div class="SudokuBlockClass"></div>
+                    <div class="SudokuBlockClass"></div>
+            </div>
+                <!--notation-->
+         <div id="notation-boxes">
+            <button class="NotationBoxNotation">7</button>
+            <button class="NotationBoxCornerNotation">
+                <div class="TopText">
+                    <span>1</span>
+                    <span>2</span>
+                </div>
+                <span class="BottomText">9</span>
+            </button>
+            <button class="NotationBoxCenterNotation">2 8</button>
+            <button class="NotationBoxColorCell"><div id="color-cell-icon-id"></div></button>
+            <button class="NotationBoxColorCorner"><div id="color-corner-icon-id"></div></button>
+            <button class="NotationBoxColorCenter"><div id="color-center-icon-id"></div></button>
+            <button id="forfeit-btn">Forfeit</button>
+        </div>
+    
+    </div>
+
+</div>
+<!-- Settings PopUp -->
+ <div id="settings-pop-up" class="Hidden">
+    <button id="close-settings-btn">x</button>
+
+    <div class="SettingsRows">
+        <!-- The visible timer content goes here -->
+         <span class="SettingsLabel">VISIBLE TIMER</span>
+         <div class="SettingsControl">
+         <button class="ToggleSwitch">
+            <span class="ToggleKnob"></span>
+         </button>
+         </div>
+    </div>
+
+    <div class="SettingsRows">
+        <!-- The notation content goes here -->
+         <span class="SettingsLabel">NOTATION</span>
+         <div class="SettingsControl">
+         <button class="ToggleSwitch">
+            <span class="ToggleKnob"></span>
+         </button>
+         </div>
+    </div>
+
+    <div class="SettingsRows">
+        <!-- The highlight content goes here -->
+         <span class="SettingsLabel">HIGHLIGHT</span>
+         <div class="SettingsControl">
+         <button class="ToggleSwitch">
+            <span class="ToggleKnob"></span>
+         </button>
+         </div>
+    </div>
+
+    <div class="SettingsRows">
+        <span class="SettingsLabel">
+            AUTO. CAN.
+            <button class="HelpCircle" id="auto-can-info-btn">?</button>
+        </span>
+        <div class="SettingsControl">
+            <button class="ToggleSwitch">
+                <span class="ToggleKnob"></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="SettingsRow TextScaleRow"> 
+        <span class="SettingsLabel">TEXT SCALE</span>
+        <div class="SettingsControl"> 
+        <input type="range" min="14" max="30" value="20">
+    </div>
+    </div>
+
+    <div id="auto-can-info-pop-up" class="Hidden">
+    <h3>Automatic Candidate Info</h3>
+    <p>
+        When you enter a number, the system automatically removes that number from all
+        candidate cells in the same row, column and 3x3 block.
+    </p>
+</div>
+</div>
+
+<!--Strategy PopUp-->
+<div id="strategy-pop-up" class="Hidden">
+    <button id="close-strategy-btn">x</button>
+    <h2 class="StrategyTitle">To solve proficiency score ...</h2>
+    <p class="StrategySubtitle">You will need these strategies:</p>
+    <div class="StrategyList"></div>
+    <a href="/pages/strategy-page/strategy.html" class="StrategyLink">Visit Strategy Page</a>
+</div>
+        
+    <script src="./sudoku.js"></script>
+</body>
+
+</html>
