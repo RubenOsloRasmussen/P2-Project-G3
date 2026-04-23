@@ -16,6 +16,6 @@ export function indexToRowAndColumn(index) {
  * @param {*} column The column index.
  * @returns The cell index.
  */
-export function RowAndColumnToIndex(row, column) {
+export function rowAndColumnToIndex(row, column) {
     return row + column * 9;
 }
