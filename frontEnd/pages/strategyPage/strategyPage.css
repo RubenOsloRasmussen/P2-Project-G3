@@ -74,8 +74,8 @@ a:active {
     width: 10px;
 }
 
-.strategyScrollBarSide::-webkit-scrollbar-track,
-.strategyScrollBarMain::-webkit-scrollbar-track {
+.StrategyScrollBarSide::-webkit-scrollbar-track,
+.StrategyScrollBarMain::-webkit-scrollbar-track {
     background: #D9D9D9;
     border-radius: 8px;
 }
@@ -92,9 +92,53 @@ a:active {
     background: #4c4c4c;
 }
 
-/* Illustration size */
+/* Illustration size and cursor */
 .StrategyIllustrations img {
     width: 400px;
+    cursor: zoom-in;
+}
+
+/* Illustration caption size */
+.StrategyIllustrationCaptions {
+    font-size: small;
+}
+
+/* Image overlay */
+.image-overlay-id {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.image-overlay-id.hidden {
+    display: none;
+}
+
+.image-overlay-id img {
+    max-width: 90%;
+    max-height: 90%;
+    box-shadow: 0, 0, 40px rgba(0,0,0,0.8);
+}
+
+/* Image overlay close button */
+.OverlayCloseButton {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 80px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.OverlayCloseButton:hover {
+    columns: #cccccc;
 }
 
 /* Tooltip */

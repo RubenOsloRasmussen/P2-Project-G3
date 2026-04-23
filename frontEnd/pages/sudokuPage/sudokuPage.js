@@ -53,7 +53,7 @@ class SudokuBoard {
         Adds HTML to display the cells given from the initialCellsArr when the class was constructed
     */
     setupBoard() {
-        let sudokuBoardElements = document.getElementsByClassName("sudoku_Block_class");
+        let sudokuBoardElements = document.getElementsByClassName("SudokuBlockClass");
 
         /* 
             We loop through every cell in the board array, so we can display it on the web page
@@ -65,8 +65,7 @@ class SudokuBoard {
                 /*
                 We add a new cell to a specific Sudoku block by adding a new input field.
                 */
-                sudokuBoardElements[blockNumber].innerHTML
-                    += `<input type="text" class="input_Cell" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" 
+                sudokuBoardElements[blockNumber].innerHTML += `<input type="text" class="InputCell" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" 
                     value=${this.initialCellsArr[rowIndex][columnIndex].number ? this.initialCellsArr[rowIndex][columnIndex].number : ""}>`;
             }
         }
@@ -216,7 +215,7 @@ StringToSudoku(sudokuNumber)
 
 
 // This is the button code, that adds the activeNotation class to the clicked button
-const buttons = document.querySelectorAll('#notation_Boxes button:not(#forfeit_btn)');
+const buttons = document.querySelectorAll('#notation-boxes button:not(#forfeit-btn)');
 
 buttons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -228,4 +227,48 @@ buttons.forEach((button) => {
         button.classList.add('activeNotation');
 
     });
+});
+
+// Settings popup
+const settingsIcon = document.getElementById("settings-icon");
+const settingsPopUp = document.querySelector('#settings-pop-up');
+const closeSettingsBtn = document.querySelector('#close-settings-btn');
+
+settingsIcon.addEventListener('click', () => {
+    // Close strategy popup first
+    strategyPopUp.classList.add("Hidden");
+
+    // Open settings
+    settingsPopUp.classList.remove('Hidden');
+});
+
+closeSettingsBtn.addEventListener('click', () => {
+    settingsPopUp.classList.add('Hidden');
+});
+
+
+// The toggles in the settings popup, that can be toggled on and off by clicking on them
+const toggles = document.querySelectorAll(".ToggleSwitch");
+
+toggles.forEach(toggle => {
+    toggle.addEventListener("click", () => {
+        toggle.classList.toggle("active");
+    });
+});
+
+// Startegy popup
+const strategyIcon = document.getElementById("strategy-icon");
+const strategyPopUp = document.getElementById("strategy-pop-up");
+const closeStrategyBtn = document.getElementById("close-strategy-btn");
+
+strategyIcon.addEventListener("click", () => {
+    // Close settings popup first
+    settingsPopUp.classList.add("Hidden");
+
+    // Open strategy
+    strategyPopUp.classList.remove("Hidden");
+});
+
+closeStrategyBtn.addEventListener("click", () => {
+    strategyPopUp.classList.add("Hidden");
 });
