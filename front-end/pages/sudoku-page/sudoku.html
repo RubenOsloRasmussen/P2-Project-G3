@@ -11,88 +11,87 @@
     <!-- Start page stylesheet -->
     <link rel="stylesheet" href="/pages/sudoku-page/sudoku.css">
 
-    <!-- Sudoku board cells stylesheet -->
-    <link rel="stylesheet" href="/pages/sudoku-page/sudokucells.css">
-
     <!-- Google Fonts preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Text font -->
     <link href="https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap"
-          rel="stylesheet">
+        rel="stylesheet">
 
     <!-- Title font -->
-    <link href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap"
-          rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap"
+        rel="stylesheet">
 
     <title>Document</title>
-    <link rel="stylesheet" href="sudoku.css">
+    <link rel="stylesheet" href="sudoku.css"></link>
 </head>
 
 <body>
     <div class="blueBox">
         <!-- Settings and strategy icons -->
-        <div id="top_right_icons">
+         <div id="top_right_icons">
             <div class="icon">⚙️</div>
             <div class="icon">📖</div>
-        </div>
+         </div>
         <div id="main_Content">
 
-            <!--sudoku board and notation-->
-            <div id="sudoku_Board_and_notation_id">
+           <!--sudoku board and notation-->
+          <div id="sudoku_Board_and_notation_id">
 
-                <div id="left_container">
-                    <div id="pause_b_id">||</div>
-                    <div id="timer_id">05:38</div>
-                </div>
-
-
-                <!--sudoku board-->
-                <div id="sudoku_Board_Container_id">
-
-                    <!--sudoku board-->
-                    <!--TODO: each block (lowest div) should be able to contain a number from 1 to 9,
-                and interact with sudoku algorithms-->
-                    <!--cells are structured from top left to bottom right going like this:
-                1 2 3
-                4 5 6
-                7 8 9
-                same with blocks (which are 9 cells grouped together)
-                -->
-                    <div class="sudoku_Block_class"></div>
-                    <div class="sudoku_Block_class"></div>
-                    <div class="sudoku_Block_class"></div>
-                    <div class="sudoku_Block_class"></div>
-                    <div class="sudoku_Block_class"></div>
-                    <div class="sudoku_Block_class"></div>
-                    <div class="sudoku_Block_class"></div>
-                    <div class="sudoku_Block_class"></div>
-                    <div class="sudoku_Block_class"></div>
-                </div>
-                <!--notation-->
-                <div id="notation_Boxes">
-                    <button class="notationBoxNotation">7</button>
-                    <button class="notationBoxCornerNotation">
-                        <div class="topText">
-                            <span>1</span>
-                            <span>2</span>
-                        </div>
-                        <span class="bottomText">9</span>
-                    </button>
-                    <button class="notationBoxCenterNotation">2 8</button>
-                    <button class="notationBoxColorCell"><div id="color_Cell_Icon_id"></div></button>
-                    <!--<button class="notationBoxColorCorner"><div id="color_Corner_Icon_id"></div></button>-->
-                    <!--<button class="notationBoxColorCenter"><div id="color_Center_Icon_id"></div></button>-->
-                    <button id="forfeit_btn">Forfeit</button>
-                </div>
-
+            <div id="left_container">
+                <div id="pause_b_id">||</div>
+                <div id="timer_id">05:38</div>
             </div>
 
+              
+                <!--sudoku board-->
+            <div id="sudoku_Board_Container_id">
+              
+                <!--sudoku board-->
+                <!--TODO: each block (lowest div) should be able to contain a number from 1 to 9,
+    and interact with sudoku algorithms-->
+                <!--cells are structured from top left to bottom right going like this:
+    1 2 3
+    4 5 6
+    7 8 9
+    same with blocks (which are 9 cells grouped together)
+    -->
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+                    <div class="sudoku_Block_class"></div>
+            </div>
+                <!--notation-->
+         <div id="notation_Boxes">
+            <button class="notationBoxNotation">7</button>
+            <button class="notationBoxCornerNotation">
+                <div class="topText">
+                    <span>1</span>
+                    <span>2</span>
+                </div>
+                <span class="bottomText">9</span>
+            </button>
+            <button class="notationBoxCenterNotation">2 8</button>
+            <button class="notationBoxColorCell"><div id="color_Cell_Icon_id"></div></button>
+            <!--<button class="notationBoxColorCorner"><div id="color_Corner_Icon_id"></div></button>-->
+            <!--<button class="notationBoxColorCenter"><div id="color_Center_Icon_id"></div></button>-->
+            <button id="forfeit_btn">Forfeit</button>
         </div>
+    
     </div>
 
-    <script src="./sudoku.js"></script>
+</div>
+</div>
+        
+    <script type="module" src="./sudoku.js"></script>
+    <script type="module" src="notation.js" ></script>
 </body>
 
 </html>

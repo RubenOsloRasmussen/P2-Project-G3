@@ -14,8 +14,9 @@
 
 .sudoku_Block_class {
     display: grid;
-    grid-template-columns: auto auto auto;
-    gap: 1px;
+    grid-template-rows: repeat(3, 1fr); /* same as 1fr 1fr 1fr. fr = fraction of available space. E.g. 3fr / 300px = 100px each */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
     margin: 2px;
     background-color: #D9E8FF;
 }
@@ -34,6 +35,7 @@
     margin: 0px;
     display: block;
     text-align: center;
+    background-color: white;
 }
 
 body {
@@ -197,3 +199,28 @@ body {
     cursor: pointer;
     margin-left: 223px;
 }
+
+.locked_Cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notation_Cells {
+    position: absolute;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.input_Cell:hover {
+    cursor: pointer;
+}
+
+.notation_Block {
+    display: flex;
+    justify-content: center;
+}
+
+.notation_Number {
+    padding: 0px 2px;
+}
+
