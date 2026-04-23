@@ -74,8 +74,8 @@ a:active {
     width: 10px;
 }
 
-.StrategyScrollBarSide::-webkit-scrollbar-track,
-.StrategyScrollBarSide::-webkit-scrollbar-track {
+.strategyScrollBarSide::-webkit-scrollbar-track,
+.strategyScrollBarMain::-webkit-scrollbar-track {
     background: #D9D9D9;
     border-radius: 8px;
 }
