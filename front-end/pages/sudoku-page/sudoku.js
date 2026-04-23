@@ -65,6 +65,7 @@ export class SudokuBoard {
         for (let rowIndex = 0; rowIndex <= 8; rowIndex++) {
             for (let columnIndex = 0; columnIndex <= 8; columnIndex++) {
                 let blockNumber = this.getBlockNumber(rowIndex, columnIndex, sudokuBoardElements);
+                let cellId = String("cell_"+ (columnIndex + rowIndex * 9) +"_id") //workaround, to make setAttribute for id work on changeable id names. 
 
                 /*
                 We add a new cell to a specific Sudoku block by adding a new input field.
@@ -73,11 +74,13 @@ export class SudokuBoard {
                 let input_Cell = document.createElement("div");
                 this.initialCellsArr[rowIndex][columnIndex].htmlElement = input_Cell;
                 input_Cell.setAttribute("class", "input_Cell locked_Cell");
+                input_Cell.setAttribute("id", cellId)
                 input_Cell.textContent = this.initialCellsArr[rowIndex][columnIndex].number ? this.initialCellsArr[rowIndex][columnIndex].number : "";
                 input_Cell.cell = this.initialCellsArr[rowIndex][columnIndex];
                 sudokuBoardElements[blockNumber].appendChild(input_Cell);
             }
         }
+        //ColorClickOn();
     }
 
     /* 
@@ -266,7 +269,108 @@ buttons.forEach((button) => {
         buttons.forEach((btn) => btn.classList.remove('activeNotation'));
 
         // add to clicked one
-        button.classList.add('activeNotation');
+        button.classList.add('activeNotation'); 
+
+        // this is a workaround, to get the two notationbutton functions to work together.
+        // the cell color notation button (colorButton) is compared to the clicked button,
+        // if they are not the same, then turn off coloring.
+        let b = button
+        colorButton.forEach((button) => {
+            if (b != button) {
+                console.log("off")
+                colorBool = false;
+            } 
+        })
+
 
     });
 });
+
+//------colourchangeing stuff-----//
+
+function ColorChanger(cellnumber, color) {
+
+    let s = cellnumber[5];
+    let t = cellnumber[6];
+
+    if (isNaN(t) === false) {
+        s += t;
+    }
+
+    let rootGetter = document.querySelectorAll(':root');
+
+    let rooter = String('--cell-' + s + '-color')
+    let arr = NumberTo9By9Matrix(s)
+    console.log(arr)
+
+    console.log(ourCellsArr[arr[0]][arr[1]].colorNumber)
+    if (ourCellsArr[arr[0]][arr[1]].colorNumber == color ) {
+        rootGetter[0].style.setProperty(rooter, 'white')
+        ourCellsArr[arr[0]][arr[1]].colorNumber = "white";
+    } else {
+        rootGetter[0].style.setProperty(rooter, color)
+        ourCellsArr[arr[0]][arr[1]].colorNumber = "blue";
+    }
+};
+
+//for (var i = 0; i < 81; i++) {
+//    ColorChanger(i,'blue')
+//}
+
+function ColorClickOn() {
+    const cells = document.querySelectorAll('.input_Cell');
+    colorBool = true;
+
+    cells.forEach((focusdiv) => {
+        focusdiv.addEventListener('click', () => { 
+            if (colorBool === true) {
+                ColorChanger(focusdiv.id, 'blue');
+            }
+
+        })
+    })
+};
+
+//function ColorClickOff() {
+//    const cells = document.querySelectorAll('.input_Cell');
+//    colorBool = false
+//    console.log("off2")
+
+//    cells.forEach((focusdiv) => {
+//        focusdiv.removeEventListener('click', (ColorChanger()),true)
+//        console.log("off3")
+//    })
+//};
+
+const colorButton = document.querySelectorAll('.notationBoxColorCell');
+let colorBool = false
+let colorActivation = false
+
+colorButton.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (colorBool === false) {
+            colorBool = true
+            console.log("on1")
+        }     
+
+        if (colorActivation === false) {
+            colorActivation = true;
+            ColorClickOn();
+            console.log("activate color");
+        }
+
+    })
+});
+
+
+function NumberTo9By9Matrix(number) {
+    for (let row = 0; row < 9; row++) {
+        for (let column = 0; column < 9; column++) {
+            if ((column + row * 9) >= number) {
+                console.log(column, row)
+                let arr = [column, row]
+                return arr
+            }
+        }
+    }
+}
