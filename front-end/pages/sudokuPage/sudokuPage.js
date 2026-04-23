@@ -214,21 +214,24 @@ buttons.forEach((button) => {
     button.addEventListener('click', () => {
 
         // remove active from all
-        buttons.forEach((btn) => btn.classList.remove('ActiveNotation'));
+        buttons.forEach((btn) => btn.classList.remove('activeNotation'));
         
         // add to clicked one
-        button.classList.add('ActiveNotation');
+        button.classList.add('activeNotation');
     
     });
 });
 
-// This is the popup code, that shows the popup when the settings icon is clicked and hides it when the close button is clicked
+// Settings popup
 const settingsIcon = document.getElementById("settings-icon");
 const settingsPopUp = document.querySelector('#settings-pop-up');
 const closeSettingsBtn = document.querySelector('#close-settings-btn');
-const toggles = document.querySelectorAll(".ToggleSwitch");
 
 settingsIcon.addEventListener('click', () => {
+    // Close strategy popup first
+    strategyPopUp.classList.add("Hidden");
+
+    // Open settings
     settingsPopUp.classList.remove('Hidden');
 });
 
@@ -236,26 +239,26 @@ closeSettingsBtn.addEventListener('click', () => {
     settingsPopUp.classList.add('Hidden');
 });
 
+
+// The toggles in the settings popup, that can be toggled on and off by clicking on them
+const toggles = document.querySelectorAll(".ToggleSwitch");
+
 toggles.forEach(toggle => {
     toggle.addEventListener("click", () => {
         toggle.classList.toggle("active");
     });
 });
 
-// This is the popup code, that shows the popup when the info icon is clicked on
-const autoCanInfoBtn = document.getElementById("auto-can-info-btn");
-const autoCanInfoPopup = document.getElementById("auto-can-info-pop-up");
-
-autoCanInfoBtn.addEventListener("click", () => {
-    autoCanInfoPopup.classList.toggle("Hidden");
-});
-
-// This is the popup code, that shows the popup when the settings icon is clicked and hides it when the close button is clicked
+// Startegy popup
 const strategyIcon = document.getElementById("strategy-icon");
 const strategyPopUp = document.getElementById("strategy-pop-up");
 const closeStrategyBtn = document.getElementById("close-strategy-btn");
 
 strategyIcon.addEventListener("click", () => {
+    // Close settings popup first
+    settingsPopUp.classList.add("Hidden");
+
+    // Open strategy
     strategyPopUp.classList.remove("Hidden");
 });
 
