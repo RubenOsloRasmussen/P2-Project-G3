@@ -44,7 +44,8 @@ body {
 h1 {
     font-family: var(--font-heading);
     color: var(--primary-blue);
-    text-shadow: -2px -2px 0 #FFA639, 2px -2px 0 #FFA639, -2px 2px 0 #FFA639, 2px 2px 0 #FFA639;
+    text-shadow: -1px -1px 0 var(--accent-orange), 1px -1px 0 var(--accent-orange), 
+                 -1px 1px 0 var(--accent-orange), 1px 1px 0 var(--accent-orange);
     text-align: center;
 }
 
