@@ -183,6 +183,10 @@ body {
     cursor: pointer;
 }
 
+#forfeit-btn:hover{
+    background-color: #cf4949;
+}
+
 /* General popup */
 
 .Hidden {
@@ -225,7 +229,7 @@ body {
 
 /* Settings popup */
 
-.SettingsRows {
+.SettingsRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -233,7 +237,7 @@ body {
     gap: 10px;
 }
 
-.SettingsRows:first-of-type {
+.SettingsRow:first-of-type {
     margin-top: 40px;
 }
 
@@ -385,7 +389,7 @@ body {
 
 #forfeit-pop-up {
     position: absolute;
-    top: 50%;
+    top: 48.8%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2000;
@@ -424,10 +428,18 @@ body {
     cursor: pointer;
 }
 
+#confirm-forfeit-btn:hover{
+    background-color: #cf4949;
+}
+
 #cancel-forfeit-btn {
     background-color: #86d65c;
     border: none;
     padding: 10px 18px;
     font-size: 16px;
     cursor: pointer;
+}
+
+#cancel-forfeit-btn:hover {
+    background-color: #6eb942;
 }
