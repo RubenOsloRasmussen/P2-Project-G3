@@ -13,7 +13,7 @@ class SudokuBoard {
             which row-major version order, we are using.
     */
     constructor(initialCellsArr) {
-        this.initialCellsArr = initialCellsArr; 
+        this.initialCellsArr = initialCellsArr;
         // "this" refers to the instance (the object)
         // In this case, we create a new property of the instance, and assign it the initial array containing the Sudoku puzzle.
     }
@@ -53,7 +53,7 @@ class SudokuBoard {
         for (let rowIndex = 0; rowIndex <= 8; rowIndex++) {
             for (let columnIndex = 0; columnIndex <= 8; columnIndex++) {
                 let blockNumber = this.getBlockNumber(rowIndex, columnIndex, sudokuBoardElements);
-                
+
                 /*
                 We add a new cell to a specific Sudoku block by adding a new input field.
                 */
@@ -215,10 +215,10 @@ buttons.forEach((button) => {
 
         // remove active from all
         buttons.forEach((btn) => btn.classList.remove('activeNotation'));
-        
+
         // add to clicked one
         button.classList.add('activeNotation');
-    
+
     });
 });
 
@@ -264,4 +264,27 @@ strategyIcon.addEventListener("click", () => {
 
 closeStrategyBtn.addEventListener("click", () => {
     strategyPopUp.classList.add("Hidden");
+});
+
+// Forfeit popup
+const forfeitBtn = document.getElementById("forfeit-btn");
+const forfeitPopUp = document.getElementById("forfeit-pop-up");
+const confirmForfeitBtn = document.getElementById("confirm-forfeit-btn");
+const cancelForfeitBtn = document.getElementById("cancel-forfeit-btn");
+
+// Open forfeit popup
+forfeitBtn.addEventListener("click", () => {
+    settingsPopUp.classList.add("Hidden");
+    strategyPopUp.classList.add("Hidden");
+    forfeitPopUp.classList.remove("Hidden");
+});
+
+// Cancel forfeit and go back to the game
+cancelForfeitBtn.addEventListener("click", () => {
+    forfeitPopUp.classList.add("Hidden");
+});
+
+// Confirm forfeit and go back to start page
+confirmForfeitBtn.addEventListener("click", () => {
+    window.location.href = "/pages/start-page/start.html";
 });
