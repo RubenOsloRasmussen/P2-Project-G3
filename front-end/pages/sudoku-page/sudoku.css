@@ -215,12 +215,14 @@ body {
     cursor: pointer;
 }
 
-.notation_Block {
+.NotationBlock {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
-.notation_Number {
+.NotationNumber {
     padding: 0px 2px;
+    font-size: 12px;
 }
 

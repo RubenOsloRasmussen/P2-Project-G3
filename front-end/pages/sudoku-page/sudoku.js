@@ -1,10 +1,9 @@
 
 
-function SudokuCell(number, lockedState, cornerNotation, centerNotation, colorNumber, rowIndex, columnIndex) {
+function SudokuCell(number, lockedState, colorNumber, rowIndex, columnIndex) {
     this.number = number; // Int, the number in the given cell
     this.locked = lockedState; // Bool, is this number permanent?
-    this.cornerNotation = cornerNotation; // Array of ints, the numbers currently in corner notation in this cell
-    this.centerNotation = centerNotation; // Array of ints, the numbers currently in center notation in this cell
+    this.notationBlock = null,
     this.colorNumber = colorNumber; // Int, the index of the color of the cell. E.g. 1=blue, 2=red etc.
     this.rowIndex = rowIndex;
     this.columnIndex = columnIndex;
@@ -24,8 +23,9 @@ export class SudokuBoard {
             Note: Refer to Figure 10.1 (c), in Introduction to Algorithms (Fourth Edition, CLRS) for more information about 
             which row-major version order, we are using.
     */
-    constructor(initialCellsArr) {
+    constructor(initialCellsArr, notationInUse = "defaultNotation") {
         this.initialCellsArr = initialCellsArr;
+        this.notationInUse = notationInUse; // Options: "defaultNotation", "cornerNotation", "centerNotation", "colorNotation"
         // "this" refers to the instance (the object)
         // In this case, we create a new property of the instance, and assign it the initial array containing the Sudoku puzzle.
     }
@@ -72,25 +72,32 @@ export class SudokuBoard {
                // https://www.w3schools.com/Js/js_htmldom_methods.asp
                 let input_Cell = document.createElement("div");
                 this.initialCellsArr[rowIndex][columnIndex].htmlElement = input_Cell;
-                input_Cell.setAttribute("class", "input_Cell locked_Cell");
-                input_Cell.textContent = this.initialCellsArr[rowIndex][columnIndex].number ? this.initialCellsArr[rowIndex][columnIndex].number : "";
+
+                if (this.initialCellsArr[rowIndex][columnIndex].number) {
+                    input_Cell.textContent = this.initialCellsArr[rowIndex][columnIndex].number;
+                    input_Cell.setAttribute("class", "input_Cell locked_Cell");
+                } else {
+                    input_Cell.textContent = "";
+                    input_Cell.setAttribute("class", "input_Cell");
+                }
                 input_Cell.cell = this.initialCellsArr[rowIndex][columnIndex];
+                if (this.initialCellsArr[rowIndex][columnIndex].locked) input_Cell.style.fontWeight = "900";
                 sudokuBoardElements[blockNumber].appendChild(input_Cell);
             }
         }
     }
 
     /* 
-    <div class="top_Corner_Notation notation_Block">
-                <div class="notation_Number">1</div>
+    <div class="TopCornerNotation NotationBlock">
+                <div class="NotationNumber">1</div>
                 <div class="notation_Number">2</div>
                 <div class="notation_Number">3</div>
                 <div class="notation_Number">4</div>
             </div>
-            <div class="center_Notation notation_Block">
+            <div class="CenterNotation NotationBlock">
                 <div class="notation_Number">4</div>
             </div>
-            <div class="bottom_Corner_Notation notation_Block">
+            <div class="BottomCornerNotation NotationBlock">
                 <div class="notation_Number">1</div>
                 <div class="notation_Number">2</div>
                 <div class="notation_Number">3</div>
@@ -210,9 +217,9 @@ async function stringParser() {
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
             if (isNaN(Number(sudokuString[j + i * 9])) === false && sudokuString[j + i * 9] != "0") {
-                ourCellsArr[i][j] = new SudokuCell(Number(sudokuString[j + i * 9]), true, null, null, null, i, j);
+                ourCellsArr[i][j] = new SudokuCell(Number(sudokuString[j + i * 9]), true, null, i, j);
             } else if (sudokuString[j + i * 9] === ".") {
-                ourCellsArr[i][j] = new SudokuCell(null, false, null, null, null, i, j);
+                ourCellsArr[i][j] = new SudokuCell(null, false, null, i, j);
             } else {
                 console.log("could not print value at placement ", (j + i * 9), " in string")
             }
@@ -269,3 +276,5 @@ buttons.forEach((button) => {
 
     });
 });
+
+document.getElementById("defaultNotation").classList.add('activeNotation');
