@@ -11,7 +11,7 @@ export function indexToRowAndColumn(index) {
 }
 
 /**
- * Helper function that returns a cell index for given row and column indices.
+ * Helper function that returns a cell index for the given row and column indices.
  * @param {*} row The row index.
  * @param {*} column The column index.
  * @returns The cell index.

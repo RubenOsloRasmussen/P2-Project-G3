@@ -31,7 +31,7 @@ export function checkBlock(rowIndex, columnIndex, ourCellsArr) {
  * @param {*} columnIndex The column index of the newly placed number.
  * @param {*} ourCellsArr The 2D array of the Sudoku board.
  * @returns the number of duplicate numbers. E.g. it returns zero if there
- * are no mistakes in the block, 1 if there is one mistake and so on.
+ * are no mistakes in the row, 1 if there is one mistake and so on.
  */
 export function checkRow(rowIndex, columnIndex, ourCellsArr) {
     let newNumber = ourCellsArr[rowIndex][columnIndex].number;
@@ -51,7 +51,7 @@ export function checkRow(rowIndex, columnIndex, ourCellsArr) {
  * @param {*} columnIndex The column index of the newly placed number.
  * @param {*} ourCellsArr The 2D array of the Sudoku board.
  * @returns the number of duplicate numbers. E.g. it returns zero if there
- * are no mistakes in the block, 1 if there is one mistake and so on.
+ * are no mistakes in the column, 1 if there is one mistake and so on.
  */
 export function checkColumn(rowIndex, columnIndex, ourCellsArr) {
     let newNumber = ourCellsArr[rowIndex][columnIndex].number;
@@ -116,8 +116,8 @@ export function validateRow(rowIndex, ourCellsArr) {
 }
 
 /**
- * This function validates a row, given the row index.
- * It checks whether one of every number exists in the row.
+ * This function validates a column, given the column index.
+ * It checks whether one of every number exists in the column.
  * @param {*} columnIndex The index of the column.
  * @param {*} ourCellsArr The 2D array of the Sudoku board.
  * @returns Returns true if the column is valid, false if not.
