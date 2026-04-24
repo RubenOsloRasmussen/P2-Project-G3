@@ -1,37 +1,41 @@
-.startPageButtons {
+
+/* General button placement and design */
+.StartPageButtons {
     display: inline-block;
     padding: 10px 0;
     background-color: #B0CEFF;
     border-radius: 8px;
-    text-decoration: none;
     color: #07357F;
     border: none;
     cursor: pointer;
     text-align: center;
-    font-family: var(--font-main);
     line-height: 1.2;
 }
 
-.startPageButtons:hover {
+/* Button design on hover */
+.StartPageButtons:hover {
     background-color: #91abd4;
-    text-decoration: none;
 }
 
-#start_Game_Btn_id {
+/* Start game button design */
+#start-game-btn-id {
     width: 306px;
     font-size: 40px;
 }
 
-#strategies_Btn_id {
+/* Strategies button design */
+#strategies-btn-id {
     width: 150px;
     font-size: 25px;
 }
 
-#about_Us_Btn_id {
+/* About us button design */
+#about-us-btn-id {
     width: 150px;
     font-size: 25px;
 }
 
+/* Layout */
 nav {
     display: flex;
     flex-direction: column;
@@ -39,25 +43,36 @@ nav {
     gap: 6px;
 }
 
-.topRowButton {
+.StartContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* Top row button layout */
+.TopRowButton {
     display: flex;
     justify-content: center;
 }
 
-.bottomRowButton {
+/* Bottom row button layout */
+.BottomRowButton {
     display: flex;
     justify-content: center;
     gap: 6px;
 }
 
-#game_Title_id {
+/* Game title design */
+#game-title-id {
     font-size: 130px;
     text-shadow: -3px -3px 0 #FFA639, 3px -3px 0 #FFA639, -3px 3px 0 #FFA639, 3px 3px 0 #FFA639;
     margin: 0;
     text-align: center;
 }
 
-.blueBox {
+/* Blue background box design */
+.BlueBox {
     background-color: #D9E8FF;
     width: 90vw;
     height: 90vh;
@@ -67,11 +82,4 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.startContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
 }

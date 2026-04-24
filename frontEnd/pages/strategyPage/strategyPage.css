@@ -1,7 +1,7 @@
 /* Basic CSS Setup */
 
 /* Layout */
-.strategyPageLayout {
+.StrategyPageLayout {
     display: grid;
     grid-template-columns: 28% 72%;
     grid-template-rows: auto 1fr;
@@ -11,43 +11,43 @@
 }
 
 /* Title color */
-.strategyTitles {
+.StrategyTitles {
     color: #000000;
 }
 
 /* Link and bullet colors - Side panel*/
-#strategy_List_id li::marker {
+#strategy-list-id li::marker {
     color: #07357F;
 }
 
-#strategy_List_id a,
+#strategy-list-id a,
 a:visited,
 a:active {
     color: #07357F;
 }
 
-#strategy_List_id a:hover {
+#strategy-list-id a:hover {
     color: #03193d;
 }
 
 /* Bullet (number) colors and spacing - Main panel*/
-#main_Strategy_List_id li::marker {
+#main-strategy-list-id li::marker {
     font-size: 22px;
     font-weight: bold;
 }
 
-#main_Strategy_List_id li {
+#main-strategy-list-id li {
     margin-bottom: 20px;
 }
 
 /* Scrollbar styling - General and content*/
-.strategyScrollBarSide,
-.strategyScrollBarMain {
+.StrategyScrollBarSide,
+.StrategyScrollBarMain {
     height: 100%;
     overflow: auto;
 }
 
-.strategyScrollBarSide {
+.StrategyScrollBarSide {
     grid-column: 1;
     grid-row: 1/-1;
     background-color: #B0CEFF;
@@ -58,7 +58,7 @@ a:active {
     overflow: auto;
 }
 
-.strategyScrollBarMain {
+.StrategyScrollBarMain {
     grid-column: 2;
     grid-row: 1/-1;
     background-color: #D9E8FF;
@@ -69,37 +69,37 @@ a:active {
 }
 
 /* Scrollbar styling - Track*/
-.strategyScrollBarSide::-webkit-scrollbar,
-.strategyScrollBarMain::-webkit-scrollbar {
+.StrategyScrollBarSide::-webkit-scrollbar,
+.StrategyScrollBarMain::-webkit-scrollbar {
     width: 10px;
 }
 
-.strategyScrollBarSide::-webkit-scrollbar-track,
-.strategyScrollBarSide::-webkit-scrollbar-track {
+.StrategyScrollBarSide::-webkit-scrollbar-track,
+.StrategyScrollBarMain::-webkit-scrollbar-track {
     background: #D9D9D9;
     border-radius: 8px;
 }
 
 /* Scrollbar styling - Thumb*/
-.strategyScrollBarSide::-webkit-scrollbar-thumb,
-.strategyScrollBarMain::-webkit-scrollbar-thumb {
+.StrategyScrollBarSide::-webkit-scrollbar-thumb,
+.StrategyScrollBarMain::-webkit-scrollbar-thumb {
     background: #6e6e6e;
     border-radius: 8px;
 }
 
-.strategyScrollBarSide::-webkit-scrollbar-thumb:hover,
-.strategyScrollBarMain::-webkit-scrollbar-thumb:hover {
+.StrategyScrollBarSide::-webkit-scrollbar-thumb:hover,
+.StrategyScrollBarMain::-webkit-scrollbar-thumb:hover {
     background: #4c4c4c;
 }
 
 /* Illustration size and cursor */
-.strategyIllustrations img {
+.StrategyIllustrations img {
     width: 400px;
     cursor: zoom-in;
 }
 
 /* Illustration caption size */
-.strategyIllustrationCaptions {
+.StrategyIllustrationCaptions {
     font-size: small;
 }
 
@@ -121,7 +121,6 @@ a:active {
 .image-overlay-id img {
     max-width: 90%;
     max-height: 90%;
-    cursor: zoom-out;
     box-shadow: 0, 0, 40px rgba(0,0,0,0.8);
 }
 
@@ -143,7 +142,7 @@ a:active {
 }
 
 /* Tooltip */
-.tooltip {
+.Tooltip {
     position: relative;
     grid-column: 1;
     grid-row: 1;
@@ -155,7 +154,7 @@ a:active {
 }
 
 /* Tooltip - Button */
-.tooltipButton {
+.TooltipButton {
     width: 30px;
     height: 30px;
     font-family: "Radio Canada", sans-serif;
@@ -167,12 +166,12 @@ a:active {
     z-index: 11;
 }
 
-.tooltipButton:hover {
+.TooltipButton:hover {
     background-color: #b6b6b6;
 }
 
 /* Tooltip - Popup */
-.tooltipText {
+.TooltipText {
     position: absolute;
     top: 45px;
     width: 350px;
@@ -184,6 +183,6 @@ a:active {
     visibility: hidden;
 }
 
-.tooltip:hover .tooltipText {
+.Tooltip:hover .TooltipText {
     visibility: visible;
 }
