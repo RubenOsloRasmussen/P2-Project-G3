@@ -272,3 +272,28 @@ strategyIcon.addEventListener("click", () => {
 closeStrategyBtn.addEventListener("click", () => {
     strategyPopUp.classList.add("Hidden");
 });
+
+
+
+// Forfeit popup
+const forfeitBtn = document.getElementById("forfeit-btn");
+const forfeitPopUp = document.getElementById("forfeit-pop-up");
+const confirmForfeitBtn = document.getElementById("confirm-forfeit-btn");
+const cancelForfeitBtn = document.getElementById("cancel-forfeit-btn");
+
+// Open forfeit popup
+forfeitBtn.addEventListener("click", () => {
+    settingsPopUp.classList.add("Hidden");
+    strategyPopUp.classList.add("Hidden");
+    forfeitPopUp.classList.remove("Hidden");
+});
+
+// Cancel forfeit and go back to the game
+cancelForfeitBtn.addEventListener("click", () => {
+    forfeitPopUp.classList.add("Hidden");
+});
+
+// Confirm forfeit and go back to start page
+confirmForfeitBtn.addEventListener("click", () => {
+    window.location.href = "/pages/startPage/startPage.html";
+});
