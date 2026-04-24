@@ -12,8 +12,8 @@
         });
     }
 
-    loadHTML("strategies_Box_id", "strategytexts.html");
-    loadHTML("strategies_Side_id", "strategysidebar.html");
+    loadHTML("strategies_Box_id", "strategyTexts.html");
+    loadHTML("strategies_Side_id", "strategySidebar.html");
 
     function scrollToStrategy(event, id){
         event.preventDefault();
