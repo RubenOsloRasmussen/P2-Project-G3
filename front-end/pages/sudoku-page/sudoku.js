@@ -80,7 +80,7 @@ export class SudokuBoard {
                 sudokuBoardElements[blockNumber].appendChild(input_Cell);
             }
         }
-        //ColorClickOn();
+        //colorClickOn();
     }
 
     /* 
@@ -179,7 +179,7 @@ let ourCellsArr = [
 
 let ourSudokuBoard = null;
 
-async function InitSudokuBoard() {
+async function initSudokuBoard() {
     await stringParser();
 
     ourSudokuBoard = new SudokuBoard(ourCellsArr);
@@ -208,7 +208,7 @@ let sudokuString = null;
 //if it reads a "." then null is placed in the matrix in that point.
 //otherwise, it will place whatever was in the spot, into the matrix.
 async function stringParser() {
-    sudokuString = await GetSudokuString();
+    sudokuString = await getSudokuString();
 
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
@@ -223,8 +223,8 @@ async function stringParser() {
     }
 }
 
-async function GetSudokuString() {
-    let response = await LoadStringData();
+async function getSudokuString() {
+    let response = await loadStringData();
 
     if (response == null) {
         console.log("could not load sudoku string");
@@ -240,7 +240,7 @@ async function GetSudokuString() {
     return sudokuString;
 }
 
-async function LoadStringData() {
+async function loadStringData() {
     let response = await fetch("./SudokuPuzzles.csv");
 
     if (!response.ok) {
@@ -254,7 +254,7 @@ async function LoadStringData() {
     return stringData;
 }
 
-InitSudokuBoard();
+initSudokuBoard();
 
 
 
@@ -288,7 +288,7 @@ buttons.forEach((button) => {
 
 //------colourchangeing stuff-----//
 
-function ColorChanger(cellnumber, color) {
+function colorChanger(cellnumber, color) {
 
     let s = cellnumber[5];
     let t = cellnumber[6];
@@ -300,7 +300,7 @@ function ColorChanger(cellnumber, color) {
     let rootGetter = document.querySelectorAll(':root');
 
     let rooter = String('--cell-' + s + '-color')
-    let arr = NumberTo9By9Matrix(s)
+    let arr = numberTo9By9Matrix(s)
     console.log(arr)
 
     console.log(ourCellsArr[arr[0]][arr[1]].colorNumber)
@@ -314,17 +314,17 @@ function ColorChanger(cellnumber, color) {
 };
 
 //for (var i = 0; i < 81; i++) {
-//    ColorChanger(i,'blue')
+//    colorChanger(i,'blue')
 //}
 
-function ColorClickOn() {
+function colorClickOn() {
     const cells = document.querySelectorAll('.input_Cell');
     colorBool = true;
 
     cells.forEach((focusdiv) => {
         focusdiv.addEventListener('click', () => { 
             if (colorBool === true) {
-                ColorChanger(focusdiv.id, 'blue');
+                colorChanger(focusdiv.id, 'blue');
             }
 
         })
@@ -337,7 +337,7 @@ function ColorClickOn() {
 //    console.log("off2")
 
 //    cells.forEach((focusdiv) => {
-//        focusdiv.removeEventListener('click', (ColorChanger()),true)
+//        focusdiv.removeEventListener('click', (colorChanger()),true)
 //        console.log("off3")
 //    })
 //};
@@ -355,7 +355,7 @@ colorButton.forEach((button) => {
 
         if (colorActivation === false) {
             colorActivation = true;
-            ColorClickOn();
+            colorClickOn();
             console.log("activate color");
         }
 
@@ -363,7 +363,7 @@ colorButton.forEach((button) => {
 });
 
 
-function NumberTo9By9Matrix(number) {
+function numberTo9By9Matrix(number) {
     for (let row = 0; row < 9; row++) {
         for (let column = 0; column < 9; column++) {
             if ((column + row * 9) >= number) {
