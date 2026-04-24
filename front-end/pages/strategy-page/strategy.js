@@ -12,8 +12,8 @@
         });
     }
 
-    loadHTML("strategies-box-id", "strategytexts.html");
-    loadHTML("strategies-side-id", "strategysidebar.html");
+    loadHTML("strategies_Box_id", "strategytexts.html");
+    loadHTML("strategies_Side_id", "strategysidebar.html");
 
     function scrollToStrategy(event, id){
         event.preventDefault();
@@ -30,7 +30,7 @@
 
     /* Open overlay when clicking strategy illustration */
     document.addEventListener("click", function (event){
-        const clickedImage = event.target.closest(".StrategyIllustrations img");
+        const clickedImage = event.target.closest(".strategyIllustrations img");
         if (!clickedImage) return;
 
         const overlay = document.getElementById("image-overlay-id");
