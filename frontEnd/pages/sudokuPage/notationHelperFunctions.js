@@ -1,4 +1,4 @@
-import { rowAndColumnToIndex } from 'helperfunctions';
+import { rowAndColumnToIndex } from './helperfunctions.js';
 
 
 export function findSameNumberInstances(rowIndex, columnIndex, ourCellsArr) {
