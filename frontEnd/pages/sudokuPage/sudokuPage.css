@@ -482,6 +482,10 @@ body {
 }
 
 .CellText {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

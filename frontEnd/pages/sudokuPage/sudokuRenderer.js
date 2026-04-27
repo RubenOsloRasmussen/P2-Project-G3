@@ -1,11 +1,12 @@
 export class SudokuRenderer {
   constructor(board) {
     this.board = board;
-    this.fontWeight = "900";
+    this.fontWeight = "400";
     this.DEFAULT_HIGHLIGHT_COLOUR = "#e2edff"
     this.TARGET_COLOUR = "#bbd0f5";
     this.SIMILAR_NUMBER_COLOUR = "#a1bded";
     this.DEFAULT_CELL_COLOUR = "#ffffff";
+    this.DEFAULT_FONT_COLOR = "#4168A9";
   }
 
   setupBoard() {
@@ -37,26 +38,74 @@ export class SudokuRenderer {
                     sudokuHtmlCell.setAttribute("class", "SudokuCell");
                 }
                 sudokuHtmlCell.sudokuCell = this.board.sudokuCells[rowIndex][columnIndex];
-                if (this.board.sudokuCells[rowIndex][columnIndex].locked) sudokuHtmlCell.style.fontWeight = this.fontWeight;
+                if (this.board.sudokuCells[rowIndex][columnIndex].locked) {
+                    sudokuHtmlCell.style.fontWeight = this.fontWeight;
+                } else {
+                    sudokuHtmlCell.style.color = this.DEFAULT_FONT_COLOR;
+                }
+                sudokuHtmlCell.style.fontSize = "30px";
+    
                 sudokuBoardElements[blockNumber].appendChild(sudokuHtmlCell);
             }
         }
     }
 
-    bindCellEvents() {
-        this.bindSelectEvent();
+    buildNotationBlock() {
+        let notationHtmlBlock = document.createElement("div");
+        // add notation cells
+        let notationTopRow = document.createElement("div");
+        notationTopRow.setAttribute("class", "TopCornerNotation NotationBlock")
+        let notationCenterRow = document.createElement("div");
+        notationCenterRow.setAttribute("class", "CenterNotation NotationBlock")
+        let notationBottomRow = document.createElement("div");
+        notationBottomRow.setAttribute("class", "BottomCornerNotation NotationBlock")
+
+        for (let i = 0; i <= 11; i++) {
+            let notationCell = document.createElement("div");
+            notationCell.setAttribute("class", "NotationNumber");
+            notationCell.textContent = 1;
+
+            if (i <= 3) {
+                notationTopRow.appendChild(notationCell);
+            } else if (i <= 7) {
+                notationCenterRow.appendChild(notationCell);
+            } else {
+                notationBottomRow.appendChild(notationCell);
+            }
+        }
+
+        notationHtmlBlock.appendChild(notationTopRow);
+        notationHtmlBlock.appendChild(notationCenterRow);
+        notationHtmlBlock.appendChild(notationBottomRow);
+
+        e.currentTarget.appendChild(notationHtmlBlock);
+
+        let cornerNotation = new CornerNotation(notationTopRow, notationBottomRow);
+        let centerNotation = new CenterNotation(notationCenterRow);
+
+        let notationBlock = new NotationBlock(cornerNotation, centerNotation);
+        return notationBlock;
     }
 
-    bindSelectEvent() {
+    bindCellEvents() {
         let sudokuBoardElements = document.getElementsByClassName("SudokuBlockClass");
 
         for (let blockIndex = 0; blockIndex <= 8; blockIndex++) {
             for (const sudokuHtmlCell of sudokuBoardElements[blockIndex].children) {
-                sudokuHtmlCell.addEventListener("click", (e) => {
-                    this.board.inputController.clickCell(e);
-                });
+                this.bindSelectEvent(sudokuHtmlCell);
             }
         }
+
+        document.addEventListener("keydown", (e) => {
+            console.log("jjj")
+            this.board.inputController.keydown(e);
+        });
+    }
+
+    bindSelectEvent(sudokuHtmlCell) {
+        sudokuHtmlCell.addEventListener("click", (e) => {
+            this.board.inputController.clickCell(e);
+        });
     }
 
     bindNotationEvents() {
@@ -88,7 +137,6 @@ export class SudokuRenderer {
             let sudokuCell = this.board.sudokuCells[r][c];
             
             sudokuCell.htmlTextElement.textContent = sudokuCell.number ? sudokuCell.number : "";
-
             if (sudokuCell.isHighlighted) {
                 if (sudokuCell.isTargetCell) {
                     sudokuCell.htmlElement.style.backgroundColor = this.TARGET_COLOUR;

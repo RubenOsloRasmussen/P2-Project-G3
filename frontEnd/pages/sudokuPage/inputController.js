@@ -9,5 +9,19 @@ export class InputController {
     this.board.selectCell(targetCell.rowIndex, targetCell.columnIndex);
     this.renderer.renderCells();
   }
+
+  keydown(e) {
+    console.log(e.key);
+    if ((/^[1-9]$/.test(e.key))) {
+      if (this.board.not) {
+        this.board.insertCellNumber(this.board.targetCell, e.key);
+      }
+    } else if (e.key == "Backspace") {
+      this.board.deleteCellNumber(this.board.targetCell)
+    }
+    
+    this.renderer.renderCells();
+  }
+
 }
 
