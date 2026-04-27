@@ -184,7 +184,7 @@ async function LoadStringData() {
     let response = await fetch("./SudokuPuzzles.csv");
 
     if (!response.ok) {
-        console.log("Error: couldn't load StringData", response.status);
+        console.error("Error: couldn't load StringData", response.status);
         return null;
     }
 
@@ -222,7 +222,16 @@ async function GetSudokuString(number) {
 
     console.log(stringArr)
 
-    let sudokuString = stringArr[286][1];
+    let k = 0
+
+    //while (stringArr[k][0] > calcDif) {
+    //    k++
+    //}
+
+
+    k = Math.floor((Math.random() - 0.5) * 9);
+
+    let sudokuString = stringArr[5 + k][1];
 
     console.log(sudokuString)
 
