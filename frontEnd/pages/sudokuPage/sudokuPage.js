@@ -1,5 +1,7 @@
 import { findSameNumberInstances } from "./notationHelperFunctions.js";
 import { indexToRowAndColumn } from "./helperfunctions.js";
+import { merge } from "./helperfunctions.js";
+import { mergeSort } from "./helperfunctions.js";
 import { SudokuRenderer } from "./sudokuRenderer.js";
 import { InputController } from "./inputController.js";
 
@@ -202,7 +204,25 @@ async function GetSudokuString(number) {
 
     let sudokuStrings = response.split(",");
 
-    let sudokuString = sudokuStrings[sudokuNumber * 4]
+    let stringArr = [];
+    let j = 0;
+
+    for (var i = 0; i <= sudokuStrings.length; i++) {
+
+        let difArr = [sudokuStrings[7 + i * 4]]
+
+        j = sudokuStrings[5 + i * 4]
+
+        difArr.push(j)
+
+        stringArr.push(difArr)
+    }
+
+    mergeSort(stringArr, 0, 343)
+
+    console.log(stringArr)
+
+    let sudokuString = stringArr[286][1];
 
     console.log(sudokuString)
 
