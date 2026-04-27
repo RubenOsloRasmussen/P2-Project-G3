@@ -1,21 +1,21 @@
 export class SudokuRenderer {
-  constructor(board) {
-    this.board = board;
-    this.fontWeight = "900";
-    this.DEFAULT_HIGHLIGHT_COLOUR = "#e2edff"
-    this.TARGET_COLOUR = "#bbd0f5";
-    this.SIMILAR_NUMBER_COLOUR = "#a1bded";
-    this.DEFAULT_CELL_COLOUR = "#ffffff";
-  }
+    constructor(board) {
+        this.board = board;
+        this.fontWeight = "900";
+        this.DEFAULT_HIGHLIGHT_COLOUR = "#e2edff"
+        this.TARGET_COLOUR = "#bbd0f5";
+        this.SIMILAR_NUMBER_COLOUR = "#a1bded";
+        this.DEFAULT_CELL_COLOUR = "#ffffff";
+    }
 
-  setupBoard() {
+    setupBoard() {
         let sudokuBoardElements = document.getElementsByClassName("SudokuBlockClass");
 
         for (let rowIndex = 0; rowIndex <= 8; rowIndex++) {
             for (let columnIndex = 0; columnIndex <= 8; columnIndex++) {
                 let blockNumber = this.board.getBlockNumber(rowIndex, columnIndex, sudokuBoardElements);
 
-               // https://www.w3schools.com/Js/js_htmldom_methods.asp
+                // https://www.w3schools.com/Js/js_htmldom_methods.asp
                 let sudokuHtmlCell = document.createElement("div");
                 this.board.sudokuCells[rowIndex][columnIndex].htmlElement = sudokuHtmlCell;
 
@@ -28,7 +28,7 @@ export class SudokuRenderer {
                 textElement.classList.add("CellText");
                 this.board.sudokuCells[rowIndex][columnIndex].htmlTextElement = textElement;
                 sudokuHtmlCell.appendChild(textElement);
-                
+
                 if (this.board.sudokuCells[rowIndex][columnIndex].number) {
                     textElement.textContent = this.board.sudokuCells[rowIndex][columnIndex].number;
                     sudokuHtmlCell.setAttribute("class", "SudokuCell LockedCell");
@@ -77,32 +77,42 @@ export class SudokuRenderer {
             this.board.setNotationMode("centerNotation");
         })
 
-        notationBoxColorCell[0].addEventListener("click", () => {
-            this.board.setNotationMode("colorNotation");
-        })
-    }
+        for (const button of notationBoxColorCell) {
+            button.addEventListener("click", (e) => {
+                const color = e.currentTarget.dataset.color; // e.g. "red"
 
-  renderCells() {
-    for (let r = 0; r <= 8; r++) {
-        for (let c = 0; c <= 8; c++) {
-            let sudokuCell = this.board.sudokuCells[r][c];
-            
-            sudokuCell.htmlTextElement.textContent = sudokuCell.number ? sudokuCell.number : "";
+                const capitalized = color.charAt(0).toUpperCase()+color.slice(1);
 
-            if (sudokuCell.isHighlighted) {
-                if (sudokuCell.isTargetCell) {
-                    sudokuCell.htmlElement.style.backgroundColor = this.TARGET_COLOUR;
-                } else if (sudokuCell.isSimilarNumber) {
-                    sudokuCell.htmlElement.style.backgroundColor = this.SIMILAR_NUMBER_COLOUR;
-                } else {
-                    sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_HIGHLIGHT_COLOUR;
-                }
-            } else {
-                sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
-            }
-
-            if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = sudokuCell.cellColour;
+                this.board.setNotationMode(`colorNotation${capitalized}`);
+            });
         }
     }
-  }
+
+    renderCells() {
+        for (let r = 0; r <= 8; r++) {
+            for (let c = 0; c <= 8; c++) {
+                let sudokuCell = this.board.sudokuCells[r][c];
+
+                sudokuCell.htmlTextElement.textContent = sudokuCell.number ? sudokuCell.number : "";
+
+                if (sudokuCell.isHighlighted) {
+                    if (sudokuCell.isTargetCell) {
+                        sudokuCell.htmlElement.style.backgroundColor = this.TARGET_COLOUR;
+                    } else if (sudokuCell.isSimilarNumber) {
+                        sudokuCell.htmlElement.style.backgroundColor = this.SIMILAR_NUMBER_COLOUR;
+                    } else {
+                        sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_HIGHLIGHT_COLOUR;
+                    }
+                } else {
+                    sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
+                }
+
+                if (sudokuCell.cellColour) {
+                    sudokuCell.htmlColourCell.style.setProperty("--cell-color", `var(--cell-color-${sudokuCell.cellColour})`);
+                } else {
+                    sudokuCell.htmlColourCell.style.removeProperty("--cell-color");
+                }
+            }
+        }
+    }
 }
