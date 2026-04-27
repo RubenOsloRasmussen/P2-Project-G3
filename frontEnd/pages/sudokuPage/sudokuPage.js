@@ -8,12 +8,15 @@ class SudokuCell {
     this.number = number; // Int, the number in the given cell
     this.locked = lockedState; // Bool, is this number permanent?
     this.candidates = null,
-    this.colorNumber = colorNumber; // Int, the index of the color of the cell. E.g. 1=blue, 2=red etc.
     this.rowIndex = rowIndex;
     this.columnIndex = columnIndex;
     this.isTargetCell = false;
     this.isHighlighted = false;
     this.isSimilarNumber = false;
+    this.htmlElement = null;
+    this.htmlColourCell = null;
+    this.htmlTextElement = null;
+    this.cellColour = "#ffffff";
     }
 }
 
@@ -21,7 +24,15 @@ export class SudokuBoard {
     constructor(initialCellsArr, notationMode = "defaultNotation") {
         this.sudokuCells = initialCellsArr;
         this.inputController = null;
-        this.notationMode = notationMode; // Options: "defaultNotation", "cornerNotation", "centerNotation", "colorNotation"
+        this.notationMode = notationMode; // Options: "none", "defaultNotation", "cornerNotation", "centerNotation", "colorNotation"
+    }
+
+    setNotationMode(notationMode) {
+        this.notationMode = notationMode;
+    }
+
+    changeCellColour(r, c, color) {
+        this.sudokuCells[r][c].cellColour = color;
     }
 
     selectCell(r, c) {
@@ -31,6 +42,10 @@ export class SudokuBoard {
         this.highlightRow(r);
         this.highlightBlock(r, c);
         this.highlightSimilarNumbers(r, c);
+        console.log("notation" + this.notationMode);
+        if (this.notationMode === "colorNotation") {
+            this.changeCellColour(r, c, "#2d29ff74");
+        }
     }
 
     clearHighlights() {
@@ -208,7 +223,8 @@ const sudokuRenderer = new SudokuRenderer(sudokuBoard);
 const inputController = new InputController(sudokuBoard, sudokuRenderer);
 sudokuBoard.inputController = inputController;
 sudokuRenderer.setupBoard();
-sudokuRenderer.bindEvents();
+sudokuRenderer.bindCellEvents();
+sudokuRenderer.bindNotationEvents();
 
 
 // This is the button code, that adds the activeNotation class to the clicked button
