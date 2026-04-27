@@ -7,7 +7,7 @@ class SudokuCell {
     constructor(number, lockedState, colorNumber, rowIndex, columnIndex) {
     this.number = number; // Int, the number in the given cell or "null"
     this.locked = lockedState; // Bool, is this number permanent?
-    this.candidates = null,
+    this.candidateBlock = null,
     this.rowIndex = rowIndex;
     this.columnIndex = columnIndex;
     this.isTargetCell = false;
@@ -170,6 +170,7 @@ export class SudokuBoard {
         return -1;
     }
 }
+
 
 //The sudoku board is initialized as an undefined 9*9 matrix
 let sudokuCells = [

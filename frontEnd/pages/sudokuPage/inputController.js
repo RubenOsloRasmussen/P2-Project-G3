@@ -11,13 +11,19 @@ export class InputController {
   }
 
   keydown(e) {
-    console.log(e.key);
-    if ((/^[1-9]$/.test(e.key))) {
-      if (this.board.not) {
-        this.board.insertCellNumber(this.board.targetCell, e.key);
-      }
-    } else if (e.key == "Backspace") {
-      this.board.deleteCellNumber(this.board.targetCell)
+    if (this.board.notationMode == "defaultNotation") {
+        if ((/^[1-9]$/.test(e.key))) {
+          this.board.insertCellNumber(this.board.targetCell, e.key);
+        } else if (e.key == "Backspace") {
+          this.board.deleteCellNumber(this.board.targetCell)
+        }
+
+    } else if (this.board.notationMode == "cornerNotation") {
+      const cornerNotation = this.board.targetCell.candidateBlock.cornerNotation;
+    } else if (this.board.notationMode == "centerNotation") {
+
+    } else if (this.board.colorNotation == "colorNotation") {
+
     }
     
     this.renderer.renderCells();

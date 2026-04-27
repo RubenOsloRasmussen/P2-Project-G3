@@ -1,3 +1,5 @@
+import { CandidateBlock, CornerNotation, CenterNotation } from "./notations.js"
+
 export class SudokuRenderer {
   constructor(board) {
     this.board = board;
@@ -44,21 +46,25 @@ export class SudokuRenderer {
                     sudokuHtmlCell.style.color = this.DEFAULT_FONT_COLOR;
                 }
                 sudokuHtmlCell.style.fontSize = "30px";
+
+                const candidateBlock = this.buildCandidateBlock();
+                this.board.sudokuCells[rowIndex][columnIndex].candidateBlock = candidateBlock;
+                sudokuHtmlCell.appendChild(candidateBlock.htmlElement);
     
                 sudokuBoardElements[blockNumber].appendChild(sudokuHtmlCell);
             }
         }
     }
 
-    buildNotationBlock() {
-        let notationHtmlBlock = document.createElement("div");
+    buildCandidateBlock() {
+        let candidateHtmlBlock = document.createElement("div");
         // add notation cells
         let notationTopRow = document.createElement("div");
-        notationTopRow.setAttribute("class", "TopCornerNotation NotationBlock")
+        notationTopRow.setAttribute("class", "TopCornerNotation NotationRow")
         let notationCenterRow = document.createElement("div");
-        notationCenterRow.setAttribute("class", "CenterNotation NotationBlock")
+        notationCenterRow.setAttribute("class", "CenterNotation NotationRow")
         let notationBottomRow = document.createElement("div");
-        notationBottomRow.setAttribute("class", "BottomCornerNotation NotationBlock")
+        notationBottomRow.setAttribute("class", "BottomCornerNotation NotationRow")
 
         for (let i = 0; i <= 11; i++) {
             let notationCell = document.createElement("div");
@@ -74,17 +80,15 @@ export class SudokuRenderer {
             }
         }
 
-        notationHtmlBlock.appendChild(notationTopRow);
-        notationHtmlBlock.appendChild(notationCenterRow);
-        notationHtmlBlock.appendChild(notationBottomRow);
-
-        e.currentTarget.appendChild(notationHtmlBlock);
+        candidateHtmlBlock.appendChild(notationTopRow);
+        candidateHtmlBlock.appendChild(notationCenterRow);
+        candidateHtmlBlock.appendChild(notationBottomRow);
 
         let cornerNotation = new CornerNotation(notationTopRow, notationBottomRow);
         let centerNotation = new CenterNotation(notationCenterRow);
 
-        let notationBlock = new NotationBlock(cornerNotation, centerNotation);
-        return notationBlock;
+        let candidateBlock = new CandidateBlock(candidateHtmlBlock, cornerNotation, centerNotation);
+        return candidateBlock;
     }
 
     bindCellEvents() {
