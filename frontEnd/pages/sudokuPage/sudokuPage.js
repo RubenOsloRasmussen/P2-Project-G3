@@ -1,81 +1,121 @@
-function SudokuCell(number, lockedState, cornerNotation, centerNotation, colorNumber) {
+import { findSameNumberInstances } from "./notationHelperFunctions.js";
+import { indexToRowAndColumn } from "./helperfunctions.js";
+import { SudokuRenderer } from "./sudokuRenderer.js";
+import { InputController } from "./inputController.js";
+
+class SudokuCell {
+    constructor(number, lockedState, colorNumber, rowIndex, columnIndex) {
     this.number = number; // Int, the number in the given cell
     this.locked = lockedState; // Bool, is this number permanent?
-    this.cornerNotation = cornerNotation; // Array of ints, the numbers currently in corner notation in this cell
-    this.centerNotation = centerNotation; // Array of ints, the numbers currently in center notation in this cell
-    this.colorNumber = colorNumber; // Int, the index of the color of the cell. E.g. 1=blue, 2=red etc.
+    this.candidates = null,
+    this.rowIndex = rowIndex;
+    this.columnIndex = columnIndex;
+    this.isTargetCell = false;
+    this.isHighlighted = false;
+    this.isSimilarNumber = false;
+    this.htmlElement = null;
+    this.htmlColourCell = null;
+    this.htmlTextElement = null;
+    this.cellColour = "#ffffff";
+    }
 }
 
-class SudokuBoard {
-    /* 
-        The constructor method is executed, whenever we create an instance of a class using the 'new' keyword.
-        E.g.: const OurSudokuBoard = new SudokuBoard(ourCellsArr); 
-
-        Notice, that it allows us to pass in parameters, that can be used in the constructor method.
-
-        Parameter:
-            initialCellsArr (array): An array that stores the Sudoku board in row-major order, with one array per row of the 9x9 Sudoku-
-            board, with pointers (ofc. pointers are hidden in javascript so you wont see them explicitly) to the row arrays. 
-            
-            Note: Refer to Figure 10.1 (c), in Introduction to Algorithms (Fourth Edition, CLRS) for more information about 
-            which row-major version order, we are using.
-    */
-    constructor(initialCellsArr) {
-        this.initialCellsArr = initialCellsArr;
-        // "this" refers to the instance (the object)
-        // In this case, we create a new property of the instance, and assign it the initial array containing the Sudoku puzzle.
+export class SudokuBoard {
+    constructor(initialCellsArr, notationMode = "defaultNotation") {
+        this.sudokuCells = initialCellsArr;
+        this.inputController = null;
+        this.notationMode = notationMode; // Options: "none", "defaultNotation", "cornerNotation", "centerNotation", "colorNotation"
     }
 
-    /* 
-        ## CONTEXT INFO
+    setNotationMode(notationMode) {
+        this.notationMode = notationMode;
+    }
 
-        This is a visual representation of, how the Sudoku board have been set up (its a matrix!):
+    changeCellColour(r, c, color) {
+        this.sudokuCells[r][c].cellColour = color;
+    }
 
-              0 1 2  3 4 5  6 7 8
-            0 - - -  - - -  - - -
-            1 - - -  - - -  - - -
-            2 - - -  - - -  - - -
+    selectCell(r, c) {
+        this.clearHighlights();
+        this.sudokuCells[r][c].isTargetCell = true;
+        this.highlightColumn(c);
+        this.highlightRow(r);
+        this.highlightBlock(r, c);
+        this.highlightSimilarNumbers(r, c);
+        console.log("notation" + this.notationMode);
+        if (this.notationMode === "colorNotation") {
+            this.changeCellColour(r, c, "#2d29ff74");
+        }
+    }
 
-            3 - - -  - - -  - - -
-            4 - - -  - - -  - - -
-            5 - - -  - - -  - - -
-
-            6 - - -  - - -  - - -
-            7 - - -  - - -  - - -
-            8 - - -  - - -  - - -
-        
-        We see that each '-' represents a cell and each cell have a corresponding row and column index. 
-
-        For simplicity, we store the matrix in row-major order, so that matrix element M[i][j] is accessed the same
-        way in an array: cellsArr[i][j]. (i = rows, j = columns).
-
-        ## SUMMARY
-        Adds HTML to display the cells given from the initialCellsArr when the class was constructed
-    */
-    setupBoard() {
-        let sudokuBoardElements = document.getElementsByClassName("SudokuBlockClass");
-
-        /* 
-            We loop through every cell in the board array, so we can display it on the web page
-        */
-        for (let rowIndex = 0; rowIndex <= 8; rowIndex++) {
-            for (let columnIndex = 0; columnIndex <= 8; columnIndex++) {
-                let blockNumber = this.getBlockNumber(rowIndex, columnIndex, sudokuBoardElements);
-
-                /*
-                We add a new cell to a specific Sudoku block by adding a new input field.
-                */
-                sudokuBoardElements[blockNumber].innerHTML += `<input type="text" class="InputCell" maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" 
-                    value=${this.initialCellsArr[rowIndex][columnIndex].number ? this.initialCellsArr[rowIndex][columnIndex].number : ""}>`;
+    clearHighlights() {
+        for (let r = 0; r <= 8; r++) {
+            for (let c = 0; c <= 8; c++) {
+                this.sudokuCells[r][c].isHighlighted = false;
+                this.sudokuCells[r][c].isSimilarNumber = false;
+                this.sudokuCells[r][c].isTargetCell = false;
             }
         }
     }
 
-    /*
-        ## Explanation
-        We want to know which block number a given cell is in, because we need to know, which
-        block container (see id with name: sudoku_Block_class in the html) we need to add the cell to.
-    */
+    highlightColumn(c) {
+        for (let r = 0; r <= 8; r++) {
+            this.sudokuCells[r][c].isHighlighted = true;
+        }
+    }
+
+    highlightRow(r) {
+        for (let c = 0; c <= 8; c++) {
+            this.sudokuCells[r][c].isHighlighted = true;
+        }
+    }
+
+    highlightBlock(r, c) {
+        const { rowRange, columnRange } = this.getBlockRange(r, c);
+        for (let r = rowRange[0]; r <= rowRange[1]; r++) {
+            for (let c = columnRange[0]; c <= columnRange[1]; c++) {
+                this.sudokuCells[r][c].isHighlighted = true;
+            }
+        }
+    }
+
+    highlightSimilarNumbers(r, c) {
+        if (!this.sudokuCells[r][c].number) return;
+        let numberInstances = findSameNumberInstances(r, c, this.sudokuCells);
+        console.log("numberin", numberInstances)
+        for (let i = 0; i < numberInstances.length; i++) {
+            let { row, column } = indexToRowAndColumn(numberInstances[i]);
+            console.log("rowIndex", row)
+            this.sudokuCells[row][column].isHighlighted = true;
+            this.sudokuCells[row][column].isSimilarNumber = true;
+        }
+    }
+
+    getBlockRange(r, c) {
+        let rowRange = [], columnRange = [];
+        console.log("range: " + r, c)
+        if (r <= 2) {
+            rowRange.push(0, 2);
+        } else if (r <= 5) {
+            rowRange.push(3, 5);
+        } else if (r <= 8) {
+            rowRange.push(6, 8);
+        }
+
+        if (c <= 2) {
+            columnRange.push(0, 2);
+        } else if (c <= 5) {
+            columnRange.push(3, 5);
+        } else if (c <= 8) {
+            columnRange.push(6, 8);
+        }
+
+        return {
+            rowRange: rowRange,
+            columnRange: columnRange
+        }
+    }
+
     getBlockNumber(rowIndex, columnIndex) {
         if (rowIndex <= 2) {
             if (columnIndex <= 2) {
@@ -106,36 +146,8 @@ class SudokuBoard {
     }
 }
 
-/* ## TEST SECTION ## */
-
-//let ourCellsArr = [
-//    [null, null, 7, null, null, null, null, null, null],
-//    [null, null, 5, null, 4, null, null, 7, null],
-//    [null, 6, 9, 5, null, null, null, 3, 1],
-
-//    [null, null, null, 4, null, 5, 8, null, 2],
-//    [null, 5, null, null, 2, null, null, 4, null],
-//    [6, null, 2, 3, null, 1, null, null, null],
-
-//    [2, 9, null, null, null, 3, 5, 8, null],
-//    [null, 3, null, null, 1, null, 2, null, null],
-//    [null, null, null, null, null, null, 3, null, null]
-//];
-
-//fetch("./SudokuPuzzles.txt")
-//    .then(function (response) {
-//        return response.text();
-//    })
-//    .then(function (SudokuPuzzles) {
-//        console.log(SudokuPuzzles);
-//    })
-
-//this is the string from which a sudoku is made, left to right, top to bottom.
-// a "." means an empty cell
-//let sudokuString = "..61..97........3....734..5....49..2.15...86.9..68....6..293....9........51..74.."
-
 //The sudoku board is initialized as an undefined 9*9 matrix
-let ourCellsArr = [
+let sudokuCells = [
     ["", , , , , , , , ""],
     ["", , , , , , , , ""],
     ["", , , , , , , , ""],
@@ -156,9 +168,9 @@ async function stringParser(string) {
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
             if (isNaN(Number(sudokuString[j + i * 9])) === false & sudokuString[j + i * 9] != "0") {
-                ourCellsArr[i][j] = new SudokuCell(Number(sudokuString[j + i * 9]), true, null, null, null);
+                sudokuCells[i][j] = new SudokuCell(Number(sudokuString[j + i * 9]), true, null, i, j);
             } else if (sudokuString[j + i * 9] === ".") {
-                ourCellsArr[i][j] = new SudokuCell(null, false, null, null, null);
+                sudokuCells[i][j] = new SudokuCell(null, false, null, i, j);
             } else {
                 console.log("could not print value at placement ", (j + i * 9), " in string")
             }
@@ -201,17 +213,18 @@ let sudokuNumber = 1
 let sudokuString = null
 
 async function StringToSudoku(Number) {
-    await stringParser(ourCellsArr, sudokuString)
-
-    const OurSudokuBoard = await new SudokuBoard(ourCellsArr);
-
-    await OurSudokuBoard.setupBoard();
-
+    await stringParser(sudokuCells, sudokuString)
 }
 
-StringToSudoku(sudokuNumber)
+await StringToSudoku(sudokuNumber);
 
-
+const sudokuBoard = new SudokuBoard(sudokuCells);
+const sudokuRenderer = new SudokuRenderer(sudokuBoard);
+const inputController = new InputController(sudokuBoard, sudokuRenderer);
+sudokuBoard.inputController = inputController;
+sudokuRenderer.setupBoard();
+sudokuRenderer.bindCellEvents();
+sudokuRenderer.bindNotationEvents();
 
 
 // This is the button code, that adds the activeNotation class to the clicked button

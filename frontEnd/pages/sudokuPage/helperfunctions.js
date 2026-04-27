@@ -3,9 +3,9 @@
  * @param {*} index The cells index.
  * @returns An object containing row and column indices.
  */
-export function indexToRowAndColumn(index) {
-    const column = Math.floor(index/9);
-    const row = index % 9;
+export function indexToRowAndColumn(index) { 
+    const row = Math.floor(index/9);
+    const column = index % 9;
 
     return {row, column};
 }
@@ -17,5 +17,5 @@ export function indexToRowAndColumn(index) {
  * @returns The cell index.
  */
 export function rowAndColumnToIndex(row, column) {
-    return row + column * 9;
+    return row * 9 + column;
 }
