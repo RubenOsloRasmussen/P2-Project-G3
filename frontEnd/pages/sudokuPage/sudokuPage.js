@@ -310,3 +310,4 @@ cancelForfeitBtn.addEventListener("click", () => {
 confirmForfeitBtn.addEventListener("click", () => {
     window.location.href = "/pages/startPage/startPage.html";
 });
+

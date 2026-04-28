@@ -40,9 +40,9 @@
             <div id="sudoku-board-and-notation-id">
 
                 <div id="left-container">
-                    <div id="pause-b-id">||</div>
-                    <div id="timer-id">05:38</div>
-                </div>
+            <button id="pause-b-id">Ⅱ</button>
+              <div id="timer-id">00:00</div>
+            </div>
 
 
                 <!--sudoku board-->
@@ -66,6 +66,10 @@
                     <div class="SudokuBlockClass"></div>
                     <div class="SudokuBlockClass"></div>
                     <div class="SudokuBlockClass"></div>
+
+                    <div id="sudoku-start-overlay">
+                        <button id="start-sudoku-btn">Start Sudoku</button>
+                    </div>
                 </div>
 
                 <!-- Notation -->
@@ -210,6 +214,7 @@
     <script src="./helperfunctions.js" type="module"></script>
     <script src="./sudokuRenderer.js" type="module"></script>
     <script src="./inputController.js" type="module"></script>
+    <script src="./pauseandtimer.js" defer></script>
 </body>
 
 </html>
