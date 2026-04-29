@@ -5,7 +5,8 @@
 // then adds / subtracts points from their proficiency score
 // returns their new proficiency score.
 
-function profScoreCalc(userScore, err, time) {
+let userScore = 5
+function profScoreCalc(err, time) {
     //let response = await fetch("./proficiencyScoreCalc.txt");
 
     //if (!response.ok) {
@@ -33,7 +34,11 @@ function profScoreCalc(userScore, err, time) {
         userScore + Math.max(Math.min(
             timeScore + errScore,
             1), -1),
-        10), 0)
+    10), 0)
+
+    userScore = finScore
+
+    console.log("user proficiency is ", finScore)
 
     return finScore;
 }

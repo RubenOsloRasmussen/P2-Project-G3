@@ -168,91 +168,21 @@ let sudokuCells = [
     ["", , , , , , , , ""],
 ]
 
-//using a nested for loop, each character in the string is read from left to right,
-//if it reads a "." then null is placed in the matrix in that point.
-//otherwise, it will place whatever was in the spot, into the matrix.
-async function stringParser(string) {
-    sudokuString = await GetSudokuString(sudokuNumber);
+let sudokuNumber = 300;
+const boardData = await loadSudokuBoard(sudokuNumber);
 
-    for (var i = 0; i < 9; i++) {
-        for (var j = 0; j < 9; j++) {
-            if (isNaN(Number(sudokuString[j + i * 9])) === false & sudokuString[j + i * 9] != "0") {
-                sudokuCells[i][j] = new SudokuCell(Number(sudokuString[j + i * 9]), true, null, i, j);
-            } else if (sudokuString[j + i * 9] === ".") {
-                sudokuCells[i][j] = new SudokuCell(null, false, null, i, j);
-            } else {
-                console.log("could not print value at placement ", (j + i * 9), " in string")
-            }
-        }
-    }
+async function loadSudokuBoard(sudokuNumber){
+    const res = await fetch(`/api/sudoku?sudokuNumber=${sudokuNumber}`);
+    const data = await res.json();
+    return data.board;
 }
 
-async function LoadStringData() {
-    let response = await fetch("./SudokuPuzzles.csv");
-
-    if (!response.ok) {
-        console.error("Error: couldn't load StringData", response.status);
-        return null;
+for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+        const value = boardData[i][j];
+        sudokuCells[i][j] = new SudokuCell(value, value !== null, null, i, j);
     }
-
-    let stringData = await response.text()
-    console.log(stringData)
-    console.log("the datadump is ", stringData.length, " characters long")
-    return stringData;
 }
-
-async function GetSudokuString(number) {
-    let response = await LoadStringData();
-
-    if (response == null) {
-        console.log("could not load sudoku string")
-        return;
-    }
-
-    let sudokuStrings = response.split(",");
-
-    let stringArr = [];
-    let j = 0;
-
-    for (var i = 0; i <= sudokuStrings.length; i++) {
-
-        let difArr = [sudokuStrings[7 + i * 4]]
-
-        j = sudokuStrings[5 + i * 4]
-
-        difArr.push(j)
-
-        stringArr.push(difArr)
-    }
-
-    mergeSort(stringArr, 0, 343)
-
-    console.log(stringArr)
-
-    let k = 0
-
-    //while (stringArr[k][0] > calcDif) {
-    //    k++
-    //}
-
-
-    k = Math.floor((Math.random() - 0.5) * 9);
-
-    let sudokuString = stringArr[5 + k][1];
-
-    console.log(sudokuString)
-
-    return sudokuString;
-}
-
-let sudokuNumber = 1
-let sudokuString = null
-
-async function StringToSudoku(Number) {
-    await stringParser(sudokuCells, sudokuString)
-}
-
-await StringToSudoku(sudokuNumber);
 
 const sudokuBoard = new SudokuBoard(sudokuCells);
 const sudokuRenderer = new SudokuRenderer(sudokuBoard);
