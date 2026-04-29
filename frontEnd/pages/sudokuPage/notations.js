@@ -1,22 +1,24 @@
 export class CandidateBlock {
-    constructor(htmlElement = null, cornerNotation = null, centerNotation = null) {
+    constructor(board, htmlElement = null, cornerNotation = null, centerNotation = null) {
         this.htmlElement = htmlElement;
         this.cornerNotation = cornerNotation,
-        this.centerNotation = centerNotation
+        this.centerNotation = centerNotation,
+        this.board = board
     }
 
-    insertCandidate(number, notationMode) {
-        if (!(/^[1-9]$/.test(number)) || (notationMode != "cornerNotation" || notationMode != "centerNotation")) return;
-        if (notationMode == "cornerNotation") {
+    insertCandidate(number) {
+        if (!(/^[1-9]$/.test(number)) || (this.board.notationMode !=  "cornerNotation" && this.board.notationMode != "centerNotation")) return;
+        if (this.board.notationMode == "cornerNotation") {     
             if (this.cornerNotation.topCornerCandidates.includes(number) || this.cornerNotation.bottomCornerCandidates.includes(number)) return;
-
+            
             if (this.cornerNotation.topCornerCandidates.length < 4 ) {
                 this.cornerNotation.topCornerCandidates.push(number);
+                
             } else if (this.cornerNotation.bottomCornerCandidates.length < 4) {
                 this.cornerNotation.bottomCornerCandidates.push(number);
             }
 
-        } else if (notationMode == "centerNotation") {
+        } else if (this.board.notationMode == "centerNotation") {
             if (this.centerNotation.centerCandidates.includes(number)) return;
 
             if (this.centerNotation.centerCandidates.length < 4 ) {
@@ -26,17 +28,22 @@ export class CandidateBlock {
     }
 
     removeCandidate(number) {
-        if (!(/^[1-9]$/.test(number)) || (notationMode != "cornerNotation" || notationMode != "centerNotation")) return;
-        if (notationMode == "cornerNotation") {
-            let indexOfCandidateTop = this.cornerNotation.topCornerCandidates.indexOf(`${number}`);
-            let indexOfCandidateBottom = this.cornerNotation.topCornerCandidates.indexOf(`${number}`);
+        if (!(/^[1-9]$/.test(number)) || (this.board.notationMode != "cornerNotation" && this.board.notationMode != "centerNotation")) return;
+        if (this.board.notationMode == "cornerNotation") {
+            let indexOfCandidateTop = this.cornerNotation.topCornerCandidates.indexOf(number);
+            let indexOfCandidateBottom = this.cornerNotation.bottomCornerCandidates.indexOf(number);
+            console.log("test", number, indexOfCandidateTop,indexOfCandidateBottom );
             if (indexOfCandidateTop != -1) {
+                console.log("aaaaaa");
+                
                 this.cornerNotation.topCornerCandidates.splice(indexOfCandidateTop, 1);
             } else if (indexOfCandidateBottom != -1) {
+                console.log("bbbbbb");
                 this.cornerNotation.bottomCornerCandidates.splice(indexOfCandidateBottom, 1);
             }
-        } else if (notationMode == "centerNotation") {
-            let indexOfCandidateCenter = this.centerNotation.centerCandidates.indexOf(`${number}`);
+            this.rearrangeCornerCandidates();
+        } else if (this.board.notationMode == "centerNotation") {
+            let indexOfCandidateCenter = this.centerNotation.centerCandidates.indexOf(number);
             if (indexOfCandidateCenter != -1) {
                 this.centerNotation.centerCandidates.splice(indexOfCandidateCenter, 1);
             }
@@ -44,12 +51,40 @@ export class CandidateBlock {
     }
 
     rearrangeCornerCandidates() {
-        let e = 0;
-        for (let i = this.cornerNotation.topCornerCandidates.length; i < 4; i++) {
-            e++;
-            this.cornerNotation.topCornerCandidates.push(this.cornerNotation.bottomCornerCandidates[e])
-            this.cornerNotation.bottomCornerCandidates.splice(e, 1);
+        let tempArr = this.cornerNotation.topCornerCandidates.concat(this.cornerNotation.bottomCornerCandidates);
+        this.cornerNotation.topCornerCandidates = [];
+        this.cornerNotation.bottomCornerCandidates = [];
+
+        for (let i = 0; i < tempArr.length; i++) {
+            if (i <= 3) {
+                this.cornerNotation.topCornerCandidates.push(tempArr[i]);
+            } else {
+                this.cornerNotation.bottomCornerCandidates.push(tempArr[i]);
+            }
         }
+    }
+
+    deleteCandidate(number, notationMode) {
+        if (notationMode == "cornerNotation") {
+            const topOccurence = this.cornerNotation.topCornerCandidates.indexOf(number);
+            const bottomOccurence = this.cornerNotation.bottomCornerCandidates.indexOf(number);
+            if (topOccurence != -1) {
+                this.cornerNotation.topCornerCandidates.splice(topOccurence, 1);
+            } else if (bottomOccurence != -1) {
+                this.cornerNotation.bottomCornerCandidates.splice(bottomOccurence, 1);
+            }
+        } else if (notationMode == "centerNotation") {
+            const index = this.centerNotation.centerCandidates.indexOf(number);
+            if (index != -1)  {
+                this.centerNotation.centerCandidates.splice(index, 1);
+            }
+        }
+    }
+    
+    deleteCandidates() {
+        this.board.cornerNotation.topCornerCandidates = [];
+        this.board.cornerNotation.bottomCornerCandidates = [];
+        this.board.centerNotation.centerCandidates = [];
     }
 }
 

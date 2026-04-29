@@ -47,10 +47,9 @@ export class SudokuRenderer {
                 }
                 sudokuHtmlCell.style.fontSize = "30px";
 
-                const candidateBlock = this.buildCandidateBlock();
-                this.board.sudokuCells[rowIndex][columnIndex].candidateBlock = candidateBlock;
-                sudokuHtmlCell.appendChild(candidateBlock.htmlElement);
-    
+                this.board.sudokuCells[rowIndex][columnIndex].candidateBlock = this.buildCandidateBlock();
+                sudokuHtmlCell.appendChild(this.board.sudokuCells[rowIndex][columnIndex].candidateBlock.htmlElement);
+
                 sudokuBoardElements[blockNumber].appendChild(sudokuHtmlCell);
             }
         }
@@ -58,6 +57,7 @@ export class SudokuRenderer {
 
     buildCandidateBlock() {
         let candidateHtmlBlock = document.createElement("div");
+        candidateHtmlBlock.setAttribute("class", "candidateBlock");
         // add notation cells
         let notationTopRow = document.createElement("div");
         notationTopRow.setAttribute("class", "TopCornerNotation NotationRow")
@@ -66,20 +66,6 @@ export class SudokuRenderer {
         let notationBottomRow = document.createElement("div");
         notationBottomRow.setAttribute("class", "BottomCornerNotation NotationRow")
 
-        for (let i = 0; i <= 11; i++) {
-            let notationCell = document.createElement("div");
-            notationCell.setAttribute("class", "NotationNumber");
-            notationCell.textContent = 1;
-
-            if (i <= 3) {
-                notationTopRow.appendChild(notationCell);
-            } else if (i <= 7) {
-                notationCenterRow.appendChild(notationCell);
-            } else {
-                notationBottomRow.appendChild(notationCell);
-            }
-        }
-
         candidateHtmlBlock.appendChild(notationTopRow);
         candidateHtmlBlock.appendChild(notationCenterRow);
         candidateHtmlBlock.appendChild(notationBottomRow);
@@ -87,7 +73,7 @@ export class SudokuRenderer {
         let cornerNotation = new CornerNotation(notationTopRow, notationBottomRow);
         let centerNotation = new CenterNotation(notationCenterRow);
 
-        let candidateBlock = new CandidateBlock(candidateHtmlBlock, cornerNotation, centerNotation);
+        let candidateBlock = new CandidateBlock(this.board, candidateHtmlBlock, cornerNotation, centerNotation);
         return candidateBlock;
     }
 
@@ -101,7 +87,6 @@ export class SudokuRenderer {
         }
 
         document.addEventListener("keydown", (e) => {
-            console.log("jjj")
             this.board.inputController.keydown(e);
         });
     }
@@ -154,7 +139,74 @@ export class SudokuRenderer {
             }
 
             if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = sudokuCell.cellColour;
+
+            this.renderCandidateBlock(sudokuCell.candidateBlock, this.board.notationMode);
         }
     }
   }
+
+  renderCandidateBlock() {
+    let candidateBlock = this.board.targetCell.candidateBlock;
+    this.renderCornerNotation(candidateBlock);
+    this.renderCenterNotation(candidateBlock);
+  }
+
+   renderCornerNotation(candidateBlock) {
+    this.clearCornerNotation(candidateBlock);
+
+    for (let i = 0; i < candidateBlock.cornerNotation.topCornerCandidates.length; i++) {
+        this.addNotationHtmlCell(candidateBlock.cornerNotation.topCornerCandidates[i], "candidateTop", "cornerNotation", candidateBlock);
+    }
+    for (let i = 0; i < candidateBlock.cornerNotation.bottomCornerCandidates.length; i++) {
+        this.addNotationHtmlCell(candidateBlock.cornerNotation.bottomCornerCandidates[i], "candidateBottom", "cornerNotation", candidateBlock);
+    }
+  }
+
+  renderCenterNotation(candidateBlock) {
+    this.clearCenterNotation(candidateBlock);
+    for (let i = 0; i < candidateBlock.centerNotation.centerCandidates.length; i++) {
+        this.addNotationHtmlCell(candidateBlock.centerNotation.centerCandidates[i], "none", "centerNotation", candidateBlock);
+    }
+  }
+
+  addNotationHtmlCell(number, cornerNotationType, notationType, candidateBlock) {
+    if (notationType == "cornerNotation") {
+        if (cornerNotationType == "candidateTop") {
+            if (candidateBlock.cornerNotation.topCornerCandidates.length <= 4) {
+            const notationCell = this.buildNotationHtmlCell();
+            notationCell.textContent = number;
+            candidateBlock.cornerNotation.topCornerHTMLElement.appendChild(notationCell);
+            }
+        }
+        if (cornerNotationType == "candidateBottom") {
+            if (candidateBlock.cornerNotation.bottomCornerCandidates.length <= 4) {
+                const notationCell = this.buildNotationHtmlCell();
+                notationCell.textContent = number;
+                candidateBlock.cornerNotation.bottomCornerHTMLElement.appendChild(notationCell);
+            }
+        }
+    } else if (notationType == "centerNotation") {
+        if (candidateBlock.centerNotation.centerCandidates.length <= 4) {
+            const notationCell = this.buildNotationHtmlCell();
+            notationCell.textContent = number;
+            candidateBlock.centerNotation.htmlElement.appendChild(notationCell);
+        }
+    }
+  }
+
+  buildNotationHtmlCell() {
+    let notationCell = document.createElement("div");
+    notationCell.setAttribute("class", "NotationNumber");
+    return notationCell;
+  }
+
+  clearCornerNotation(candidateBlock) {
+    candidateBlock.cornerNotation.topCornerHTMLElement.textContent = "";
+    candidateBlock.cornerNotation.bottomCornerHTMLElement.textContent = "";
+  }
+
+  clearCenterNotation(candidateBlock) {
+    candidateBlock.centerNotation.htmlElement.textContent = "";
+  }
+
 }

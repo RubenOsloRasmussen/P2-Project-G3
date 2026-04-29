@@ -28,6 +28,12 @@ export class SudokuBoard {
         this.targetCell = null;
     }
 
+    clearCandidates(sudokuCell) {
+        sudokuCell.candidateBlock.cornerNotation.topCornerCandidates = [];
+        sudokuCell.candidateBlock.cornerNotation.bottomCornerCandidates = [];
+        sudokuCell.candidateBlock.centerNotation.centerCandidates = [];
+    }
+
     insertCellNumber(sudokuCell, number) {
         if (!sudokuCell.isTargetCell || sudokuCell.locked || !(/^[1-9]$/.test(number))) return;
         sudokuCell.number = number;
@@ -58,7 +64,7 @@ export class SudokuBoard {
         this.highlightRow(r);
         this.highlightBlock(r, c);
         this.highlightSimilarNumbers(r, c);
-        
+
         if (this.notationMode === "colorNotation") {
             this.changeCellColour(r, c, "#2d29ff74");
         }
@@ -110,7 +116,6 @@ export class SudokuBoard {
         let numberInstances = findSameNumberInstances(r, c, this.sudokuCells);
         for (let i = 0; i < numberInstances.length; i++) {
             let { row, column } = indexToRowAndColumn(numberInstances[i]);
-            console.log("rowIndex", row)
             this.sudokuCells[row][column].isHighlighted = true;
             this.sudokuCells[row][column].isSimilarNumber = true;
         }
@@ -118,7 +123,6 @@ export class SudokuBoard {
 
     getBlockRange(r, c) {
         let rowRange = [], columnRange = [];
-        console.log("range: " + r, c)
         if (r <= 2) {
             rowRange.push(0, 2);
         } else if (r <= 5) {
