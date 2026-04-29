@@ -7,18 +7,18 @@ import { InputController } from "./inputController.js";
 
 class SudokuCell {
     constructor(number, lockedState, colorNumber, rowIndex, columnIndex) {
-    this.number = number; // Int, the number in the given cell
-    this.locked = lockedState; // Bool, is this number permanent?
-    this.candidates = null,
-    this.rowIndex = rowIndex;
-    this.columnIndex = columnIndex;
-    this.isTargetCell = false;
-    this.isHighlighted = false;
-    this.isSimilarNumber = false;
-    this.htmlElement = null;
-    this.htmlColourCell = null;
-    this.htmlTextElement = null;
-    this.cellColour = "#ffffff";
+        this.number = number; // Int, the number in the given cell
+        this.locked = lockedState; // Bool, is this number permanent?
+        this.candidates = null,
+            this.rowIndex = rowIndex;
+        this.columnIndex = columnIndex;
+        this.isTargetCell = false;
+        this.isHighlighted = false;
+        this.isSimilarNumber = false;
+        this.htmlElement = null;
+        this.htmlColourCell = null;
+        this.htmlTextElement = null;
+        this.cellColour = null;
     }
 }
 
@@ -26,7 +26,7 @@ export class SudokuBoard {
     constructor(initialCellsArr, notationMode = "defaultNotation") {
         this.sudokuCells = initialCellsArr;
         this.inputController = null;
-        this.notationMode = notationMode; // Options: "none", "defaultNotation", "cornerNotation", "centerNotation", "colorNotation"
+        this.notationMode = notationMode; // Options: "none", "defaultNotation", "cornerNotation", "centerNotation", "colorNotationRed", "colorNotationGreen", "colorNotationBlue"
     }
 
     setNotationMode(notationMode) {
@@ -45,8 +45,15 @@ export class SudokuBoard {
         this.highlightBlock(r, c);
         this.highlightSimilarNumbers(r, c);
         console.log("notation" + this.notationMode);
-        if (this.notationMode === "colorNotation") {
-            this.changeCellColour(r, c, "#2d29ff74");
+
+        if (this.notationMode.startsWith("colorNotation")) {
+            const color = this.notationMode.replace("colorNotation", "").toLowerCase();
+
+            if (this.sudokuCells[r][c].cellColour === color) {
+                this.changeCellColour(r, c, null);
+            } else {
+                this.changeCellColour(r, c, color);
+            }            
         }
     }
 
