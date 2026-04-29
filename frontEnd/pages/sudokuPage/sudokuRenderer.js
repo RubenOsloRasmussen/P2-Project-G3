@@ -18,7 +18,7 @@ export class SudokuRenderer {
             for (let columnIndex = 0; columnIndex <= 8; columnIndex++) {
                 let blockNumber = this.board.getBlockNumber(rowIndex, columnIndex, sudokuBoardElements);
 
-               // https://www.w3schools.com/Js/js_htmldom_methods.asp
+                // https://www.w3schools.com/Js/js_htmldom_methods.asp
                 let sudokuHtmlCell = document.createElement("div");
                 this.board.sudokuCells[rowIndex][columnIndex].htmlElement = sudokuHtmlCell;
 
@@ -31,7 +31,7 @@ export class SudokuRenderer {
                 textElement.classList.add("CellText");
                 this.board.sudokuCells[rowIndex][columnIndex].htmlTextElement = textElement;
                 sudokuHtmlCell.appendChild(textElement);
-                
+
                 if (this.board.sudokuCells[rowIndex][columnIndex].number) {
                     textElement.textContent = this.board.sudokuCells[rowIndex][columnIndex].number;
                     sudokuHtmlCell.setAttribute("class", "SudokuCell LockedCell");
@@ -115,9 +115,15 @@ export class SudokuRenderer {
             this.board.setNotationMode("centerNotation");
         })
 
-        notationBoxColorCell[0].addEventListener("click", () => {
-            this.board.setNotationMode("colorNotation");
-        })
+        for (const button of notationBoxColorCell) {
+            button.addEventListener("click", (e) => {
+                const color = e.currentTarget.dataset.color; // e.g. "red"
+
+                const capitalized = color.charAt(0).toUpperCase()+color.slice(1);
+
+                this.board.setNotationMode(`colorNotation${capitalized}`);
+            });
+        }
     }
 
   renderCells() {
@@ -132,11 +138,8 @@ export class SudokuRenderer {
                 } else if (sudokuCell.isSimilarNumber) {
                     sudokuCell.htmlElement.style.backgroundColor = this.SIMILAR_NUMBER_COLOUR;
                 } else {
-                    sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_HIGHLIGHT_COLOUR;
+                    sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
                 }
-            } else {
-                sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
-            }
 
             if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = sudokuCell.cellColour;
 

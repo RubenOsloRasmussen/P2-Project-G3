@@ -24,7 +24,7 @@ export class SudokuBoard {
     constructor(initialCellsArr, notationMode = "defaultNotation") {
         this.sudokuCells = initialCellsArr;
         this.inputController = null;
-        this.notationMode = notationMode; // Options: "none", "defaultNotation", "cornerNotation", "centerNotation", "colorNotation"
+        this.notationMode = notationMode; // Options: "none", "defaultNotation", "cornerNotation", "centerNotation", "colorNotationRed", "colorNotationGreen", "colorNotationBlue"
         this.targetCell = null;
     }
 
@@ -46,6 +46,7 @@ export class SudokuBoard {
         if (!sudokuCell.isTargetCell || sudokuCell.locked) return;
         this.clearSimilarNumberHighlights(sudokuCell.rowIndex, sudokuCell.columnIndex);
         sudokuCell.number = null;
+     
     }
 
     setNotationMode(notationMode) {
@@ -64,9 +65,16 @@ export class SudokuBoard {
         this.highlightRow(r);
         this.highlightBlock(r, c);
         this.highlightSimilarNumbers(r, c);
+        console.log("notation" + this.notationMode);
 
-        if (this.notationMode === "colorNotation") {
-            this.changeCellColour(r, c, "#2d29ff74");
+        if (this.notationMode.startsWith("colorNotation")) {
+            const color = this.notationMode.replace("colorNotation", "").toLowerCase();
+
+            if (this.sudokuCells[r][c].cellColour === color) {
+                this.changeCellColour(r, c, null);
+            } else {
+                this.changeCellColour(r, c, color);
+            }            
         }
     }
 
