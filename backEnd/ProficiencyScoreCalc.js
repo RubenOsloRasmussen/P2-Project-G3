@@ -1,20 +1,16 @@
 
-// function: Proficiencyscore calc
-// gets amount of error episodes, and time (in seconds) taken while doing sudoku.
-// calculates how well they completed the given task,
-// then adds / subtracts points from their proficiency score
-// returns their new proficiency score.
-
 let userScore = 5
-function profScoreCalc(err, time) {
-    //let response = await fetch("./proficiencyScoreCalc.txt");
 
-    //if (!response.ok) {
-    //    console.error("Error: couldn't load data", response.status);
-    //    return null;
-    //}
-
-    //let userScore = await response.text();
+/**
+ * Gets amount of error episodes and time (in seconds) taken while doing sudoku.
+Calculates how well they completed the given task,
+Then adds / subtracts points from their proficiency score.
+Returns new proficiency score.
+ * @param {number} err
+ * @param {number} time
+ * @returns {number}
+ */
+export function profScoreCalc(err, time) {
 
     //the numbers in this equation make it so that:
     //being under 15 min gives a score aproaching +1
@@ -43,14 +39,16 @@ function profScoreCalc(err, time) {
     return finScore;
 }
 
-
-
-// function sudokuLevel
-// gets given proficiency score and amount of Sudokupuzzles.
-// uses this to make a percentile (how far to the most difficult sudoku you are)
-// use a psuedo random number to skew this a bit forward or backwards.
-// returns the number for the sudokustring in the array, that is to be used.
-function sudokuLevel(userScore, stringAmount) {
+/**
+ Gets amount of Sudokupuzzles in storage.
+ Uses proficiency score. 
+ Makes a percentile (how far to the most difficult sudoku you are).
+ Uses a psuedo random number to skew this a bit forward or backwards.
+ Returns the index number for the sudokustring in the array.
+ * @param {number} stringAmount
+ * @returns {string}
+ */
+export function sudokuLevel(stringAmount) {
     let stringNumber = 0;
 
     //
@@ -59,17 +57,12 @@ function sudokuLevel(userScore, stringAmount) {
         stringAmount - 5), 5);
 
     //Randomises the given sudoku between the closest 10 sudokus
-    stringNumber = Math.round(
+    stringNumber = Math.min(Math.round(
         stringNumber + (5 - Math.random() * 10)
-    );
+    ), stringAmount);
+
+    console.log("selected sudoku", stringNumber, "as given sudoku")
 
     return stringNumber;
 }
 
-//for (var l = 0; l < stringArr.length; l++) {
-//    if (stringArr[l][0] == undefined) {
-//        console.log(l)
-//        console.log(stringArr[l][0])
-//        break;
-//    }
-//}

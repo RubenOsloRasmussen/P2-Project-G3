@@ -2,6 +2,8 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import { sudokuLevel } from "./ProficiencyScoreCalc.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -10,10 +12,11 @@ const CSV_PATH = path.join(__dirname, "SudokuPuzzles.csv");
 export function GetSudokuBoard(sudokuNumber) {
     const csv = fs.readFileSync(CSV_PATH, "utf-8");
     
-    //if (!csv.ok) {
-    //    console.log("Could not load Sudoku string")
-    //    return;
-    //}
+    if (!csv) {
+        console.error("Could not load Sudoku string")
+        return;
+    }
+
     const puzzles = csv.split(",");
 
     let stringArr = [];
@@ -30,15 +33,20 @@ export function GetSudokuBoard(sudokuNumber) {
         stringArr.push(difArr)
     }
 
-    mergeSort(stringArr, 0, 343)
+    //finds the last defined index in the array
+    for (var l = 0; l < stringArr.length; l++) {
+        if (stringArr[l][0] == undefined) {
+            console.log(l)
+            console.log(stringArr[l][0])
+            l--;
+            break;
+        }
+    }
 
-    console.log(stringArr)
+    //sorts the array by difficulty
+    mergeSort(stringArr, 0, l)
 
-    let k = Math.floor(
-        (Math.random() - 0.5) * 9
-    );
-
-    const sudokuString = stringArr[sudokuNumber + k][1];
+    const sudokuString = stringArr[sudokuLevel(l)][1];
 
     return stringToBoard(sudokuString);
 }

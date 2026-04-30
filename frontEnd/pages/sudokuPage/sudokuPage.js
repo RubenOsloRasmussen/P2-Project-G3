@@ -1,7 +1,5 @@
 import { findSameNumberInstances } from "./notationHelperFunctions.js";
 import { indexToRowAndColumn } from "./helperfunctions.js";
-import { merge } from "./helperfunctions.js";
-import { mergeSort } from "./helperfunctions.js";
 import { SudokuRenderer } from "./sudokuRenderer.js";
 import { InputController } from "./inputController.js";
 
