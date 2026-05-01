@@ -81,7 +81,7 @@ export class SudokuRenderer {
             button.addEventListener("click", (e) => {
                 const color = e.currentTarget.dataset.color; // e.g. "red"
 
-                const capitalized = color.charAt(0).toUpperCase()+color.slice(1);
+                const capitalized = color.charAt(0).toUpperCase() + color.slice(1);
 
                 this.board.setNotationMode(`colorNotation${capitalized}`);
             });
@@ -113,6 +113,20 @@ export class SudokuRenderer {
                     sudokuCell.htmlColourCell.style.removeProperty("--cell-color");
                 }
             }
+        }
+        this.checkWin();
+    }
+
+    checkWin() {
+        const winPopUp = document.getElementById("win-pop-up");
+
+        if (!winPopUp.classList.contains("Hidden")) return;
+
+        if (this.board.isBoardFull()) {
+            const sudokuBoardElement = document.getElementById("sudoku-board-container-id");
+
+            sudokuBoardElement.classList.add("BoardWon");
+            winPopUp.classList.remove("Hidden");
         }
     }
 }
