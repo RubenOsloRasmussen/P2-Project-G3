@@ -500,6 +500,55 @@ body {
   position: absolute;
   inset: 0;
   z-index: 1;
+}
+
+/* Win Screen */
+#sudoku-board-container-id.BoardWon {
+    background-color: white;
+    border-color: white;
+}
+
+#sudoku-board-container-id.BoardWon .SudokuBlockClass,
+#sudoku-board-container-id.BoardWon .InputCell {
+    background-color: white;
+    color: white;
+    border-color: white;
+}
+
+#win-pop-up {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+}
+
+.WinBox {
+    width: 420px;
+    background-color: #f4f4f4;
+    border: 4px solid #4168A9;
+    padding: 24px;
+    text-align: center;
+}
+
+.WinTitle {
+    margin: 0 0 12px 0;
+    color: #4168A9;
+    font-size: 24px;
+}
+
+.WinText {
+    margin: 0 0 22px 0;
+    font-size: 17px;
+}
+
+#next-sudoku-btn {
+    background-color: #86d65c;
+    border: none;
+    padding: 12px 22px;
+    font-size: 17px;
+    cursor: pointer;
+}
   display: flex;
   justify-content: center;
   align-items: center;

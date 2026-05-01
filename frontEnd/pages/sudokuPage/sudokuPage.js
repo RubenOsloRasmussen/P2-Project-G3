@@ -53,6 +53,17 @@ export class SudokuBoard {
         this.notationMode = notationMode;
     }
 
+    isBoardFull() {
+        for (let r = 0; r <= 8; r++) {
+            for (let c = 0; c <= 8; c++) {
+                if (!this.sudokuCells[r][c].number) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     changeCellColour(r, c, color) {
         this.sudokuCells[r][c].cellColour = color;
     }
@@ -74,7 +85,7 @@ export class SudokuBoard {
                 this.changeCellColour(r, c, null);
             } else {
                 this.changeCellColour(r, c, color);
-            }            
+            }
         }
     }
 
@@ -347,4 +358,11 @@ cancelForfeitBtn.addEventListener("click", () => {
 // Confirm forfeit and go back to start page
 confirmForfeitBtn.addEventListener("click", () => {
     window.location.href = "/pages/startPage/startPage.html";
+});
+
+// Next sudoku popup
+const nextSudokuBtn = document.getElementById("next-sudoku-btn");
+
+nextSudokuBtn.addEventListener("click", () => {
+    window.location.reload();
 });

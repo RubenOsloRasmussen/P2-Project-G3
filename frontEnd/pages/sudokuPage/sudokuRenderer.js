@@ -197,6 +197,20 @@ export class SudokuRenderer {
                 candidateBlock.centerNotation.htmlElement.appendChild(notationCell);
             }
         }
+        this.checkWin();
+    }
+
+    checkWin() {
+        const winPopUp = document.getElementById("win-pop-up");
+
+        if (!winPopUp.classList.contains("Hidden")) return;
+
+        if (this.board.isBoardFull()) {
+            const sudokuBoardElement = document.getElementById("sudoku-board-container-id");
+
+            sudokuBoardElement.classList.add("BoardWon");
+            winPopUp.classList.remove("Hidden");
+        }
     }
 
     buildNotationHtmlCell() {
