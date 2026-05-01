@@ -3,6 +3,8 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import http from "http";
+import { GetSudokuBoard } from "./backEnd/sudokuBoard.js";
+import { profScoreCalc } from "./backEnd/proficiencyScoreCalc.js";
 
 // Import function that reads a Sudoku board of the csv file
 import { GetSudokuBoard } from "./backEnd/sudokuBoard.js";
@@ -12,6 +14,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Create the Express app
 const app = express();
+const BASE_PATH = process.env.NODE_ENV === "production" ? "/node0" : "";
 
 // Allow base path to differ depending on whether we use localhost or AAU's server
 const BASE_PATH = process.env.NODE_ENV === "production" ? "/node0" : "";
@@ -37,6 +40,14 @@ app.get(`${BASE_PATH}/api/sudoku`, (req, res) => {
   res.json({ board });
 });
 
+// API endpoint to fetch (and change) proficiency score
+app.get(`${BASE_PATH}/api/proficiency`, (req, res) => {
+    const err = Number(req.query.err ?? 0);
+    const time = Number(req.query.time ?? 0);
+    const data = profScoreCalc(err,time);
+    res.json({ data });
+});
+        
 // Returns the main (start) html page.
 app.get(BASE_PATH, (req, res) => {
   res.sendFile(
