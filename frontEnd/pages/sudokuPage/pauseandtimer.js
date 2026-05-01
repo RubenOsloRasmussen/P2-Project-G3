@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function resumeTimer() {
         sudokuStarted = true;
         timerPaused = false;
-        pauseButton.textContent = "Ⅱ";
+        pauseButton.textContent = "⏸";
         hideOverlay();
         startTimer();
     }
