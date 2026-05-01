@@ -128,26 +128,27 @@ export class SudokuRenderer {
 
     renderCells() {
         for (let r = 0; r <= 8; r++) {
-            for (let c = 0; c <= 8; c++) {
-                let sudokuCell = this.board.sudokuCells[r][c];
-
-                sudokuCell.htmlTextElement.textContent = sudokuCell.number ? sudokuCell.number : "";
-                if (sudokuCell.isHighlighted) {
-                    if (sudokuCell.isTargetCell) {
-                        sudokuCell.htmlElement.style.backgroundColor = this.TARGET_COLOUR;
-                    } else if (sudokuCell.isSimilarNumber) {
-                        sudokuCell.htmlElement.style.backgroundColor = this.SIMILAR_NUMBER_COLOUR;
-                    } else {
-                        sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
-                    }
-
-                    if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = sudokuCell.cellColour;
-
-                    this.renderCandidateBlock(sudokuCell.candidateBlock, this.board.notationMode);
+        for (let c = 0; c <= 8; c++) {
+            let sudokuCell = this.board.sudokuCells[r][c];
+            
+            sudokuCell.htmlTextElement.textContent = sudokuCell.number ? sudokuCell.number : "";
+            if (sudokuCell.isHighlighted) {
+                if (sudokuCell.isTargetCell) {
+                    sudokuCell.htmlElement.style.backgroundColor = this.TARGET_COLOUR;
+                } else if (sudokuCell.isSimilarNumber) {
+                    sudokuCell.htmlElement.style.backgroundColor = this.SIMILAR_NUMBER_COLOUR;
+                } else {
+                    sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_HIGHLIGHT_COLOUR;
                 }
+            } else {
+                sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
             }
-        }
 
+            if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = sudokuCell.cellColour;
+
+            this.renderCandidateBlock(sudokuCell.candidateBlock, this.board.notationMode);
+        }
+    }
     }
 
     renderCandidateBlock() {
