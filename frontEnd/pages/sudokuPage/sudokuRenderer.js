@@ -1,17 +1,17 @@
 import { CandidateBlock, CornerNotation, CenterNotation } from "./notations.js"
 
 export class SudokuRenderer {
-  constructor(board) {
-    this.board = board;
-    this.fontWeight = "400";
-    this.DEFAULT_HIGHLIGHT_COLOUR = "#e2edff"
-    this.TARGET_COLOUR = "#bbd0f5";
-    this.SIMILAR_NUMBER_COLOUR = "#a1bded";
-    this.DEFAULT_CELL_COLOUR = "#ffffff";
-    this.DEFAULT_FONT_COLOR = "#4168A9";
-  }
+    constructor(board) {
+        this.board = board;
+        this.fontWeight = "400";
+        this.DEFAULT_HIGHLIGHT_COLOUR = "#e2edff"
+        this.TARGET_COLOUR = "#bbd0f5";
+        this.SIMILAR_NUMBER_COLOUR = "#a1bded";
+        this.DEFAULT_CELL_COLOUR = "#ffffff";
+        this.DEFAULT_FONT_COLOR = "#4168A9";
+    }
 
-  setupBoard() {
+    setupBoard() {
         let sudokuBoardElements = document.getElementsByClassName("SudokuBlockClass");
 
         for (let rowIndex = 0; rowIndex <= 8; rowIndex++) {
@@ -119,97 +119,99 @@ export class SudokuRenderer {
             button.addEventListener("click", (e) => {
                 const color = e.currentTarget.dataset.color; // e.g. "red"
 
-                const capitalized = color.charAt(0).toUpperCase()+color.slice(1);
+                const capitalized = color.charAt(0).toUpperCase() + color.slice(1);
 
                 this.board.setNotationMode(`colorNotation${capitalized}`);
             });
         }
     }
 
-  renderCells() {
-    for (let r = 0; r <= 8; r++) {
-        for (let c = 0; c <= 8; c++) {
-            let sudokuCell = this.board.sudokuCells[r][c];
-            
-            sudokuCell.htmlTextElement.textContent = sudokuCell.number ? sudokuCell.number : "";
-            if (sudokuCell.isHighlighted) {
-                if (sudokuCell.isTargetCell) {
-                    sudokuCell.htmlElement.style.backgroundColor = this.TARGET_COLOUR;
-                } else if (sudokuCell.isSimilarNumber) {
-                    sudokuCell.htmlElement.style.backgroundColor = this.SIMILAR_NUMBER_COLOUR;
-                } else {
-                    sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
+    renderCells() {
+        for (let r = 0; r <= 8; r++) {
+            for (let c = 0; c <= 8; c++) {
+                let sudokuCell = this.board.sudokuCells[r][c];
+
+                sudokuCell.htmlTextElement.textContent = sudokuCell.number ? sudokuCell.number : "";
+                if (sudokuCell.isHighlighted) {
+                    if (sudokuCell.isTargetCell) {
+                        sudokuCell.htmlElement.style.backgroundColor = this.TARGET_COLOUR;
+                    } else if (sudokuCell.isSimilarNumber) {
+                        sudokuCell.htmlElement.style.backgroundColor = this.SIMILAR_NUMBER_COLOUR;
+                    } else {
+                        sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
+                    }
+
+                    if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = sudokuCell.cellColour;
+
+                    this.renderCandidateBlock(sudokuCell.candidateBlock, this.board.notationMode);
                 }
-
-            if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = sudokuCell.cellColour;
-
-            this.renderCandidateBlock(sudokuCell.candidateBlock, this.board.notationMode);
-        }
-    }
-  }
-
-  renderCandidateBlock() {
-    let candidateBlock = this.board.targetCell.candidateBlock;
-    this.renderCornerNotation(candidateBlock);
-    this.renderCenterNotation(candidateBlock);
-  }
-
-   renderCornerNotation(candidateBlock) {
-    this.clearCornerNotation(candidateBlock);
-
-    for (let i = 0; i < candidateBlock.cornerNotation.topCornerCandidates.length; i++) {
-        this.addNotationHtmlCell(candidateBlock.cornerNotation.topCornerCandidates[i], "candidateTop", "cornerNotation", candidateBlock);
-    }
-    for (let i = 0; i < candidateBlock.cornerNotation.bottomCornerCandidates.length; i++) {
-        this.addNotationHtmlCell(candidateBlock.cornerNotation.bottomCornerCandidates[i], "candidateBottom", "cornerNotation", candidateBlock);
-    }
-  }
-
-  renderCenterNotation(candidateBlock) {
-    this.clearCenterNotation(candidateBlock);
-    for (let i = 0; i < candidateBlock.centerNotation.centerCandidates.length; i++) {
-        this.addNotationHtmlCell(candidateBlock.centerNotation.centerCandidates[i], "none", "centerNotation", candidateBlock);
-    }
-  }
-
-  addNotationHtmlCell(number, cornerNotationType, notationType, candidateBlock) {
-    if (notationType == "cornerNotation") {
-        if (cornerNotationType == "candidateTop") {
-            if (candidateBlock.cornerNotation.topCornerCandidates.length <= 4) {
-            const notationCell = this.buildNotationHtmlCell();
-            notationCell.textContent = number;
-            candidateBlock.cornerNotation.topCornerHTMLElement.appendChild(notationCell);
             }
         }
-        if (cornerNotationType == "candidateBottom") {
-            if (candidateBlock.cornerNotation.bottomCornerCandidates.length <= 4) {
+
+    }
+
+    renderCandidateBlock() {
+        let candidateBlock = this.board.targetCell.candidateBlock;
+        this.renderCornerNotation(candidateBlock);
+        this.renderCenterNotation(candidateBlock);
+    }
+
+    renderCornerNotation(candidateBlock) {
+        this.clearCornerNotation(candidateBlock);
+
+        for (let i = 0; i < candidateBlock.cornerNotation.topCornerCandidates.length; i++) {
+            this.addNotationHtmlCell(candidateBlock.cornerNotation.topCornerCandidates[i], "candidateTop", "cornerNotation", candidateBlock);
+        }
+        for (let i = 0; i < candidateBlock.cornerNotation.bottomCornerCandidates.length; i++) {
+            this.addNotationHtmlCell(candidateBlock.cornerNotation.bottomCornerCandidates[i], "candidateBottom", "cornerNotation", candidateBlock);
+        }
+    }
+
+    renderCenterNotation(candidateBlock) {
+        this.clearCenterNotation(candidateBlock);
+        for (let i = 0; i < candidateBlock.centerNotation.centerCandidates.length; i++) {
+            this.addNotationHtmlCell(candidateBlock.centerNotation.centerCandidates[i], "none", "centerNotation", candidateBlock);
+        }
+    }
+
+    addNotationHtmlCell(number, cornerNotationType, notationType, candidateBlock) {
+        if (notationType == "cornerNotation") {
+            if (cornerNotationType == "candidateTop") {
+                if (candidateBlock.cornerNotation.topCornerCandidates.length <= 4) {
+                    const notationCell = this.buildNotationHtmlCell();
+                    notationCell.textContent = number;
+                    candidateBlock.cornerNotation.topCornerHTMLElement.appendChild(notationCell);
+                }
+            }
+            if (cornerNotationType == "candidateBottom") {
+                if (candidateBlock.cornerNotation.bottomCornerCandidates.length <= 4) {
+                    const notationCell = this.buildNotationHtmlCell();
+                    notationCell.textContent = number;
+                    candidateBlock.cornerNotation.bottomCornerHTMLElement.appendChild(notationCell);
+                }
+            }
+        } else if (notationType == "centerNotation") {
+            if (candidateBlock.centerNotation.centerCandidates.length <= 4) {
                 const notationCell = this.buildNotationHtmlCell();
                 notationCell.textContent = number;
-                candidateBlock.cornerNotation.bottomCornerHTMLElement.appendChild(notationCell);
+                candidateBlock.centerNotation.htmlElement.appendChild(notationCell);
             }
         }
-    } else if (notationType == "centerNotation") {
-        if (candidateBlock.centerNotation.centerCandidates.length <= 4) {
-            const notationCell = this.buildNotationHtmlCell();
-            notationCell.textContent = number;
-            candidateBlock.centerNotation.htmlElement.appendChild(notationCell);
-        }
     }
-  }
 
-  buildNotationHtmlCell() {
-    let notationCell = document.createElement("div");
-    notationCell.setAttribute("class", "NotationNumber");
-    return notationCell;
-  }
+    buildNotationHtmlCell() {
+        let notationCell = document.createElement("div");
+        notationCell.setAttribute("class", "NotationNumber");
+        return notationCell;
+    }
 
-  clearCornerNotation(candidateBlock) {
-    candidateBlock.cornerNotation.topCornerHTMLElement.textContent = "";
-    candidateBlock.cornerNotation.bottomCornerHTMLElement.textContent = "";
-  }
+    clearCornerNotation(candidateBlock) {
+        candidateBlock.cornerNotation.topCornerHTMLElement.textContent = "";
+        candidateBlock.cornerNotation.bottomCornerHTMLElement.textContent = "";
+    }
 
-  clearCenterNotation(candidateBlock) {
-    candidateBlock.centerNotation.htmlElement.textContent = "";
-  }
+    clearCenterNotation(candidateBlock) {
+        candidateBlock.centerNotation.htmlElement.textContent = "";
+    }
 
 }
