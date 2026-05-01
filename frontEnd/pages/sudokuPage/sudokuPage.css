@@ -549,9 +549,48 @@ body {
     font-size: 17px;
     cursor: pointer;
 }
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+/* notation */
+
+.LockedCell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.NotationCells {
+    position: absolute;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+.SudokuCell:hover {
+    cursor: pointer;
+}
+
+.NotationRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.NotationNumber {
+    padding: 0px 2px;
+    font-size: 12px;
+}
+
+.SudokuColourCell {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.CellText {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .candidateBlock {
