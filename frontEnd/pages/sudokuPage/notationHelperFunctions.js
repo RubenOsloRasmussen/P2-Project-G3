@@ -8,7 +8,8 @@ export function findSameNumberInstances(rowIndex, columnIndex, ourCellsArr) {
     // Saves the index of every cell with the same number.
     for (let i = 0; i < 9; i++) {
         for (let j = 0; j < 9; j++) {
-            if (ourCellsArr[i][j].number === number) {
+           
+            if (ourCellsArr[i][j].number == number) {
                 instancesIndexArray.push(rowAndColumnToIndex(i, j));
             }
         }
