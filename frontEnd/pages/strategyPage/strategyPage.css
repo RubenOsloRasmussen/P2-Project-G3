@@ -26,8 +26,8 @@ a:active {
     color: #07357F;
 }
 
-#strategy-list-id a:hover {
-    color: #03193d;
+#strategy-list-id li a:hover {
+    color: #020e24;
 }
 
 /* Bullet (number) colors and spacing - Main panel*/
