@@ -3,7 +3,7 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import http from "http";
-import { GetSudokuBoard } from "./backEnd/sudokuBoard.js";
+
 import { profScoreCalc } from "./backEnd/proficiencyScoreCalc.js";
 
 // Import function that reads a Sudoku board of the csv file
@@ -14,7 +14,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Create the Express app
 const app = express();
-const BASE_PATH = process.env.NODE_ENV === "production" ? "/node0" : "";
 
 // Allow base path to differ depending on whether we use localhost or AAU's server
 const BASE_PATH = process.env.NODE_ENV === "production" ? "/node0" : "";
