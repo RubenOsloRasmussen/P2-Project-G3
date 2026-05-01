@@ -5,18 +5,18 @@ import { InputController } from "./inputController.js";
 
 class SudokuCell {
     constructor(number, lockedState, colorNumber, rowIndex, columnIndex) {
-        this.number = number; // Int, the number in the given cell
-        this.locked = lockedState; // Bool, is this number permanent?
-        this.candidates = null,
-            this.rowIndex = rowIndex;
-        this.columnIndex = columnIndex;
-        this.isTargetCell = false;
-        this.isHighlighted = false;
-        this.isSimilarNumber = false;
-        this.htmlElement = null;
-        this.htmlColourCell = null;
-        this.htmlTextElement = null;
-        this.cellColour = null;
+    this.number = number; // Int, the number in the given cell or "null"
+    this.locked = lockedState; // Bool, is this number permanent?
+    this.candidateBlock = null,
+    this.rowIndex = rowIndex;
+    this.columnIndex = columnIndex;
+    this.isTargetCell = false;
+    this.isHighlighted = false;
+    this.isSimilarNumber = false;
+    this.htmlElement = null;
+    this.htmlColourCell = null;
+    this.htmlTextElement = null;
+    this.cellColour = "#ffffff";
     }
 }
 
@@ -25,6 +25,28 @@ export class SudokuBoard {
         this.sudokuCells = initialCellsArr;
         this.inputController = null;
         this.notationMode = notationMode; // Options: "none", "defaultNotation", "cornerNotation", "centerNotation", "colorNotationRed", "colorNotationGreen", "colorNotationBlue"
+        this.targetCell = null;
+    }
+
+    clearCandidates(sudokuCell) {
+        sudokuCell.candidateBlock.cornerNotation.topCornerCandidates = [];
+        sudokuCell.candidateBlock.cornerNotation.bottomCornerCandidates = [];
+        sudokuCell.candidateBlock.centerNotation.centerCandidates = [];
+    }
+
+    insertCellNumber(sudokuCell, number) {
+        if (!sudokuCell.isTargetCell || sudokuCell.locked || !(/^[1-9]$/.test(number))) return;
+        sudokuCell.number = number;
+
+        this.clearSimilarNumberHighlights(sudokuCell.rowIndex, sudokuCell.columnIndex);
+        this.highlightSimilarNumbers(sudokuCell.rowIndex, sudokuCell.columnIndex);
+    }
+
+    deleteCellNumber(sudokuCell) {
+        if (!sudokuCell.isTargetCell || sudokuCell.locked) return;
+        this.clearSimilarNumberHighlights(sudokuCell.rowIndex, sudokuCell.columnIndex);
+        sudokuCell.number = null;
+     
     }
 
     setNotationMode(notationMode) {
@@ -38,6 +60,7 @@ export class SudokuBoard {
     selectCell(r, c) {
         this.clearHighlights();
         this.sudokuCells[r][c].isTargetCell = true;
+        this.targetCell = this.sudokuCells[r][c];
         this.highlightColumn(c);
         this.highlightRow(r);
         this.highlightBlock(r, c);
@@ -55,12 +78,22 @@ export class SudokuBoard {
         }
     }
 
+    clearSimilarNumberHighlights() {
+        for (let r = 0; r <= 8; r++) {
+            for (let c = 0; c <= 8; c++) {
+                this.sudokuCells[r][c].isSimilarNumber = false;
+                this.sudokuCells[r][c].isHighlighted = false;
+            }
+        }
+    }
+
     clearHighlights() {
         for (let r = 0; r <= 8; r++) {
             for (let c = 0; c <= 8; c++) {
                 this.sudokuCells[r][c].isHighlighted = false;
                 this.sudokuCells[r][c].isSimilarNumber = false;
                 this.sudokuCells[r][c].isTargetCell = false;
+                this.targetCell = null;
             }
         }
     }
@@ -89,10 +122,8 @@ export class SudokuBoard {
     highlightSimilarNumbers(r, c) {
         if (!this.sudokuCells[r][c].number) return;
         let numberInstances = findSameNumberInstances(r, c, this.sudokuCells);
-        console.log("numberin", numberInstances)
         for (let i = 0; i < numberInstances.length; i++) {
             let { row, column } = indexToRowAndColumn(numberInstances[i]);
-            console.log("rowIndex", row)
             this.sudokuCells[row][column].isHighlighted = true;
             this.sudokuCells[row][column].isSimilarNumber = true;
         }
@@ -100,7 +131,6 @@ export class SudokuBoard {
 
     getBlockRange(r, c) {
         let rowRange = [], columnRange = [];
-        console.log("range: " + r, c)
         if (r <= 2) {
             rowRange.push(0, 2);
         } else if (r <= 5) {
@@ -152,6 +182,7 @@ export class SudokuBoard {
         return -1;
     }
 }
+
 
 //The sudoku board is initialized as an undefined 9*9 matrix
 let sudokuCells = [

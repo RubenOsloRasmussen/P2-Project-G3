@@ -110,6 +110,7 @@ body {
     background-color: white;
     position: relative;
     z-index: 2; 
+    
 }
 
 /* Notation buttons */
@@ -477,7 +478,7 @@ body {
     cursor: pointer;
 }
 
-.NotationBlock {
+.NotationRow {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -496,6 +497,25 @@ body {
 }
 
 .CellText {
-  position: relative;
+  position: absolute;
+  inset: 0;
   z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.candidateBlock {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.TopCornerNotation, .BottomCornerNotation {
+    color: #0040ff;
+}
+
+.CenterNotation {
+    color: rgb(187, 0, 255);
 }
