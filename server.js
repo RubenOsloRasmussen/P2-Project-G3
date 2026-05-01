@@ -3,6 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import http from "http";
 import { GetSudokuBoard } from "./backEnd/sudokuBoard.js";
+import { profScoreCalc } from "./backEnd/proficiencyScoreCalc.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -23,6 +24,14 @@ app.get(`${BASE_PATH}/api/sudoku`, (req, res) => {
   const board = GetSudokuBoard(sudokuNumber);
   res.json({ board });
 });
+
+app.get(`${BASE_PATH}/api/proficiency`, (req, res) => {
+    const err = Number(req.query.err ?? 0);
+    const time = Number(req.query.time ?? 0);
+    const data = profScoreCalc(err,time);
+    res.json({ data });
+});
+
 
 app.get(BASE_PATH, (req, res) => {
   res.sendFile(

@@ -66,3 +66,10 @@ export function sudokuLevel(stringAmount) {
     return stringNumber;
 }
 
+/**
+ * Gets the profeciency score from ProficiencyScoreCalc.
+ * @returns 
+ */
+export function getScore() {
+    return userScore;
+}

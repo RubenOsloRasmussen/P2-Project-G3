@@ -166,6 +166,18 @@ let sudokuCells = [
     ["", , , , , , , , ""],
 ]
 
+//const err = 1
+//const time = Math.random()*150000
+
+async function getProficiency(err, time) {
+    const res = await fetch(`/api/proficiency?err=${err}&time=${time}`);
+    const data = await res.json();
+    console.log("proficiency is",data)
+    return data;
+}
+
+//getProficiency(err, time);
+
 let sudokuNumber = 300;
 const boardData = await loadSudokuBoard(sudokuNumber);
 
