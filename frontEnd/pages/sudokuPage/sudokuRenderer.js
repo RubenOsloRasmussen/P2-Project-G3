@@ -11,6 +11,10 @@ export class SudokuRenderer {
         this.DEFAULT_FONT_COLOR = "#4168A9";
     }
 
+    /**
+     * This function creates and initialises the HTML representation of the Sudoku board.
+     * It generates all cells, assigns DOM elements to each SudokuCell and appends them to their corresponding block.
+     */
     setupBoard() {
         let sudokuBoardElements = document.getElementsByClassName("SudokuBlockClass");
 
@@ -55,6 +59,11 @@ export class SudokuRenderer {
         }
     }
 
+    /**
+     * This function builds and returns a candidate block containing corner and center notation elements.
+     * It creates the necessary HTML structure and initialises the corresponding notation objects.
+     * @returns {candidateBlock} It returns the initialised candidate block for a cell.
+     */
     buildCandidateBlock() {
         let candidateHtmlBlock = document.createElement("div");
         candidateHtmlBlock.setAttribute("class", "candidateBlock");
@@ -77,6 +86,10 @@ export class SudokuRenderer {
         return candidateBlock;
     }
 
+    /**
+     * This function binds event listeners to all Sudoku cells and handles keyboard input.
+     * It enables cell selection via clicks and forwards keydown events to the input controller.
+     */
     bindCellEvents() {
         let sudokuBoardElements = document.getElementsByClassName("SudokuBlockClass");
 
@@ -91,12 +104,20 @@ export class SudokuRenderer {
         });
     }
 
+    /**
+     * Attaches a click event to the given HTML cell element to handle cell selection via the input controller. 
+     * @param {*} sudokuHtmlCell The given HTML cell element
+     */
     bindSelectEvent(sudokuHtmlCell) {
         sudokuHtmlCell.addEventListener("click", (e) => {
             this.board.inputController.clickCell(e);
         });
     }
 
+    /**
+     * This function sets up event listeners for notation selection buttons.
+     * It allows switching between default, corner, center and color notation modes.
+     */
     bindNotationEvents() {
         let notationBoxNotation = document.getElementsByClassName("NotationBoxNotation");
         let notationBoxCornerNotation = document.getElementsByClassName("NotationBoxCornerNotation");
@@ -126,37 +147,50 @@ export class SudokuRenderer {
         }
     }
 
+    /**
+     * This function renders the current state of all Sudoku cells.
+     * It updates the numbers, highlights, background colors and candidate notations based on the board and cell state.
+     */
     renderCells() {
         for (let r = 0; r <= 8; r++) {
-        for (let c = 0; c <= 8; c++) {
-            let sudokuCell = this.board.sudokuCells[r][c];
-            
-            sudokuCell.htmlTextElement.textContent = sudokuCell.number ? sudokuCell.number : "";
-            if (sudokuCell.isHighlighted) {
-                if (sudokuCell.isTargetCell) {
-                    sudokuCell.htmlElement.style.backgroundColor = this.TARGET_COLOUR;
-                } else if (sudokuCell.isSimilarNumber) {
-                    sudokuCell.htmlElement.style.backgroundColor = this.SIMILAR_NUMBER_COLOUR;
+            for (let c = 0; c <= 8; c++) {
+                let sudokuCell = this.board.sudokuCells[r][c];
+
+                sudokuCell.htmlTextElement.textContent = sudokuCell.number ? sudokuCell.number : "";
+                if (sudokuCell.isHighlighted) {
+                    if (sudokuCell.isTargetCell) {
+                        sudokuCell.htmlElement.style.backgroundColor = this.TARGET_COLOUR;
+                    } else if (sudokuCell.isSimilarNumber) {
+                        sudokuCell.htmlElement.style.backgroundColor = this.SIMILAR_NUMBER_COLOUR;
+                    } else {
+                        sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_HIGHLIGHT_COLOUR;
+                    }
                 } else {
-                    sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_HIGHLIGHT_COLOUR;
+                    sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
                 }
-            } else {
-                sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
+
+                if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = sudokuCell.cellColour;
+
+                this.renderCandidateBlock(sudokuCell.candidateBlock, this.board.notationMode);
             }
-
-            if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = sudokuCell.cellColour;
-
-            this.renderCandidateBlock(sudokuCell.candidateBlock, this.board.notationMode);
         }
     }
-    }
 
+    /**
+     * This function renders the candidate notation for the currently selected cell.
+     * It updates both corner and center notation.
+     */
     renderCandidateBlock() {
         let candidateBlock = this.board.targetCell.candidateBlock;
         this.renderCornerNotation(candidateBlock);
         this.renderCenterNotation(candidateBlock);
     }
 
+    /**
+     * This function renders the corner notation for a candidate block.
+     * It clears the existing notation and displays the current top and bottom corner candidates.
+     * @param {*} candidateBlock The given candidate block.
+     */
     renderCornerNotation(candidateBlock) {
         this.clearCornerNotation(candidateBlock);
 
@@ -168,6 +202,11 @@ export class SudokuRenderer {
         }
     }
 
+    /**
+     * This function renders the center notation for a candidate block.
+     * It clears the existing notation and displays the current center candidates.
+     * @param {*} candidateBlock The given candidate block.
+     */
     renderCenterNotation(candidateBlock) {
         this.clearCenterNotation(candidateBlock);
         for (let i = 0; i < candidateBlock.centerNotation.centerCandidates.length; i++) {
@@ -175,6 +214,15 @@ export class SudokuRenderer {
         }
     }
 
+    /**
+     * This function creates and appends a notation cell to the appropriate notation area.
+     * It handles both corner and center notation types and enforces display limits.
+     * It also checks whether the game has been won after updating notation.
+     * @param {*} number The candidate number to display.
+     * @param {*} cornerNotationType Specifies top or bottom corner notation.
+     * @param {*} notationType The notation type ("cornerNotation" or "centerNotation").
+     * @param {*} candidateBlock The candidate block being rendered.
+     */
     addNotationHtmlCell(number, cornerNotationType, notationType, candidateBlock) {
         if (notationType == "cornerNotation") {
             if (cornerNotationType == "candidateTop") {
@@ -201,6 +249,11 @@ export class SudokuRenderer {
         this.checkWin();
     }
 
+    /**
+     * This function checks whether the Sudoku board is complete and triggers the win state.
+     * It displays the win popup and applies win styling if the board is full.
+     * @returns 
+     */
     checkWin() {
         const winPopUp = document.getElementById("win-pop-up");
 
@@ -214,17 +267,29 @@ export class SudokuRenderer {
         }
     }
 
+    /**
+     * This function creates and returns a HTML element for a single notation number.
+     * @returns The created notation cell element.
+     */
     buildNotationHtmlCell() {
         let notationCell = document.createElement("div");
         notationCell.setAttribute("class", "NotationNumber");
         return notationCell;
     }
 
+    /**
+     * This function clears all corner notation from the given candidate block.
+     * @param {*} candidateBlock The given candidate block.
+     */
     clearCornerNotation(candidateBlock) {
         candidateBlock.cornerNotation.topCornerHTMLElement.textContent = "";
         candidateBlock.cornerNotation.bottomCornerHTMLElement.textContent = "";
     }
 
+    /**
+     * This function clears all center notation from the given candidate block.
+     * @param {*} candidateBlock The given candidate block.
+     */
     clearCenterNotation(candidateBlock) {
         candidateBlock.centerNotation.htmlElement.textContent = "";
     }

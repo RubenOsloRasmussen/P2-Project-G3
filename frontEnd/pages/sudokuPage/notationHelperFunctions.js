@@ -1,6 +1,12 @@
 import { rowAndColumnToIndex } from './helperfunctions.js';
 
-
+/**
+ * This function returns an array of indices where the number on the pressed cell can also be found, including the pressed cell's index.
+ * @param {*} rowIndex The row index of the pressed cell.
+ * @param {*} columnIndex The column index of the pressed cell.
+ * @param {*} ourCellsArr The 2D array of the Sudoku board.
+ * @returns 
+ */
 export function findSameNumberInstances(rowIndex, columnIndex, ourCellsArr) {
     let instancesIndexArray = [];
     let number = ourCellsArr[rowIndex][columnIndex].number
@@ -18,6 +24,13 @@ export function findSameNumberInstances(rowIndex, columnIndex, ourCellsArr) {
     return instancesIndexArray;
 }
 
+/**
+ * This function returns an array of indices in the same block as the pressed cell, including the pressed cell's index.
+ * @param {*} rowIndex The row index of the pressed cell.
+ * @param {*} columnIndex The column index of the pressed cell.
+ * @param {*} ourCellsArr The 2D array of the Sudoku board.
+ * @returns 
+ */
 export function findSameBlockInstances(rowIndex, columnIndex, ourCellsArr) {
     let instancesIndexArray = [];
 
@@ -30,28 +43,6 @@ export function findSameBlockInstances(rowIndex, columnIndex, ourCellsArr) {
         for (let j = 0; j < 3; j++) {
             instancesIndexArray.push(rowAndColumnToIndex(startRowIndex+i, startColumnIndex+j));
         }
-    }
-
-    return instancesIndexArray;
-}
-
-export function findSameRowInstances(rowIndex, columnIndex, ourCellsArr) {
-    let instancesIndexArray = [];
-
-    // Saves the index of every cell in the row.
-    for (let i = 0; i < 9; i++) {
-        instancesIndexArray.push(rowAndColumnToIndex(rowIndex, i));
-    }
-
-    return instancesIndexArray;
-}
-
-export function findSameColumnInstances(rowIndex, columnIndex, ourCellsArr) {
-    let instancesIndexArray = [];
-
-    // Saves the index of every cell in the column.
-    for (let i = 0; i < 9; i++) {
-        instancesIndexArray.push(rowAndColumnToIndex(i, columnIndex));
     }
 
     return instancesIndexArray;

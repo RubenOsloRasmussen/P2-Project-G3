@@ -1,3 +1,4 @@
+// The code below runs when the site has been loaded.
 document.addEventListener("DOMContentLoaded", () => {
     let timerSeconds = 0;
     let timerInterval = null;
@@ -9,6 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const startButton = document.getElementById("start-sudoku-btn");
     const startOverlay = document.getElementById("sudoku-start-overlay");
 
+    /**
+     * This function converts a time value in seconds to a formated string (MM:SS).
+     * @param {*} totalSeconds The given time value
+     * @returns The string (MM:SS)
+     */
     function formatTime(totalSeconds) {
         const minutes = Math.floor(totalSeconds / 60);
         const seconds = totalSeconds % 60;
@@ -16,14 +22,24 @@ document.addEventListener("DOMContentLoaded", () => {
         return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
     }
 
+    /**
+     * This function enables the overlay, that hides the Sudoku puzzle.
+     */
     function showOverlay() {
         startOverlay.classList.remove("Hidden");
     }
 
+    /**
+    * This function disables the overlay, that hides the Sudoku puzzle.
+    */
     function hideOverlay() {
         startOverlay.classList.add("Hidden");
     }
 
+    /**
+     * This function starts the timer if it is not already running.
+     * It also updates the display every second.
+     */
     function startTimer() {
         if (timerInterval !== null) return;
 
@@ -33,6 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000);
     }
 
+    /**
+     * This function pauses the timer and changes the pause button to a resume button.
+     */
     function pauseTimer() {
         clearInterval(timerInterval);
         timerInterval = null;
@@ -41,6 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
         showOverlay();
     }
 
+    /**
+    * This function pauses the timer and changes the resume button to a pause button.
+    */
     function resumeTimer() {
         sudokuStarted = true;
         timerPaused = false;
@@ -49,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         startTimer();
     }
 
+    // Event listeners for starting, pausing and resuming the timer.
     startButton.addEventListener("click", () => {
         resumeTimer();
     });
@@ -66,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
+    // Initialising timer display and overlay.
     timerDisplay.textContent = formatTime(timerSeconds);
     showOverlay();
 });

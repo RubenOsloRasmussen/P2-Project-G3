@@ -1,22 +1,26 @@
 import { findSameNumberInstances } from "./notationHelperFunctions.js";
+import { findSameBlockInstances } from "./notationHelperFunctions.js";
+
 import { indexToRowAndColumn } from "./helperfunctions.js";
+import { rowAndColumnToIndex } from "./helperfunctions.js";
+
 import { SudokuRenderer } from "./sudokuRenderer.js";
 import { InputController } from "./inputController.js";
 
 class SudokuCell {
     constructor(number, lockedState, colorNumber, rowIndex, columnIndex) {
-    this.number = number; // Int, the number in the given cell or "null"
-    this.locked = lockedState; // Bool, is this number permanent?
-    this.candidateBlock = null,
-    this.rowIndex = rowIndex;
-    this.columnIndex = columnIndex;
-    this.isTargetCell = false;
-    this.isHighlighted = false;
-    this.isSimilarNumber = false;
-    this.htmlElement = null;
-    this.htmlColourCell = null;
-    this.htmlTextElement = null;
-    this.cellColour = "#ffffff";
+        this.number = number; // Int, the number in the given cell or "null"
+        this.locked = lockedState; // Bool, is this number permanent?
+        this.candidateBlock = null,
+        this.rowIndex = rowIndex;
+        this.columnIndex = columnIndex;
+        this.isTargetCell = false;
+        this.isHighlighted = false;
+        this.isSimilarNumber = false;
+        this.htmlElement = null;
+        this.htmlColourCell = null;
+        this.htmlTextElement = null;
+        this.cellColour = "#ffffff";
     }
 }
 
@@ -28,12 +32,24 @@ export class SudokuBoard {
         this.targetCell = null;
     }
 
+    /*-------------------------------------- Cell manipulation ------------------------------------*/
+
+    /**
+     * This function clears all candidates (corner and center notation) in a given cell.
+     * @param {*} sudokuCell The given cell.
+     */
     clearCandidates(sudokuCell) {
         sudokuCell.candidateBlock.cornerNotation.topCornerCandidates = [];
         sudokuCell.candidateBlock.cornerNotation.bottomCornerCandidates = [];
         sudokuCell.candidateBlock.centerNotation.centerCandidates = [];
     }
 
+    /**
+     * This function inserts a given number in a given cell, as long as the number is valid and the cell is selected and not locked.
+     * @param {*} sudokuCell The given cell.
+     * @param {*} number The given number.
+     * @returns 
+     */
     insertCellNumber(sudokuCell, number) {
         if (!sudokuCell.isTargetCell || sudokuCell.locked || !(/^[1-9]$/.test(number))) return;
         sudokuCell.number = number;
@@ -42,32 +58,38 @@ export class SudokuBoard {
         this.highlightSimilarNumbers(sudokuCell.rowIndex, sudokuCell.columnIndex);
     }
 
+    /**
+     * This function deletes the number in the given cell, as long as the cell is selected and not locked.
+     * It also clears the highlighting of similar numbers.
+     * @param {*} sudokuCell The given cell.
+     * @returns 
+     */
     deleteCellNumber(sudokuCell) {
         if (!sudokuCell.isTargetCell || sudokuCell.locked) return;
         this.clearSimilarNumberHighlights(sudokuCell.rowIndex, sudokuCell.columnIndex);
         sudokuCell.number = null;
-     
+
     }
 
-    setNotationMode(notationMode) {
-        this.notationMode = notationMode;
-    }
-
-    isBoardFull() {
-        for (let r = 0; r <= 8; r++) {
-            for (let c = 0; c <= 8; c++) {
-                if (!this.sudokuCells[r][c].number) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
+    /**
+     * This function changes the color of a cell.
+     * @param {*} r The row index of the cell.
+     * @param {*} c The column index of the cell.
+     * @param {*} color The color the cell needs to be changed to.
+     */
     changeCellColour(r, c, color) {
         this.sudokuCells[r][c].cellColour = color;
     }
 
+    /**
+     * This function handles cell selection logic when a cell is pressed.
+     * It clears previous highlights and sets the selected cell as the target.
+     * It then updates row, column, block and similar number highlights,
+     * runs the necessary functions when a cell has been pressed
+     * and applies color notation if enabled.
+     * @param {*} r Row index of the selected cell
+     * @param {*} c Column index of the selected cell
+     */
     selectCell(r, c) {
         this.clearHighlights();
         this.sudokuCells[r][c].isTargetCell = true;
@@ -89,6 +111,12 @@ export class SudokuBoard {
         }
     }
 
+    /*---------------------------------------- Highlighting ---------------------------------------*/
+
+    /**
+     * This function clears all highlights related to similar numbers on the board,
+     * as well as resetting both similar number and general highlight flags for all cells.
+     */
     clearSimilarNumberHighlights() {
         for (let r = 0; r <= 8; r++) {
             for (let c = 0; c <= 8; c++) {
@@ -98,6 +126,10 @@ export class SudokuBoard {
         }
     }
 
+    /**
+     * This function clears all highlights on the board.
+     * It also resets the target cell, similar number and general highlights.
+     */
     clearHighlights() {
         for (let r = 0; r <= 8; r++) {
             for (let c = 0; c <= 8; c++) {
@@ -109,27 +141,46 @@ export class SudokuBoard {
         }
     }
 
+    /**
+     * This function highlights the entire column, given a column index.
+     * @param {*} c The column index.
+     */
     highlightColumn(c) {
         for (let r = 0; r <= 8; r++) {
             this.sudokuCells[r][c].isHighlighted = true;
         }
     }
 
+    /**
+     * This function highlights the entire row, given a row index.
+     * @param {*} r The row index.
+     */
     highlightRow(r) {
         for (let c = 0; c <= 8; c++) {
             this.sudokuCells[r][c].isHighlighted = true;
         }
     }
 
+    /**
+     * This function highlights the entire block, given a row and column index pair.
+     * @param {*} r The row index.
+     * @param {*} c The column index.
+     */
     highlightBlock(r, c) {
-        const { rowRange, columnRange } = this.getBlockRange(r, c);
-        for (let r = rowRange[0]; r <= rowRange[1]; r++) {
-            for (let c = columnRange[0]; c <= columnRange[1]; c++) {
-                this.sudokuCells[r][c].isHighlighted = true;
-            }
+        const blockIndices = findSameBlockInstances(r, c, this.sudokuCells);
+
+        for (let i = 0; i < blockIndices.length; i++) {
+            const { row, column } = indexToRowAndColumn(blockIndices[i]);
+            this.sudokuCells[row][column].isHighlighted = true;
         }
     }
 
+    /**
+     * This function highlights all cells with the same number as the pressed cell given a row and column index pair.
+     * @param {*} r The row index.
+     * @param {*} c The column index.
+     * @returns 
+     */
     highlightSimilarNumbers(r, c) {
         if (!this.sudokuCells[r][c].number) return;
         let numberInstances = findSameNumberInstances(r, c, this.sudokuCells);
@@ -140,30 +191,14 @@ export class SudokuBoard {
         }
     }
 
-    getBlockRange(r, c) {
-        let rowRange = [], columnRange = [];
-        if (r <= 2) {
-            rowRange.push(0, 2);
-        } else if (r <= 5) {
-            rowRange.push(3, 5);
-        } else if (r <= 8) {
-            rowRange.push(6, 8);
-        }
+    /*--------------------------------------- Miscellaneous ---------------------------------------*/
 
-        if (c <= 2) {
-            columnRange.push(0, 2);
-        } else if (c <= 5) {
-            columnRange.push(3, 5);
-        } else if (c <= 8) {
-            columnRange.push(6, 8);
-        }
-
-        return {
-            rowRange: rowRange,
-            columnRange: columnRange
-        }
-    }
-
+    /**
+     * This function finds a block number given a row and column index pairs.
+     * @param {*} rowIndex The row index.
+     * @param {*} columnIndex The column index.
+     * @returns The block number (0-8).
+     */
     getBlockNumber(rowIndex, columnIndex) {
         if (rowIndex <= 2) {
             if (columnIndex <= 2) {
@@ -192,8 +227,32 @@ export class SudokuBoard {
         }
         return -1;
     }
+
+    /**
+     * This function checks if the board is full.
+     * @returns True if the board is full, false if not.
+     */
+    isBoardFull() {
+        for (let r = 0; r <= 8; r++) {
+            for (let c = 0; c <= 8; c++) {
+                if (!this.sudokuCells[r][c].number) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * This function sets the notation mode to the new notation mode.
+     * @param {*} notationMode The new notation mode.
+     */
+    setNotationMode(notationMode) {
+        this.notationMode = notationMode;
+    }
 }
 
+/*------------------------------------ Sudoku board handling ----------------------------------*/
 
 //The sudoku board is initialized as an undefined 9*9 matrix
 let sudokuCells = [
@@ -211,10 +270,16 @@ let sudokuCells = [
 //const err = 1
 //const time = Math.random()*150000
 
+/**
+ * This function gets the proficiency score from the backend, where the score is calculated based on a given error amount and time spent.
+ * @param {*} err Amount of errors made.
+ * @param {*} time Time spent in seconds.
+ * @returns Returns the proficiency score.
+ */
 async function getProficiency(err, time) {
     const res = await fetch(`/api/proficiency?err=${err}&time=${time}`);
     const data = await res.json();
-    console.log("proficiency is",data)
+    console.log("proficiency is", data)
     return data;
 }
 
@@ -223,12 +288,18 @@ async function getProficiency(err, time) {
 let sudokuNumber = 300;
 const boardData = await loadSudokuBoard(sudokuNumber);
 
-async function loadSudokuBoard(sudokuNumber){
+/**
+ * This function gets the a Sudoku 2D array from the backend, where the sudokuNumber determines which Sudoku is chosen.
+ * @param {*} sudokuNumber The Sudoku 'number'.
+ * @returns A Sudoku 2D array, empty cells are null. 
+ */
+async function loadSudokuBoard(sudokuNumber) {
     const res = await fetch(`/api/sudoku?sudokuNumber=${sudokuNumber}`);
     const data = await res.json();
     return data.board;
 }
 
+// Inserting each element of the Sudoku 2D array into the object SudokuCell.
 for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
         const value = boardData[i][j];
@@ -236,14 +307,19 @@ for (let i = 0; i < 9; i++) {
     }
 }
 
+// New board based on the cells created above.
 const sudokuBoard = new SudokuBoard(sudokuCells);
+// New renderer
 const sudokuRenderer = new SudokuRenderer(sudokuBoard);
+// New input controller
 const inputController = new InputController(sudokuBoard, sudokuRenderer);
 sudokuBoard.inputController = inputController;
+
 sudokuRenderer.setupBoard();
 sudokuRenderer.bindCellEvents();
 sudokuRenderer.bindNotationEvents();
 
+/*--------------------------------- Notation buttons selection --------------------------------*/
 
 // This is the button code, that adds the activeNotation class to the clicked button
 const buttons = document.querySelectorAll('#notation-boxes button:not(#forfeit-btn)');
@@ -260,7 +336,8 @@ buttons.forEach((button) => {
     });
 });
 
-// Settings popup
+/*--------------------------------------- Settings popup --------------------------------------*/
+
 const settingsIcon = document.getElementById("settings-icon");
 const settingsPopUp = document.querySelector('#settings-pop-up');
 const closeSettingsBtn = document.querySelector('#close-settings-btn');
@@ -287,7 +364,8 @@ toggles.forEach(toggle => {
     });
 });
 
-// Startegy popup
+/*--------------------------------------- Strategy popup --------------------------------------*/
+
 const strategyIcon = document.getElementById("strategy-icon");
 const strategyPopUp = document.getElementById("strategy-pop-up");
 const closeStrategyBtn = document.getElementById("close-strategy-btn");
@@ -304,9 +382,8 @@ closeStrategyBtn.addEventListener("click", () => {
     strategyPopUp.classList.add("Hidden");
 });
 
+/*--------------------------------------- Forfeit popup ---------------------------------------*/
 
-
-// Forfeit popup
 const forfeitBtn = document.getElementById("forfeit-btn");
 const forfeitPopUp = document.getElementById("forfeit-pop-up");
 const confirmForfeitBtn = document.getElementById("confirm-forfeit-btn");
@@ -329,7 +406,8 @@ confirmForfeitBtn.addEventListener("click", () => {
     window.location.href = "/pages/startPage/startPage.html";
 });
 
-// Next sudoku popup
+/*--------------------------------------- Next Sudoku popup -----------------------------------*/
+
 const nextSudokuBtn = document.getElementById("next-sudoku-btn");
 
 nextSudokuBtn.addEventListener("click", () => {

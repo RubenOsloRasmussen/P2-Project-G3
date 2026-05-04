@@ -1,4 +1,3 @@
-
 /**
  * This function checks for errors in the box where the new number is placed.
  * @param {*} rowIndex The row index of the newly placed number.
@@ -21,7 +20,6 @@ export function checkBlock(rowIndex, columnIndex, ourCellsArr) {
             if (newNumber === ourCellsArr[startRowIndex + i][startColumnIndex + j].number) duplicatesFound++;
         }
     }
-
     return duplicatesFound;
 }
 
@@ -65,7 +63,7 @@ export function checkColumn(rowIndex, columnIndex, ourCellsArr) {
     return duplicatesFound;
 }
 
-/* -----------------------------------------------------------------------------------*/
+/* ----------------------------------------------------------------------------------------*/
 
 /**
  * This function validates a block, given the row and column index of the top left cell.
