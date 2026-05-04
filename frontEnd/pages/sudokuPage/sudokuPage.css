@@ -131,7 +131,6 @@ body {
     background-color: white;
     position: relative;
     z-index: 2; 
-    
 }
 
 /* Notation buttons */
@@ -508,13 +507,6 @@ body {
 .NotationNumber {
     padding: 0px 2px;
     font-size: 12px;
-}
-
-.SudokuColourCell {
-    background-color: var(--cell-color);
-    position: absolute;
-    inset: 0;
-    z-index: 0;
 }
 
 .CellText {

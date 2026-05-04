@@ -144,7 +144,7 @@ export class SudokuRenderer {
                 sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
             }
 
-            if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = sudokuCell.cellColour;
+            if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = `var(--cell-color-${sudokuCell.cellColour})`;
 
             this.renderCandidateBlock(sudokuCell.candidateBlock, this.board.notationMode);
         }
