@@ -562,14 +562,15 @@ body {
 #sudoku-start-overlay.Hidden {
     display: none;
 }
+
 /* Win Screen */
 #sudoku-board-container-id.BoardWon {
     background-color: white;
     border-color: white;
 }
 
-#sudoku-board-container-id.BoardWon .SudokuBlockClass,
-#sudoku-board-container-id.BoardWon .InputCell {
+#sudoku-board-container-id.BoardWon,
+#sudoku-board-container-id.BoardWon * {
     background-color: white;
     color: white;
     border-color: white;
@@ -608,6 +609,10 @@ body {
     padding: 12px 22px;
     font-size: 17px;
     cursor: pointer;
+}
+
+#next-sudoku-btn:hover {
+    background-color: #6eb942;
 }
 
 /* notation */
