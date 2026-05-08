@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const timerDisplay = document.getElementById("timer-id");
     const pauseButton = document.getElementById("pause-b-id");
+    const pauseIconImg = document.getElementById("pause-icon-img");
+        const pauseIconPath = "./images/pause.png";
+        const resumeIconPath = "./images/resume.png";
     const startButton = document.getElementById("start-sudoku-btn");
     const startOverlay = document.getElementById("sudoku-start-overlay");
 
@@ -17,9 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function showOverlay() {
-        startOverlay.classList.remove("Hidden");
-    }
+    startOverlay.classList.remove("Hidden");
 
+    if (sudokuStarted) {
+        startButton.textContent = "Resume Sudoku";
+    } else {
+        startButton.textContent = "Start Sudoku";
+    }
+}
     function hideOverlay() {
         startOverlay.classList.add("Hidden");
     }
@@ -37,14 +45,16 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(timerInterval);
         timerInterval = null;
         timerPaused = true;
-        pauseButton.textContent = "▶";
+        pauseIconImg.src = resumeIconPath;
+        pauseIconImg.alt = "Resume";
         showOverlay();
     }
 
     function resumeTimer() {
         sudokuStarted = true;
         timerPaused = false;
-        pauseButton.textContent = "⏸";
+        pauseIconImg.src = pauseIconPath;
+        pauseIconImg.alt = "Pause";
         hideOverlay();
         startTimer();
     }

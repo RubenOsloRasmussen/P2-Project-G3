@@ -51,26 +51,26 @@ body {
 #pause-b-id {
     all: unset;
 
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
 
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 
-    font-size: 26px;
-    line-height: 1;
-
-    color: #4168A9;
     cursor: pointer;
-
-    font-family: system-ui, sans-serif;
 }
 
 #pause-b-id:hover {
     opacity: 0.7;
 }
 
+#pause-icon-img {
+    width: 28px;
+    height: 28px;
+    display: block;
+    object-fit: contain;
+}
 /* Timer */
 #timer-id {
     font-size: 26px;
@@ -666,4 +666,7 @@ body {
 
 .CenterNotation {
     color: rgb(187, 0, 255);
+}
+body.HighlightDisabled .SudokuCell {
+    background-color: #ffffff !important;
 }

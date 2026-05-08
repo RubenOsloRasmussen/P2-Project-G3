@@ -132,7 +132,7 @@ export class SudokuRenderer {
             let sudokuCell = this.board.sudokuCells[r][c];
             
             sudokuCell.htmlTextElement.textContent = sudokuCell.number ? sudokuCell.number : "";
-            if (sudokuCell.isHighlighted) {
+            if (window.sudokuSettings?.highlight !== false && sudokuCell.isHighlighted) {
                 if (sudokuCell.isTargetCell) {
                     sudokuCell.htmlElement.style.backgroundColor = this.TARGET_COLOUR;
                 } else if (sudokuCell.isSimilarNumber) {
