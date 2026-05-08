@@ -392,10 +392,6 @@ const settingsIcon = document.getElementById("settings-icon");
 const settingsPopUp = document.querySelector('#settings-pop-up');
 const closeSettingsBtn = document.querySelector('#close-settings-btn');
 
-const strategyIcon = document.getElementById("strategy-icon");
-const strategyPopUp = document.getElementById("strategy-pop-up");
-const closeStrategyBtn = document.getElementById("close-strategy-btn");
-
 const forfeitBtn = document.getElementById("forfeit-btn");
 const forfeitPopUp = document.getElementById("forfeit-pop-up");
 const confirmForfeitBtn = document.getElementById("confirm-forfeit-btn");
