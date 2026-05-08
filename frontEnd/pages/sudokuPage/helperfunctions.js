@@ -62,6 +62,11 @@ export async function showProficiency() {
     }
 }
 
+/**
+ * Gets function forfeitScore from backend to do its job.
+ * Returns new proficiency score.
+ * @returns {number}
+ */
 export async function forfeitProficiency() {
     try {
         const res = await fetch('/api/forfeitScore');

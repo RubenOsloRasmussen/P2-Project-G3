@@ -65,8 +65,13 @@ export function sudokuLevel(stringAmount) {
     return stringNumber;
 }
 
+/**
+ * Changes userScore by minus one, to a minimum of zero
+ * @returns {number}
+ */
 export function forfeitScore() {
     userScore = Math.max(userScore - 1, 0)
+    return userScore;
 }
 
 /**
