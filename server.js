@@ -4,7 +4,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 import http from "http";
 
+// Import functions that work with the proficiency score
 import { profScoreCalc } from "./backEnd/proficiencyScoreCalc.js";
+import { getScore } from "./backEnd/proficiencyScoreCalc.js";
+import { forfeitScore } from "./backEnd/proficiencyScoreCalc.js";
 
 // Import function that reads a Sudoku board of the csv file
 import { GetSudokuBoard } from "./backEnd/sudokuBoard.js";
@@ -39,11 +42,23 @@ app.get(`${BASE_PATH}/api/sudoku`, (req, res) => {
   res.json({ board });
 });
 
-// API endpoint to fetch (and change) proficiency score
+// API endpoint to fetch and change proficiency score
 app.get(`${BASE_PATH}/api/proficiency`, (req, res) => {
     const err = Number(req.query.err ?? 0);
     const time = Number(req.query.time ?? 0);
     const data = profScoreCalc(err,time);
+    res.json({ data });
+});
+
+// API endpoint to fetch proficiency score
+app.get(`${BASE_PATH}/api/score`, (req, res) => {
+    const data = getScore();
+    res.json({ data });
+});
+
+// API endpoint to change proficiency score when forfeiting
+app.get(`${BASE_PATH}/api/forfeitScore`, (req, res) => {
+    const data = forfeitScore();
     res.json({ data });
 });
         

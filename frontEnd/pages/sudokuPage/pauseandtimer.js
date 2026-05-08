@@ -1,9 +1,13 @@
+let time;
+
 // The code below runs when the site has been loaded.
 document.addEventListener("DOMContentLoaded", () => {
     let timerSeconds = 0;
     let timerInterval = null;
     let sudokuStarted = false;
     let timerPaused = false;
+
+    time = 0;
 
     const timerDisplay = document.getElementById("timer-id");
     const pauseButton = document.getElementById("pause-b-id");
@@ -45,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         timerInterval = setInterval(() => {
             timerSeconds++;
+            time++;
             timerDisplay.textContent = formatTime(timerSeconds);
         }, 1000);
     }
@@ -93,3 +98,11 @@ document.addEventListener("DOMContentLoaded", () => {
     timerDisplay.textContent = formatTime(timerSeconds);
     showOverlay();
 });
+
+/**
+* this function returns the time from the timer in seconds
+*/
+export function getTime() {
+    console.log("time", time)
+    return time;
+}
