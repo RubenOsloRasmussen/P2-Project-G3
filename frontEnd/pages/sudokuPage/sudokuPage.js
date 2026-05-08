@@ -208,14 +208,58 @@ let sudokuCells = [
     ["", , , , , , , , ""],
 ]
 
+// Backend code for proficiency score calculation and sudoku level selection, not currently used in the frontend but will be used in the future when the backend is connected to the frontend
 //const err = 1
 //const time = Math.random()*150000
 
 async function getProficiency(err, time) {
-    const res = await fetch(`/api/proficiency?err=${err}&time=${time}`);
-    const data = await res.json();
-    console.log("proficiency is", data)
-    return data;
+    try {
+        const res = await fetch(`/api/proficiency?err=${err}&time=${time}`);
+
+        const data = await res.json();
+
+        console.log("proficiency is", data);
+
+        return data.data;
+
+    } catch (error) {
+        console.error("Failed to fetch proficiency:", error);
+
+        return null;
+    }
+}
+
+const proficiencyText = document.getElementById("proficiency-score");
+
+async function updateStrategyPopup() {
+
+    if (!proficiencyText) {
+        console.error("Missing #proficiency-score in HTML");
+        return;
+    }
+
+    const err = 0;
+    const time = 300;
+
+    const data = await getProficiency(err, time);
+
+    if (data === null) {
+        proficiencyText.textContent = "Error";
+        return;
+    }
+
+    if (typeof data === "number") {
+        proficiencyText.textContent = data.toFixed(1);
+
+    } else if (data.score !== undefined) {
+        proficiencyText.textContent = Number(data.score).toFixed(1);
+
+    } else if (data.proficiency !== undefined) {
+        proficiencyText.textContent = Number(data.proficiency).toFixed(1);
+
+    } else {
+        proficiencyText.textContent = JSON.stringify(data);
+    }
 }
 
 //getProficiency(err, time);
@@ -226,6 +270,7 @@ const boardData = await loadSudokuBoard(sudokuNumber);
 async function loadSudokuBoard(sudokuNumber) {
     const res = await fetch(`/api/sudoku?sudokuNumber=${sudokuNumber}`);
     const data = await res.json();
+
     return data.board;
 }
 
@@ -239,7 +284,9 @@ for (let i = 0; i < 9; i++) {
 const sudokuBoard = new SudokuBoard(sudokuCells);
 const sudokuRenderer = new SudokuRenderer(sudokuBoard);
 const inputController = new InputController(sudokuBoard, sudokuRenderer);
+
 sudokuBoard.inputController = inputController;
+
 sudokuRenderer.setupBoard();
 sudokuRenderer.bindCellEvents();
 sudokuRenderer.bindNotationEvents();
@@ -258,11 +305,21 @@ buttons.forEach((button) => {
     });
 });
 
-// Settings popup
+// The PopUp Elements
 const settingsIcon = document.getElementById("settings-icon");
 const settingsPopUp = document.querySelector('#settings-pop-up');
 const closeSettingsBtn = document.querySelector('#close-settings-btn');
 
+const strategyIcon = document.getElementById("strategy-icon");
+const strategyPopUp = document.getElementById("strategy-pop-up");
+const closeStrategyBtn = document.getElementById("close-strategy-btn");
+
+const forfeitBtn = document.getElementById("forfeit-btn");
+const forfeitPopUp = document.getElementById("forfeit-pop-up");
+const confirmForfeitBtn = document.getElementById("confirm-forfeit-btn");
+const cancelForfeitBtn = document.getElementById("cancel-forfeit-btn");
+
+// Settings PopUp
 settingsIcon.addEventListener('click', () => {
     // Close strategy popup first
     strategyPopUp.classList.add("Hidden");
@@ -285,14 +342,16 @@ toggles.forEach(toggle => {
     });
 });
 
-// Startegy popup
-const strategyIcon = document.getElementById("strategy-icon");
-const strategyPopUp = document.getElementById("strategy-pop-up");
-const closeStrategyBtn = document.getElementById("close-strategy-btn");
-
-strategyIcon.addEventListener("click", () => {
+// Startegy PopUp
+strategyIcon.addEventListener("click", async () => {
     // Close settings popup first
     settingsPopUp.classList.add("Hidden");
+
+    try {
+    await updateStrategyPopup();
+    } catch (error) {
+        console.error("Strategy popup score update failed:", error);
+    }
 
     // Open strategy
     strategyPopUp.classList.remove("Hidden");
@@ -302,15 +361,7 @@ closeStrategyBtn.addEventListener("click", () => {
     strategyPopUp.classList.add("Hidden");
 });
 
-
-
-// Forfeit popup
-const forfeitBtn = document.getElementById("forfeit-btn");
-const forfeitPopUp = document.getElementById("forfeit-pop-up");
-const confirmForfeitBtn = document.getElementById("confirm-forfeit-btn");
-const cancelForfeitBtn = document.getElementById("cancel-forfeit-btn");
-
-// Open forfeit popup
+// Forfeit PopUp
 forfeitBtn.addEventListener("click", () => {
     settingsPopUp.classList.add("Hidden");
     strategyPopUp.classList.add("Hidden");

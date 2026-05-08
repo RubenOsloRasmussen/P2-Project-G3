@@ -12,12 +12,15 @@ export class InputController {
 
   keydown(e) {
     if (this.board.notationMode == "defaultNotation") {
-        if ((/^[1-9]$/.test(e.key))) {
-          this.board.insertCellNumber(this.board.targetCell, e.key);
-          this.board.clearCandidates(this.board.targetCell);
-        } else if (e.key == "Backspace") {
-          this.board.deleteCellNumber(this.board.targetCell)
-        }
+      if ((/^[1-9]$/.test(e.key))) {
+        this.board.insertCellNumber(this.board.targetCell, e.key);
+        this.board.clearCandidates(this.board.targetCell);
+
+        this.checkWin();
+
+      } else if (e.key == "Backspace") {
+        this.board.deleteCellNumber(this.board.targetCell)
+      }
 
     } else if (this.board.notationMode == "cornerNotation") {
       if (!(/^[1-9]$/.test(e.key)) || this.board.targetCell.number) return;
@@ -41,9 +44,25 @@ export class InputController {
     } else if (this.board.colorNotation == "colorNotation") {
 
     }
-    
+
     this.renderer.renderCells();
   }
 
-}
+  checkWin() {
+    console.log("Running win check function");
+    const winPopUp = document.getElementById("win-pop-up");
 
+    if (!winPopUp.classList.contains("Hidden")) return;
+
+    if (this.board.isBoardFull()) {
+      console.log("Board is full, checking if correct...");
+      const sudokuBoardElement = document.getElementById("sudoku-board-container-id");
+
+      sudokuBoardElement.classList.add("BoardWon");
+      winPopUp.classList.remove("Hidden");
+    }
+    else {
+      console.log("Board is not full, cannot win yet.");
+    }
+  }
+}
