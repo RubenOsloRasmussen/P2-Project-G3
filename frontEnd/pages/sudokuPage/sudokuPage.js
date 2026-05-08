@@ -4,19 +4,19 @@ import { SudokuRenderer } from "./sudokuRenderer.js";
 import { InputController } from "./inputController.js";
 
 class SudokuCell {
-    constructor(number, lockedState, colorNumber, rowIndex, columnIndex) {
-    this.number = number; // Int, the number in the given cell or "null"
-    this.locked = lockedState; // Bool, is this number permanent?
-    this.candidateBlock = null,
-    this.rowIndex = rowIndex;
-    this.columnIndex = columnIndex;
-    this.isTargetCell = false;
-    this.isHighlighted = false;
-    this.isSimilarNumber = false;
-    this.htmlElement = null;
-    this.htmlColourCell = null;
-    this.htmlTextElement = null;
-    this.cellColour = "#ffffff";
+    constructor(number, lockedState, rowIndex, columnIndex) {
+        this.number = number; // Int, the number in the given cell or "null"
+        this.locked = lockedState; // Bool, is this number permanent?
+        this.candidateBlock = null,
+            this.rowIndex = rowIndex;
+        this.columnIndex = columnIndex;
+        this.isTargetCell = false;
+        this.isHighlighted = false;
+        this.isSimilarNumber = false;
+        this.htmlElement = null;
+        this.htmlColourCell = null;
+        this.htmlTextElement = null;
+        this.cellColour = "#ffffff";
     }
 }
 
@@ -46,7 +46,7 @@ export class SudokuBoard {
         if (!sudokuCell.isTargetCell || sudokuCell.locked) return;
         this.clearSimilarNumberHighlights(sudokuCell.rowIndex, sudokuCell.columnIndex);
         sudokuCell.number = null;
-     
+
     }
 
     setNotationMode(notationMode) {
@@ -267,7 +267,7 @@ async function updateStrategyPopup() {
 let sudokuNumber = 300;
 const boardData = await loadSudokuBoard(sudokuNumber);
 
-async function loadSudokuBoard(sudokuNumber){
+async function loadSudokuBoard(sudokuNumber) {
     const res = await fetch(`/api/sudoku?sudokuNumber=${sudokuNumber}`);
     const data = await res.json();
 
@@ -277,8 +277,7 @@ async function loadSudokuBoard(sudokuNumber){
 for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
         const value = boardData[i][j];
-
-        sudokuCells[i][j] = new SudokuCell(value, value !== null, null, i, j);
+        sudokuCells[i][j] = new SudokuCell(value, value !== null, i, j);
     }
 }
 
@@ -292,8 +291,6 @@ sudokuRenderer.setupBoard();
 sudokuRenderer.bindCellEvents();
 sudokuRenderer.bindNotationEvents();
 
-
-// This is the button code, that adds the activeNotation class to the clicked button
 const buttons = document.querySelectorAll('#notation-boxes button:not(#forfeit-btn)');
 
 buttons.forEach((button) => {
