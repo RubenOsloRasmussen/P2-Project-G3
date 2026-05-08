@@ -169,7 +169,7 @@ export class SudokuRenderer {
                     sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
                 }
 
-                if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = sudokuCell.cellColour;
+            if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = `var(--cell-color-${sudokuCell.cellColour})`;
 
                 this.renderCandidateBlock(sudokuCell.candidateBlock, this.board.notationMode);
             }
@@ -246,31 +246,12 @@ export class SudokuRenderer {
                 candidateBlock.centerNotation.htmlElement.appendChild(notationCell);
             }
         }
-        this.checkWin();
     }
-
-    /**
-     * This function checks whether the Sudoku board is complete and triggers the win state.
-     * It displays the win popup and applies win styling if the board is full.
-     * @returns 
-     */
-    checkWin() {
-        const winPopUp = document.getElementById("win-pop-up");
-
-        if (!winPopUp.classList.contains("Hidden")) return;
-
-        if (this.board.isBoardFull()) {
-            const sudokuBoardElement = document.getElementById("sudoku-board-container-id");
-
-            sudokuBoardElement.classList.add("BoardWon");
-            winPopUp.classList.remove("Hidden");
-        }
-    }
-
+    
     /**
      * This function creates and returns a HTML element for a single notation number.
      * @returns The created notation cell element.
-     */
+     */    
     buildNotationHtmlCell() {
         let notationCell = document.createElement("div");
         notationCell.setAttribute("class", "NotationNumber");
