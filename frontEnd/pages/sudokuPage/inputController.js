@@ -26,28 +26,34 @@ export class InputController {
       if (!(/^[1-9]$/.test(e.key)) || this.board.targetCell.number) return;
 
       const cornerNotation = this.board.targetCell.candidateBlock.cornerNotation;
+
       if (cornerNotation.topCornerCandidates.includes(e.key) || cornerNotation.bottomCornerCandidates.includes(e.key)) {
         this.board.targetCell.candidateBlock.removeCandidate(e.key);
       } else {
         this.board.targetCell.candidateBlock.insertCandidate(e.key);
       }
-      //this.board.targetCell.candidateBlock.rearrangeCornerCandidates();
     } else if (this.board.notationMode == "centerNotation") {
+
       if (!(/^[1-9]$/.test(e.key)) || this.board.targetCell.number) return;
+
       console.log(this.board.targetCell.candidateBlock)
       const centerNotation = this.board.targetCell.candidateBlock.centerNotation;
+
       if (centerNotation.centerCandidates.includes(e.key)) {
         this.board.targetCell.candidateBlock.removeCandidate(e.key);
       } else {
         this.board.targetCell.candidateBlock.insertCandidate(e.key);
       }
-    } else if (this.board.colorNotation == "colorNotation") {
-
     }
 
     this.renderer.renderCells();
   }
 
+    /**
+   * This function checks whether the Sudoku board is complete and triggers the win state.
+   * It displays the win popup and applies win styling if the board is full.
+   * @returns 
+   */
   checkWin() {
     console.log("Running win check function");
     const winPopUp = document.getElementById("win-pop-up");

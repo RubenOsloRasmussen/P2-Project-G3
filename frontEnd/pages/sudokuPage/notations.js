@@ -5,7 +5,11 @@ export class CandidateBlock {
         this.centerNotation = centerNotation,
         this.board = board
     }
-
+    
+    /**
+     * This function inserts a given number in either corner or center notation, depending on the selected notation mode.
+     * @param {*} number The given number to insert.
+     */
     insertCandidate(number) {
         if (!(/^[1-9]$/.test(number)) || (this.board.notationMode !=  "cornerNotation" && this.board.notationMode != "centerNotation")) return;
         if (this.board.notationMode == "cornerNotation") {     
@@ -27,6 +31,11 @@ export class CandidateBlock {
         }
     }
 
+    /**
+     * This function deletes a given number from either corner or center notation, depending on the selected notation mode.
+     * @param {*} number The given number to remove.
+     * @returns
+     */
     removeCandidate(number) {
         if (!(/^[1-9]$/.test(number)) || (this.board.notationMode != "cornerNotation" && this.board.notationMode != "centerNotation")) return;
         if (this.board.notationMode == "cornerNotation") {
@@ -34,11 +43,11 @@ export class CandidateBlock {
             let indexOfCandidateBottom = this.cornerNotation.bottomCornerCandidates.indexOf(number);
             console.log("test", number, indexOfCandidateTop,indexOfCandidateBottom );
             if (indexOfCandidateTop != -1) {
-                console.log("aaaaaa");
+                // console.log("aaaaaa");
                 
                 this.cornerNotation.topCornerCandidates.splice(indexOfCandidateTop, 1);
             } else if (indexOfCandidateBottom != -1) {
-                console.log("bbbbbb");
+                // console.log("bbbbbb");
                 this.cornerNotation.bottomCornerCandidates.splice(indexOfCandidateBottom, 1);
             }
             this.rearrangeCornerCandidates();
@@ -50,6 +59,9 @@ export class CandidateBlock {
         }
     }
 
+    /**
+     * This function rearranges the corner candidates, making sure that the top row is filled before the putting numbers in the bottom row.
+     */
     rearrangeCornerCandidates() {
         let tempArr = this.cornerNotation.topCornerCandidates.concat(this.cornerNotation.bottomCornerCandidates);
         this.cornerNotation.topCornerCandidates = [];
@@ -64,6 +76,11 @@ export class CandidateBlock {
         }
     }
 
+    /**
+     * This function deletes a given number from the specified notation type.
+     * @param {*} number The given number to delete.
+     * @param {*} notationMode The given notation mode.
+     */
     deleteCandidate(number, notationMode) {
         if (notationMode == "cornerNotation") {
             const topOccurence = this.cornerNotation.topCornerCandidates.indexOf(number);
@@ -81,6 +98,9 @@ export class CandidateBlock {
         }
     }
     
+    /**
+     * This function deletes all candidates from the entire board, both corner and center notation.
+     */
     deleteCandidates() {
         this.board.cornerNotation.topCornerCandidates = [];
         this.board.cornerNotation.bottomCornerCandidates = [];
