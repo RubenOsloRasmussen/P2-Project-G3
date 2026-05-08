@@ -75,8 +75,6 @@ export class SudokuBoard {
         this.notationMode = notationMode;
     }
 
-    }
-
     /**
      * This function changes the color of a cell.
      * @param {*} r The row index of the cell.
