@@ -1,4 +1,3 @@
-
 let userScore = 5
 
 /**
@@ -67,8 +66,17 @@ export function sudokuLevel(stringAmount) {
 }
 
 /**
+ * Changes userScore by minus one, to a minimum of zero
+ * @returns {number}
+ */
+export function forfeitScore() {
+    userScore = Math.max(userScore - 1, 0)
+    return userScore;
+}
+
+/**
  * Gets the profeciency score from ProficiencyScoreCalc.
- * @returns 
+ * @returns
  */
 export function getScore() {
     return userScore;

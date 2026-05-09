@@ -3,6 +3,8 @@ import { findSameBlockInstances } from "./notationHelperFunctions.js";
 
 import { indexToRowAndColumn } from "./helperfunctions.js";
 import { rowAndColumnToIndex } from "./helperfunctions.js";
+import { showProficiency } from "./helperfunctions.js";
+import { forfeitProficiency } from "./helperfunctions.js";
 
 import { SudokuRenderer } from "./sudokuRenderer.js";
 import { InputController } from "./inputController.js";
@@ -275,29 +277,6 @@ let sudokuCells = [
 //const err = 1
 //const time = Math.random()*150000
 
-/**
- * This function gets the proficiency score from the backend, where the score is calculated based on a given error amount and time spent.
- * @param {*} err Amount of errors made.
- * @param {*} time Time spent in seconds.
- * @returns Returns the proficiency score.
- */
-async function getProficiency(err, time) {
-    try {
-        const res = await fetch(`/api/proficiency?err=${err}&time=${time}`);
-
-        const data = await res.json();
-
-        console.log("proficiency is", data);
-
-        return data.data;
-
-    } catch (error) {
-        console.error("Failed to fetch proficiency:", error);
-
-        return null;
-    }
-}
-
 const proficiencyText = document.getElementById("proficiency-score");
 
 async function updateStrategyPopup() {
@@ -307,10 +286,7 @@ async function updateStrategyPopup() {
         return;
     }
 
-    const err = 0;
-    const time = 300;
-
-    const data = await getProficiency(err, time);
+    const data = await showProficiency();
 
     if (data === null) {
         proficiencyText.textContent = "Error";
@@ -459,6 +435,8 @@ cancelForfeitBtn.addEventListener("click", () => {
 
 // Confirm forfeit and go back to start page
 confirmForfeitBtn.addEventListener("click", () => {
+    // removes one from proficiency score during forfeit.
+    forfeitProficiency();
     window.location.href = "/pages/startPage/startPage.html";
 });
 
