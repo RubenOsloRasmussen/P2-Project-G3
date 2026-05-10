@@ -38,8 +38,11 @@ app.get(`${BASE_PATH}/api/sudoku`, (req, res) => {
   const sudokuNumber = Number(req.query.sudokuNumber ?? 1);
   // Get the corresponding Sudoku board
   const board = GetSudokuBoard(sudokuNumber);
+  let solvedSudoku = structuredClone(board);
+  solveSudoku(solvedSudoku);
+  console.log("ddddwadkwakm",solvedSudoku)
   // Send the board as a JSON file
-  res.json({ board });
+  res.json({ board, solvedSudoku });
 });
 
 // API endpoint to fetch and change proficiency score
