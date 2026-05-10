@@ -351,12 +351,15 @@ async function updateStrategyPopup() {
     }
 
     const data = await showProficiency();
-
+    console.log("data", data)
     if (data === null) {
         proficiencyText.textContent = "Error";
         return;
     }
 
+    proficiencyText.textContent = Math.floor(data);
+
+    /*
     if (typeof data === "number") {
         proficiencyText.textContent = data.toFixed(1);
 
@@ -368,7 +371,7 @@ async function updateStrategyPopup() {
 
     } else {
         proficiencyText.textContent = JSON.stringify(data);
-    }
+    }*/
 }
 
 //getProficiency(err, time);
@@ -515,3 +518,7 @@ const nextSudokuBtn = document.getElementById("next-sudoku-btn");
 nextSudokuBtn.addEventListener("click", () => {
     window.location.reload();
 });
+
+let proficiencyScore = await showProficiency();
+
+document.getElementById("boardProficiencyScore").textContent = `Proficiency Score: ${Math.floor(proficiencyScore)}`;
