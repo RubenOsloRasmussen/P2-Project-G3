@@ -26,13 +26,32 @@ class SudokuCell {
     }
 }
 
+
 export class SudokuBoard {
     constructor(initialCellsArr, notationMode = "defaultNotation") {
         this.sudokuCells = initialCellsArr;
         this.inputController = null;
         this.notationMode = notationMode; // Options: "none", "defaultNotation", "cornerNotation", "centerNotation", "colorNotationRed", "colorNotationGreen", "colorNotationBlue"
         this.targetCell = null;
+
+        this.errorCount = 0;
+        this.inFaultyState = false; // if a locked in error exists
+        this.unlockedErrorInCell = false;
+        this.unlockedErrorCell = null; // refers to SudokuCell object in which there is an unlocked error
     }
+    /*-------------------------------------- Error tracker ----------------------------------------*/
+    lockInError(r, c) {
+
+    }
+
+    errorInCellChecker(r, c) {
+        
+    }
+
+    errorChecker() {
+
+    }
+
 
     /*-------------------------------------- Cell manipulation ------------------------------------*/
 
@@ -344,6 +363,10 @@ sudokuBoard.inputController = inputController;
 sudokuRenderer.setupBoard();
 sudokuRenderer.bindCellEvents();
 sudokuRenderer.bindNotationEvents();
+
+export function getErr() {
+    return sudokuBoard.errorCount;
+}
 
 /*--------------------------------- Notation buttons selection --------------------------------*/
 
