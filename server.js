@@ -12,6 +12,8 @@ import { forfeitScore } from "./backEnd/proficiencyScoreCalc.js";
 // Import function that reads a Sudoku board of the csv file
 import { GetSudokuBoard } from "./backEnd/sudokuBoard.js";
 
+import { solveSudoku } from "./backEnd/solveSudoku.js";
+
 // Resolve __dirname for ES modules
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
