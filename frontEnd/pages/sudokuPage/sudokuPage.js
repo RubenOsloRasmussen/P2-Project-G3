@@ -398,7 +398,7 @@ for (let i = 0; i < 9; i++) {
         sudokuCells[i][j] = new SudokuCell(value, value !== null, i, j);
     }
 }
-console.log("solvedSudoku:", solvedSudoku);
+//console.log("solvedSudoku:", solvedSudoku);
 // New board based on the cells created above.
 const sudokuBoard = new SudokuBoard(sudokuCells, solvedSudoku);
 // New renderer
@@ -521,4 +521,4 @@ nextSudokuBtn.addEventListener("click", () => {
 
 let proficiencyScore = await showProficiency();
 
-document.getElementById("boardProficiencyScore").textContent = `Proficiency Score: ${Math.floor(proficiencyScore)}`;
+document.getElementById("boardProficiencyScore").textContent = `Current proficiency: ${Math.floor(proficiencyScore)}`;

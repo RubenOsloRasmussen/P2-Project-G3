@@ -44,8 +44,11 @@ body {
 
 #boardProficiencyScore {
     position: absolute;
-    top: 10px;
+/*    top: 2px;*/
     right: 5px;
+    font-size: 26px;
+    font-weight: 500;
+    color: #4168A9;
 }
 
 #left-container {
