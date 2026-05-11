@@ -142,16 +142,16 @@ export function validateColumn(columnIndex, ourCellsArr) {
 export function winChecker(ourCellsArr) {
     for (let i = 0; i < 9; i += 3) {
         for (let j = 0; j < 9; j += 3) {
-            if (validateBlock(i, j, ourCellsArr)) return false;
+            if (!validateBlock(i, j, ourCellsArr)) return false;
         }
     }
 
     for (let i = 0; i < 9; i++) {
-        if (validateRow(i, ourCellsArr)) return false;
+        if (!validateRow(i, ourCellsArr)) return false;
     }
 
     for (let j = 0; j < 9; j++) {
-        if (validateColumn(j, ourCellsArr)) return false;
+        if (!validateColumn(j, ourCellsArr)) return false;
     }
 
     return true;
