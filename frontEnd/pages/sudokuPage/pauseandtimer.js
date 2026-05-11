@@ -1,6 +1,7 @@
 let time;
 
 // The code below runs when the site has been loaded.
+if (typeof document !== "undefined") {
 document.addEventListener("DOMContentLoaded", () => {
     let timerSeconds = 0;
     let timerInterval = null;
@@ -98,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
     timerDisplay.textContent = formatTime(timerSeconds);
     showOverlay();
 });
+}
 
 /**
 * this function returns the time from the timer in seconds
@@ -105,4 +107,11 @@ document.addEventListener("DOMContentLoaded", () => {
 export function getTime() {
     console.log("time", time)
     return time;
+}
+
+export function formatTime(totalSeconds) {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
