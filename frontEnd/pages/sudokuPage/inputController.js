@@ -1,3 +1,11 @@
+import { winChecker } from "./errorChecker.js";
+
+import { changeProficiency } from "./helperfunctions.js";
+import { showProficiency } from "./helperfunctions.js";
+
+import { getTime } from "./pauseandtimer.js"
+import { getErr } from "./sudokuPage.js"
+
 export class InputController {
   constructor(board, renderer) {
     this.board = board;
@@ -60,12 +68,25 @@ export class InputController {
 
     if (!winPopUp.classList.contains("Hidden")) return;
 
-    if (this.board.isBoardFull()) {
-      console.log("Board is full, checking if correct...");
-      const sudokuBoardElement = document.getElementById("sudoku-board-container-id");
 
-      sudokuBoardElement.classList.add("BoardWon");
-      winPopUp.classList.remove("Hidden");
+
+    if (this.board.isBoardFull()) {
+        console.log("Board is full, checking if correct...");
+
+        if (winChecker(this.board.sudokuCells) === true) {
+            let time = getTime();
+            let err = getErr();
+
+            changeProficiency(err, time);
+
+            const sudokuBoardElement = document.getElementById("sudoku-board-container-id");
+
+            sudokuBoardElement.classList.add("BoardWon");
+            winPopUp.classList.remove("Hidden");
+        } else {
+            console.log("board is not correct, cannot win.")
+        }
+
     }
     else {
       console.log("Board is not full, cannot win yet.");

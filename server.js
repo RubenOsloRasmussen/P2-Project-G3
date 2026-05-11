@@ -4,10 +4,15 @@ import path from "path";
 import { fileURLToPath } from "url";
 import http from "http";
 
+// Import functions that work with the proficiency score
 import { profScoreCalc } from "./backEnd/proficiencyScoreCalc.js";
+import { getScore } from "./backEnd/proficiencyScoreCalc.js";
+import { forfeitScore } from "./backEnd/proficiencyScoreCalc.js";
 
 // Import function that reads a Sudoku board of the csv file
 import { GetSudokuBoard } from "./backEnd/sudokuBoard.js";
+
+import { solveSudoku } from "./backEnd/solveSudoku.js";
 
 // Resolve __dirname for ES modules
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -35,15 +40,30 @@ app.get(`${BASE_PATH}/api/sudoku`, (req, res) => {
   const sudokuNumber = Number(req.query.sudokuNumber ?? 1);
   // Get the corresponding Sudoku board
   const board = GetSudokuBoard(sudokuNumber);
+  let solvedSudoku = structuredClone(board);
+  solveSudoku(solvedSudoku);
+  console.log("ddddwadkwakm",solvedSudoku)
   // Send the board as a JSON file
-  res.json({ board });
+  res.json({ board, solvedSudoku });
 });
 
-// API endpoint to fetch (and change) proficiency score
+// API endpoint to fetch and change proficiency score
 app.get(`${BASE_PATH}/api/proficiency`, (req, res) => {
     const err = Number(req.query.err ?? 0);
     const time = Number(req.query.time ?? 0);
     const data = profScoreCalc(err,time);
+    res.json({ data });
+});
+
+// API endpoint to fetch proficiency score
+app.get(`${BASE_PATH}/api/score`, (req, res) => {
+    const data = getScore();
+    res.json({ data });
+});
+
+// API endpoint to change proficiency score when forfeiting
+app.get(`${BASE_PATH}/api/forfeitScore`, (req, res) => {
+    const data = forfeitScore();
     res.json({ data });
 });
         

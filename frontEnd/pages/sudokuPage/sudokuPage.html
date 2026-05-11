@@ -38,7 +38,7 @@
         <!-- CENTER CONTENT -->
         <div id="main-content">
             <div id="sudoku-board-and-notation-id">
-
+                <div id="boardProficiencyScore">Current proficiency: </div>
                 <div id="left-container">
             <button id="pause-b-id"><img id="pause-icon-img" src="./images/pause.png" alt="Pause"></button>
 
@@ -50,13 +50,13 @@
 
                     <!--sudoku board-->
                     <!--TODO: each block (lowest div) should be able to contain a number from 1 to 9,
-    and interact with sudoku algorithms-->
+                    and interact with sudoku algorithms-->
                     <!--cells are structured from top left to bottom right going like this:
-    1 2 3
-    4 5 6
-    7 8 9
-    same with blocks (which are 9 cells grouped together)
-    -->
+                    1 2 3
+                    4 5 6
+                    7 8 9
+                    same with blocks (which are 9 cells grouped together)
+                    -->
                     <div class="SudokuBlockClass"></div>
                     <div class="SudokuBlockClass"></div>
                     <div class="SudokuBlockClass"></div>
@@ -235,9 +235,10 @@
     <script src="./helperfunctions.js" type="module"></script>
     <script src="./sudokuRenderer.js" type="module"></script>
     <script src="./inputController.js" type="module"></script>
-    <script src="./pauseandtimer.js" defer></script>
+    <script src="./pauseandtimer.js" defer type="module"></script>
     <script src="./notations.js" type="module"></script>
     <script src="./settings.js"></script>
+    <script src="./errorChecker.js" type="module"></script>
 </body>
 
 </html>
