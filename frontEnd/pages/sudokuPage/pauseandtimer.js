@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const timerDisplay = document.getElementById("timer-id");
     const pauseButton = document.getElementById("pause-b-id");
     const pauseIconImg = document.getElementById("pause-icon-img");
-        const pauseIconPath = "./images/pause.png";
-        const resumeIconPath = "./images/resume.png";
+        const pauseIconPath = "./illustrations/pause.png";
+        const resumeIconPath = "./illustrations/resume.png";
     const startButton = document.getElementById("start-sudoku-btn");
     const startOverlay = document.getElementById("sudoku-start-overlay");
 
