@@ -12,6 +12,8 @@ import { forfeitScore } from "./backEnd/proficiencyScoreCalc.js";
 // Import function that reads a Sudoku board of the csv file
 import { GetSudokuBoard } from "./backEnd/sudokuBoard.js";
 
+import { solveSudoku } from "./backEnd/solveSudoku.js";
+
 // Resolve __dirname for ES modules
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -38,8 +40,11 @@ app.get(`${BASE_PATH}/api/sudoku`, (req, res) => {
   const sudokuNumber = Number(req.query.sudokuNumber ?? 1);
   // Get the corresponding Sudoku board
   const board = GetSudokuBoard(sudokuNumber);
+  let solvedSudoku = structuredClone(board);
+  solveSudoku(solvedSudoku);
+  console.log("ddddwadkwakm",solvedSudoku)
   // Send the board as a JSON file
-  res.json({ board });
+  res.json({ board, solvedSudoku });
 });
 
 // API endpoint to fetch and change proficiency score

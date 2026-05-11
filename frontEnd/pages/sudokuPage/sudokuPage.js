@@ -41,12 +41,69 @@ const strategies = {
 };
 
 export class SudokuBoard {
-    constructor(initialCellsArr, notationMode = "defaultNotation") {
+    constructor(initialCellsArr, solvedSudoku, notationMode = "defaultNotation") {
         this.sudokuCells = initialCellsArr;
         this.inputController = null;
         this.notationMode = notationMode; // Options: "none", "defaultNotation", "cornerNotation", "centerNotation", "colorNotationRed", "colorNotationGreen", "colorNotationBlue"
         this.targetCell = null;
+        this.previousTargetCell = null;
+
+        this.solvedSudoku = solvedSudoku;
+        this.errorCount = 0;
+        this.inFaultyState = false; // if a locked in error exists
+        this.hasUnlockedError = false;
+        this.unlockedCellError = null; // refers to SudokuCell object in which there is an unlocked error
     }
+    /*-------------------------------------- Error tracker ----------------------------------------*/
+    
+    lockInError(r, c) {
+        if ((!this.hasUnlockedError && !(this.unlockedCellError.rowIndex != r || this.unlockedCellError.columnIndex != c)) || this.inFaultyState) return;
+        this.errorCount += 1;
+        this.inFaultyState = true;
+        this.hasUnlockedError = false;
+    }
+
+    errorInCell(r, c) {
+        if (sudokuCells[r][c].number != solvedSudoku[r][c]) return true;
+        return false;
+    }
+
+    misplacedNumberInBoard() {
+        for (let r = 0; r < 8; r++) {
+            for (let c = 0; c < 8; c++) {
+                if (sudokuCells[r][c].number) {
+                    if (this.errorInCell(r, c)) return true;
+                }
+            }
+        } 
+
+        return false;
+    }
+
+    clearErrorTrackingProperties() {
+        this.inFaultyState = false;
+        this.hasUnlockedError = false;
+        this.unlockedCellError = null;
+    }
+    
+    updateErrorState(sudokuCell, number) {
+        if (this.hasUnlockedError) {
+            if (this.unlockedCellError.rowIndex == sudokuCell.rowIndex && this.unlockedCellError.columnIndex == sudokuCell.columnIndex) {
+                if (number == solvedSudoku[sudokuCell.rowIndex][sudokuCell.columnIndex]) {
+                    this.hasUnlockedError = false;
+                    this.unlockedCellError = null;
+                }
+            } else {
+                this.lockInError(this.unlockedCellError.rowIndex, this.unlockedCellError.columnIndex);
+            }
+        } else {
+            if (number != solvedSudoku[sudokuCell.rowIndex][sudokuCell.columnIndex]) {
+                this.hasUnlockedError = true;
+                this.unlockedCellError = sudokuCell;
+            }
+        }
+    }
+
 
     /*-------------------------------------- Cell manipulation ------------------------------------*/
 
@@ -68,7 +125,12 @@ export class SudokuBoard {
      */
     insertCellNumber(sudokuCell, number) {
         if (!sudokuCell.isTargetCell || sudokuCell.locked || !(/^[1-9]$/.test(number))) return;
+        if (!this.misplacedNumberInBoard()) this.clearErrorTrackingProperties();
+        this.updateErrorState(sudokuCell, number);
+
         sudokuCell.number = number;
+
+        console.log("error count:", this.errorCount);
 
         this.clearSimilarNumberHighlights(sudokuCell.rowIndex, sudokuCell.columnIndex);
         this.highlightSimilarNumbers(sudokuCell.rowIndex, sudokuCell.columnIndex);
@@ -113,6 +175,7 @@ export class SudokuBoard {
     selectCell(r, c) {
         this.clearHighlights();
         this.sudokuCells[r][c].isTargetCell = true;
+        this.previousTargetCell = this.targetCell;
         this.targetCell = this.sudokuCells[r][c];
         this.highlightColumn(c);
         this.highlightRow(r);
@@ -301,7 +364,7 @@ async function updateStrategyPopup() {
     }
 
     const data = await showProficiency();
-
+    console.log("data", data)
     if (data === null) {
         console.error("data is null");
         return;
@@ -344,7 +407,7 @@ async function updateStrategyPopup() {
 //getProficiency(err, time);
 
 let sudokuNumber = 300;
-const boardData = await loadSudokuBoard(sudokuNumber);
+const { boardData, solvedSudoku } = await loadSudokuBoard(sudokuNumber);
 
 /**
  * This function gets the a Sudoku 2D array from the backend, where the sudokuNumber determines which Sudoku is chosen.
@@ -355,7 +418,7 @@ async function loadSudokuBoard(sudokuNumber) {
     const res = await fetch(`/api/sudoku?sudokuNumber=${sudokuNumber}`);
     const data = await res.json();
 
-    return data.board;
+     return { boardData: data.board, solvedSudoku: data.solvedSudoku }
 }
 
 // Inserting each element of the Sudoku 2D array into the object SudokuCell.
@@ -365,9 +428,9 @@ for (let i = 0; i < 9; i++) {
         sudokuCells[i][j] = new SudokuCell(value, value !== null, i, j);
     }
 }
-
+//console.log("solvedSudoku:", solvedSudoku);
 // New board based on the cells created above.
-const sudokuBoard = new SudokuBoard(sudokuCells);
+const sudokuBoard = new SudokuBoard(sudokuCells, solvedSudoku);
 // New renderer
 const sudokuRenderer = new SudokuRenderer(sudokuBoard);
 // New input controller
@@ -378,6 +441,10 @@ sudokuBoard.inputController = inputController;
 sudokuRenderer.setupBoard();
 sudokuRenderer.bindCellEvents();
 sudokuRenderer.bindNotationEvents();
+
+export function getErr() {
+    return sudokuBoard.errorCount;
+}
 
 /*--------------------------------- Notation buttons selection --------------------------------*/
 
@@ -481,3 +548,7 @@ const nextSudokuBtn = document.getElementById("next-sudoku-btn");
 nextSudokuBtn.addEventListener("click", () => {
     window.location.reload();
 });
+
+let proficiencyScore = await showProficiency();
+
+document.getElementById("boardProficiencyScore").textContent = `Current proficiency: ${Math.floor(proficiencyScore)}`;

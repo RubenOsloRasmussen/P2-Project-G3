@@ -31,7 +31,7 @@ export function profScoreCalc(err, time) {
             1), -1),
     10), 0)
 
-    userScore = finScore
+    userScore = finScore;
 
     console.log("user proficiency is ", finScore)
 
