@@ -30,6 +30,14 @@ a:active {
     color: #020e24;
 }
 
+#strategy-list-id li a.inactive {
+    color: #788eb1;
+}
+
+#strategy-list-id li a.inactive:hover {
+    color: #3a4556;
+}
+
 /* Bullet (number) colors and spacing - Main panel*/
 #main-strategy-list-id li::marker {
     font-size: 22px;
@@ -53,7 +61,7 @@ a:active {
     grid-row: 1/-1;
     background-color: #B0CEFF;
     /* (top and bottom) (left and right) */
-    padding: 20px 45px;
+    padding: 20px 25px;
     font-size: 25px;
     line-height: 55px;
     overflow: auto;

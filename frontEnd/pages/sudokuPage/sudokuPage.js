@@ -14,7 +14,7 @@ class SudokuCell {
         this.number = number; // Int, the number in the given cell or "null"
         this.locked = lockedState; // Bool, is this number permanent?
         this.candidateBlock = null,
-        this.rowIndex = rowIndex;
+            this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
         this.isTargetCell = false;
         this.isHighlighted = false;
@@ -25,6 +25,20 @@ class SudokuCell {
         this.cellColour = "#ffffff";
     }
 }
+
+const strategies = {
+    0: ["Naked Single"],
+    1: ["Hidden Single"],
+    2: ["Locked Candidates (Pointing Pair / Triple)"],
+    3: ["Naked Pair"],
+    4: ["Hidden Pair"],
+    5: ["Naked Triple", "Hidden Triple"],
+    6: ["X-Wing", "Simple Coloring"],
+    7: ["XY-Wing", "XYZ-Wing"],
+    8: ["W-Wing", "Swordfish"],
+    9: ["Alternating Inference Chains (AIC)", "Forcing Chains", "Almost Locked Sets (ALS)"],
+    10: ["Sue de Coq", "Jellyfish"]
+};
 
 export class SudokuBoard {
     constructor(initialCellsArr, notationMode = "defaultNotation") {
@@ -289,22 +303,42 @@ async function updateStrategyPopup() {
     const data = await showProficiency();
 
     if (data === null) {
-        proficiencyText.textContent = "Error";
+        console.error("data is null");
         return;
     }
 
+    let numericScore;
+
     if (typeof data === "number") {
         proficiencyText.textContent = data.toFixed(1);
+        numericScore = data;
 
     } else if (data.score !== undefined) {
         proficiencyText.textContent = Number(data.score).toFixed(1);
+        numericScore = Number(data.score);
 
     } else if (data.proficiency !== undefined) {
         proficiencyText.textContent = Number(data.proficiency).toFixed(1);
-
+        numericScore = Number(data.proficiency);
     } else {
         proficiencyText.textContent = JSON.stringify(data);
     }
+
+    let score = Math.ceil(numericScore);
+
+    let titles = strategies[score] || [];
+
+    const strategyList = document.querySelector(".StrategyList");
+
+    while (strategyList.firstChild) {
+        strategyList.removeChild(strategyList.firstChild);
+    }
+
+    titles.forEach(title => {
+        const p = document.createElement("p");
+        p.textContent = title;
+        strategyList.appendChild(p);
+    })
 }
 
 //getProficiency(err, time);
@@ -407,7 +441,7 @@ strategyIcon.addEventListener("click", async () => {
     settingsPopUp.classList.add("Hidden");
 
     try {
-    await updateStrategyPopup();
+        await updateStrategyPopup();
     } catch (error) {
         console.error("Strategy popup score update failed:", error);
     }
