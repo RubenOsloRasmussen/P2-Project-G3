@@ -26,16 +26,21 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function applyHighlight() {
-        window.sudokuSettings.highlight = highlightVisible;
+    window.sudokuSettings.highlight = highlightVisible;
+    setSwitch(highlightToggle, highlightVisible);
 
-        if (highlightVisible) {
-            document.body.classList.remove("HighlightDisabled");
+    document.querySelectorAll(".SudokuCell").forEach(cellElement => {
+        const sudokuCell = cellElement.sudokuCell;
+
+        if (!sudokuCell) return;
+
+        if (sudokuCell.isTargetCell) {
+            cellElement.style.backgroundColor = "#bbd0f5";
         } else {
-            document.body.classList.add("HighlightDisabled");
+            cellElement.style.backgroundColor = "#ffffff";
         }
-
-        setSwitch(highlightToggle, highlightVisible);
-    }
+    });
+}
 
     visibleTimerToggle.addEventListener("click", (e) => {
         e.preventDefault();

@@ -664,6 +664,3 @@ body {
 .CenterNotation {
     color: rgb(187, 0, 255);
 }
-body.HighlightDisabled .SudokuCell {
-    background-color: #ffffff !important;
-}
