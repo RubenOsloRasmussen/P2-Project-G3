@@ -537,7 +537,7 @@ body {
 }
 #sudoku-start-overlay {
     position: absolute;
-    inset: 0;
+    inset: 2px;
     z-index: 50;
 
     display: flex;
