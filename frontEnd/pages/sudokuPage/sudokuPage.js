@@ -14,7 +14,7 @@ class SudokuCell {
         this.number = number; // Int, the number in the given cell or "null"
         this.locked = lockedState; // Bool, is this number permanent?
         this.candidateBlock = null,
-            this.rowIndex = rowIndex;
+        this.rowIndex = rowIndex;
         this.columnIndex = columnIndex;
         this.isTargetCell = false;
         this.isHighlighted = false;
