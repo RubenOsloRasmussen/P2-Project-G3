@@ -79,7 +79,7 @@ async function updateStrategyColors() {
         return;
     }
 
-    let score = numericScore.toFixed(0);
+    let score = Number(numericScore.toFixed(0));
 
     for (let i = score + 1; i <= 10; i++) {
         //console.log("coloring titles with proficiency score " + i);
