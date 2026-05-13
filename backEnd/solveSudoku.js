@@ -6,7 +6,7 @@
  * @param {*} number The number to look for.
  * @returns True if the number is not found, false if it is.
  */
-export function checkBlock(matrix, rowIndex, columnIndex, number) {
+function checkBlock(matrix, rowIndex, columnIndex, number) {
     // Calculate the row and column index of the top left cell in the new number's block.
     const startRowIndex = rowIndex - (rowIndex % 3);
     const startColumnIndex = columnIndex - (columnIndex % 3);
@@ -28,7 +28,7 @@ export function checkBlock(matrix, rowIndex, columnIndex, number) {
  * @param {*} number The number to look for.
  * @returns True if the number is not found, false if it is.
  */
-export function checkRow(matrix, rowIndex, columnIndex, number) {
+function checkRow(matrix, rowIndex, columnIndex, number) {
     // Checks every cell in the row for the number.
     for (let i = 0; i < 9; i++) {
         if (number === matrix[rowIndex][i]) return false;
@@ -44,7 +44,7 @@ export function checkRow(matrix, rowIndex, columnIndex, number) {
  * @param {*} number The number to look for.
  * @returns True if the number is not found, false if it is.
  */
-export function checkColumn(matrix, rowIndex, columnIndex, number) {
+function checkColumn(matrix, rowIndex, columnIndex, number) {
     // Checks every cell in the column for the number.
     for (let j = 0; j < 9; j++) {
         if (number === matrix[j][columnIndex]) return false;
