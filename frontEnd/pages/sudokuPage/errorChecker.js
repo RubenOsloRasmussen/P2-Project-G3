@@ -83,6 +83,7 @@ export function validateBlock(startRowIndex, startColumnIndex, ourCellsArr) {
 
     for (let i = 1; i < 10; i++) {
         if (!numberArray.includes(i)) {
+            console.log(`Error in block ${i}`);
             return false;
         }
     }
@@ -105,6 +106,7 @@ export function validateRow(rowIndex, ourCellsArr) {
 
     for (let i = 1; i < 10; i++) {
         if (!numberArray.includes(i)) {
+            console.log(`Error in row ${i}`);
             return false;
         }
     }
@@ -127,6 +129,7 @@ export function validateColumn(columnIndex, ourCellsArr) {
 
     for (let i = 1; i < 10; i++) {
         if (!numberArray.includes(i)) {
+            console.log(`Error in column ${i}`);
             return false;
         }
     }
