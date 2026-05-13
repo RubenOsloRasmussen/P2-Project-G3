@@ -157,17 +157,19 @@ export class SudokuRenderer {
                 let sudokuCell = this.board.sudokuCells[r][c];
 
                 sudokuCell.htmlTextElement.textContent = sudokuCell.number ? sudokuCell.number : "";
-                if (sudokuCell.isHighlighted) {
-                    if (sudokuCell.isTargetCell) {
-                        sudokuCell.htmlElement.style.backgroundColor = this.TARGET_COLOUR;
-                    } else if (sudokuCell.isSimilarNumber) {
-                        sudokuCell.htmlElement.style.backgroundColor = this.SIMILAR_NUMBER_COLOUR;
-                    } else {
-                        sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_HIGHLIGHT_COLOUR;
-                    }
-                } else {
-                    sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
-                }
+                sudokuCell.htmlTextElement.textContent = sudokuCell.number ? sudokuCell.number : "";
+
+            if (sudokuCell === this.board.targetCell) {
+                sudokuCell.htmlElement.style.backgroundColor = this.TARGET_COLOUR;
+            } else if (window.sudokuSettings?.highlight !== false && sudokuCell.isHighlighted) {
+            if (sudokuCell.isSimilarNumber) {
+                sudokuCell.htmlElement.style.backgroundColor = this.SIMILAR_NUMBER_COLOUR;
+            } else {
+                sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_HIGHLIGHT_COLOUR;
+        }
+            } else {
+                sudokuCell.htmlElement.style.backgroundColor = this.DEFAULT_CELL_COLOUR;
+    }
 
             if (sudokuCell.cellColour != "#ffffff") sudokuCell.htmlColourCell.style.backgroundColor = `var(--cell-color-${sudokuCell.cellColour})`;
 

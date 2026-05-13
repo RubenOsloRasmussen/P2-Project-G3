@@ -31,18 +31,24 @@
 
         <!-- Icons -->
         <div id="top-right-icons">
-            <div class="Icon" id="settings-icon">⚙️</div>
-            <div class="Icon" id="strategy-icon">📖</div>
-        </div>
+    <div class="Icon" id="settings-icon">
+        <img src="./illustrations/settings.png" alt="Settings">
+    </div>
+
+    <div class="Icon" id="strategy-icon">
+        <img src="./illustrations/strategy.png" alt="Strategy">
+    </div>
+</div>
 
         <!-- CENTER CONTENT -->
         <div id="main-content">
             <div id="sudoku-board-and-notation-id">
                 <div id="boardProficiencyScore">Current proficiency: </div>
                 <div id="left-container">
-                    <button id="pause-b-id">⏸</button>
-                    <div id="timer-id">00:00</div>
-                </div>
+            <button id="pause-b-id"><img id="pause-icon-img" src="./illustrations/pause.png" alt="Pause"></button>
+
+              <div id="timer-id">00:00</div>
+            </div>
 
                 <!--sudoku board-->
                 <div id="sudoku-board-container-id">
@@ -122,7 +128,7 @@
             <div class="SettingsRows">
                 <span class="SettingsLabel">VISIBLE TIMER</span>
                 <div class="SettingsControl">
-                    <button class="ToggleSwitch">
+                    <button class="ToggleSwitch active" id="visible-timer-toggle">
                         <span class="ToggleKnob"></span>
                     </button>
                 </div>
@@ -142,7 +148,7 @@
             <div class="SettingsRows">
                 <span class="SettingsLabel">HIGHLIGHT</span>
                 <div class="SettingsControl">
-                    <button class="ToggleSwitch">
+                    <button class="ToggleSwitch active" id="highlight-toggle">
                         <span class="ToggleKnob"></span>
                     </button>
                 </div>
@@ -236,6 +242,7 @@
     <script src="./inputController.js" type="module"></script>
     <script src="./pauseandtimer.js" defer type="module"></script>
     <script src="./notations.js" type="module"></script>
+    <script src="./settings.js"></script>
     <script src="./errorChecker.js" type="module"></script>
 </body>
 
