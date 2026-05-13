@@ -5,6 +5,7 @@ import { showProficiency } from "./helperfunctions.js";
 
 import { getTime } from "./pauseandtimer.js"
 import { getErr } from "./sudokuPage.js"
+import { formatTime } from "./pauseandtimer.js"
 
 export class InputController {
   constructor(board, renderer) {
@@ -57,35 +58,50 @@ export class InputController {
     this.renderer.renderCells();
   }
 
-    /**
-   * This function checks whether the Sudoku board is complete and triggers the win state.
-   * It displays the win popup and applies win styling if the board is full.
-   * @returns 
-   */
-  checkWin() {
+  /**
+ * This function checks whether the Sudoku board is complete and triggers the win state.
+ * It displays the win popup and applies win styling if the board is full.
+ * @returns 
+ */
+  async checkWin() {
     console.log("Running win check function");
     const winPopUp = document.getElementById("win-pop-up");
 
     if (!winPopUp.classList.contains("Hidden")) return;
 
 
-
     if (this.board.isBoardFull()) {
-        console.log("Board is full, checking if correct...");
+      console.log("Board is full, checking if correct...");
 
-        if (winChecker(this.board.sudokuCells) === true) {
-            let time = getTime();
-            let err = getErr();
+      if (winChecker(this.board.sudokuCells) === true) {
+        let time = getTime();
+        console.log("time returned:", time);
+        let err = getErr();
+        console.log("errors returned:", err);
 
-            changeProficiency(err, time);
+        const oldProficiencyScore = await showProficiency();
 
-            const sudokuBoardElement = document.getElementById("sudoku-board-container-id");
+        await changeProficiency(err, time);
 
-            sudokuBoardElement.classList.add("BoardWon");
-            winPopUp.classList.remove("Hidden");
-        } else {
-            console.log("board is not correct, cannot win.")
-        }
+        const sudokuBoardElement = document.getElementById("sudoku-board-container-id");
+
+        sudokuBoardElement.classList.add("BoardWon");
+        winPopUp.classList.remove("Hidden");
+
+        /*----------------- Update Winscreen -----------------*/
+        const timeText = document.getElementById("win-text-time");
+        const errorsText = document.getElementById("win-text-errors");
+        const scoreText = document.getElementById("win-text-score");
+
+        const newProficiencyScore = await showProficiency();
+
+        timeText.textContent = `You completed the puzzle in ${formatTime(time)}`;
+        errorsText.textContent = `You made ${err} errors`;
+        scoreText.textContent = `Your proficiency score changed by ${(newProficiencyScore - oldProficiencyScore).toFixed(1)}`;
+
+      } else {
+        console.log("Board is not correct, cannot win.")
+      }
 
     }
     else {

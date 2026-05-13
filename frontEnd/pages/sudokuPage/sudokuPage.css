@@ -603,7 +603,17 @@ body {
     font-size: 24px;
 }
 
-.WinText {
+#win-text-time {
+    margin: 0 0 22px 0;
+    font-size: 17px;
+}
+
+#win-text-errors {
+    margin: 0 0 22px 0;
+    font-size: 17px;
+}
+
+#win-text-score {
     margin: 0 0 22px 0;
     font-size: 17px;
 }
