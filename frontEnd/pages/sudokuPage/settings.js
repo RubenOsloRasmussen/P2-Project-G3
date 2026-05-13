@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function applyTimer() {
-        timerText.style.display = timerVisible ? "flex" : "none";
+        timerText.style.visibility = timerVisible ? "visible" : "hidden";
         window.sudokuSettings.visibleTimer = timerVisible;
         setSwitch(visibleTimerToggle, timerVisible);
     }
@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelectorAll(".SudokuCell").forEach(cellElement => {
         const sudokuCell = cellElement.sudokuCell;
-
         if (!sudokuCell) return;
 
         if (sudokuCell.isTargetCell) {
@@ -45,12 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
     visibleTimerToggle.addEventListener("click", (e) => {
         e.preventDefault();
         timerVisible = !timerVisible;
+        console.log(`Timer toggle has been pressed, it is now ${timerVisible}`);
         applyTimer();
     });
 
     highlightToggle.addEventListener("click", (e) => {
         e.preventDefault();
         highlightVisible = !highlightVisible;
+        console.log(`Highlight toggle has been pressed, it is now ${highlightVisible}`);
         applyHighlight();
     });
 
