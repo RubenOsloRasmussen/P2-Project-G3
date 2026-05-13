@@ -167,14 +167,7 @@ closeSettingsBtn.addEventListener("click", () => {
 });
 
 
-// The toggles in the settings popup, that can be toggled on and off by clicking on them
-const toggles = document.querySelectorAll(".ToggleSwitch");
-
-toggles.forEach(toggle => {
-    toggle.addEventListener("click", () => {
-        toggle.classList.toggle("active");
-    });
-});
+// Toggle logic is handled in settings.js — no duplicate listener needed here.
 
 /*--------------------------------------- Strategy popup --------------------------------------*/
 
