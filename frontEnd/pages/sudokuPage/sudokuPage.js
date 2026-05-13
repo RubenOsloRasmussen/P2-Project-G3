@@ -549,6 +549,6 @@ nextSudokuBtn.addEventListener("click", () => {
     window.location.reload();
 });
 
-let proficiencyScore = await showProficiency();
+const proficiencyScore = await showProficiency();
 
 document.getElementById("boardProficiencyScore").textContent = `Current proficiency: ${Math.floor(proficiencyScore)}`;

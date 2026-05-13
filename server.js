@@ -42,7 +42,7 @@ app.get(`${BASE_PATH}/api/sudoku`, (req, res) => {
   const board = GetSudokuBoard(sudokuNumber);
   let solvedSudoku = structuredClone(board);
   solveSudoku(solvedSudoku);
-  console.log("ddddwadkwakm",solvedSudoku)
+  console.log(solvedSudoku);
   // Send the board as a JSON file
   res.json({ board, solvedSudoku });
 });
