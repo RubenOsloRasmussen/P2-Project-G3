@@ -10,13 +10,15 @@ export function validateBlock(startRowIndex, startColumnIndex, ourCellsArr) {
     let numberArray = [];
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-            numberArray.push(ourCellsArr[startRowIndex + i][startColumnIndex + j].number);
+            numberArray.push(Number(ourCellsArr[startRowIndex + i][startColumnIndex + j].number));
         }
     }
 
+    console.log(`Block (${startRowIndex}, ${startColumnIndex}):`, numberArray);
+
     for (let i = 1; i < 10; i++) {
         if (!numberArray.includes(i)) {
-            console.log(`Error in block with row ${rowIndex} and column ${columnIndex}, missing ${i}`);
+            console.log(`Error in block with row ${startRowIndex} and column ${startColumnIndex}, missing ${i}`);
             return false;
         }
     }
@@ -34,7 +36,7 @@ export function validateRow(rowIndex, ourCellsArr) {
     let numberArray = [];
 
     for (let i = 0; i < 9; i++) {
-        numberArray.push(ourCellsArr[rowIndex][i].number);
+        numberArray.push(Number(ourCellsArr[rowIndex][i].number));
     }
 
     for (let i = 1; i < 10; i++) {
@@ -57,7 +59,7 @@ export function validateColumn(columnIndex, ourCellsArr) {
     let numberArray = [];
 
     for (let j = 0; j < 9; j++) {
-        numberArray.push(ourCellsArr[j][columnIndex].number);
+        numberArray.push(Number(ourCellsArr[j][columnIndex].number));
     }
 
     for (let i = 1; i < 10; i++) {
