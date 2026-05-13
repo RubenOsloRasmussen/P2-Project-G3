@@ -122,6 +122,7 @@
 
         <!-- Settings PopUp -->
         <div id="settings-pop-up" class="Hidden">
+            <h2 id="settings-title">Settings</h2>
             <button id="close-settings-btn">x</button>
 
             <!-- The visible timer content goes here -->
@@ -129,16 +130,6 @@
                 <span class="SettingsLabel">VISIBLE TIMER</span>
                 <div class="SettingsControl">
                     <button class="ToggleSwitch active" id="visible-timer-toggle">
-                        <span class="ToggleKnob"></span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- The notation content goes here -->
-            <div class="SettingsRows">
-                <span class="SettingsLabel">NOTATION</span>
-                <div class="SettingsControl">
-                    <button class="ToggleSwitch">
                         <span class="ToggleKnob"></span>
                     </button>
                 </div>
@@ -170,17 +161,9 @@
                 </span>
 
                 <div class="SettingsControl">
-                    <button class="ToggleSwitch">
+                    <button class="ToggleSwitch inactive">
                         <span class="ToggleKnob"></span>
                     </button>
-                </div>
-            </div>
-
-            <!-- The text scale content goes here -->
-            <div class="SettingsRows TextScaleRow">
-                <span class="SettingsLabel">TEXT SCALE</span>
-                <div class="SettingsControl">
-                    <input type="range" min="14" max="30" value="20">
                 </div>
             </div>
         </div>

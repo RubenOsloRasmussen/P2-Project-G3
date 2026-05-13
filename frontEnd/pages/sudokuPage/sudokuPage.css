@@ -280,6 +280,12 @@ body {
 
 /* Settings popup */
 
+#settings-title {
+    margin-top: -10px;
+    color: #4168A9;
+    font-size: 24px;
+}
+
 .SettingsRows {
     display: flex;
     justify-content: space-between;
@@ -289,7 +295,7 @@ body {
 }
 
 .SettingsRows:first-of-type {
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .SettingsLabel {
@@ -321,7 +327,7 @@ body {
     padding: 0;
     border: none;
     border-radius: 20px;
-    background-color: #d6d6d6;
+    background-color: #f3bcbc;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
@@ -338,11 +344,11 @@ body {
 }
 
 /* OFF state for toggle switch */
-.ToggleKnob {
+.ToggleKnob.inactive {
     background-color: #ff5b5b;
 }
 
-.ToggleSwitch {
+.ToggleSwitch.inactive {
     background-color: #f3bcbc;
 }
 
