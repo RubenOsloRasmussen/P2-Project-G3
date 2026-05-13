@@ -23,8 +23,8 @@ function scrollToStrategy(event, id) {
     const target = document.getElementById(id);
     if (target) {
         target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
+            behavior: "smooth",
+            block: "start"
         });
     }
 }
