@@ -466,25 +466,20 @@ buttons.forEach((button) => {
 /*--------------------------------------- Settings popup --------------------------------------*/
 
 const settingsIcon = document.getElementById("settings-icon");
-const settingsPopUp = document.querySelector('#settings-pop-up');
-const closeSettingsBtn = document.querySelector('#close-settings-btn');
-
-const forfeitBtn = document.getElementById("forfeit-btn");
-const forfeitPopUp = document.getElementById("forfeit-pop-up");
-const confirmForfeitBtn = document.getElementById("confirm-forfeit-btn");
-const cancelForfeitBtn = document.getElementById("cancel-forfeit-btn");
+const settingsPopUp = document.querySelector("#settings-pop-up");
+const closeSettingsBtn = document.querySelector("#close-settings-btn");
 
 // Settings PopUp
-settingsIcon.addEventListener('click', () => {
+settingsIcon.addEventListener("click", () => {
     // Close strategy popup first
     strategyPopUp.classList.add("Hidden");
 
     // Open settings
-    settingsPopUp.classList.remove('Hidden');
+    settingsPopUp.classList.remove("Hidden");
 });
 
-closeSettingsBtn.addEventListener('click', () => {
-    settingsPopUp.classList.add('Hidden');
+closeSettingsBtn.addEventListener("click", () => {
+    settingsPopUp.classList.add("Hidden");
 });
 
 
@@ -523,6 +518,11 @@ closeStrategyBtn.addEventListener("click", () => {
 
 /*--------------------------------------- Forfeit popup ---------------------------------------*/
 
+const forfeitBtn = document.getElementById("forfeit-btn");
+const forfeitPopUp = document.getElementById("forfeit-pop-up");
+const confirmForfeitBtn = document.getElementById("confirm-forfeit-btn");
+const cancelForfeitBtn = document.getElementById("cancel-forfeit-btn");
+
 forfeitBtn.addEventListener("click", () => {
     settingsPopUp.classList.add("Hidden");
     strategyPopUp.classList.add("Hidden");
@@ -551,4 +551,4 @@ nextSudokuBtn.addEventListener("click", () => {
 
 let proficiencyScore = await showProficiency();
 
-document.getElementById("boardProficiencyScore").textContent = `Current proficiency: ${Math.floor(proficiencyScore)}`;
+document.getElementById("boardProficiencyScore").textContent = `Current proficiency: ${Math.floor(proficiencyScore)}/10`;
