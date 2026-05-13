@@ -16,7 +16,7 @@ export function validateBlock(startRowIndex, startColumnIndex, ourCellsArr) {
 
     for (let i = 1; i < 10; i++) {
         if (!numberArray.includes(i)) {
-            console.log(`Error in block ${i}`);
+            console.log(`Error in block ${rowIndex}, missing ${i}`);
             return false;
         }
     }
@@ -39,7 +39,7 @@ export function validateRow(rowIndex, ourCellsArr) {
 
     for (let i = 1; i < 10; i++) {
         if (!numberArray.includes(i)) {
-            console.log(`Error in row ${i}`);
+            console.log(`Error in row ${rowIndex}, missing ${i}`);
             return false;
         }
     }
@@ -62,7 +62,7 @@ export function validateColumn(columnIndex, ourCellsArr) {
 
     for (let i = 1; i < 10; i++) {
         if (!numberArray.includes(i)) {
-            console.log(`Error in column ${i}`);
+            console.log(`Error in column ${rowIndex}, missing ${i}`);
             return false;
         }
     }
