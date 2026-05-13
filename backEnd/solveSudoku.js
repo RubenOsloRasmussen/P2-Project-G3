@@ -1,26 +1,60 @@
+/**
+ * This function checks for instances of a number in a block.
+ * @param {*} matrix The matrix of the Sudoku board.
+ * @param {*} rowIndex The row index of the newly placed number.
+ * @param {*} columnIndex The column index of the newly placed number.
+ * @param {*} number The number to look for.
+ * @returns True if the number is not found, false if it is.
+ */
+function checkBlock(matrix, rowIndex, columnIndex, number) {
+    // Calculate the row and column index of the top left cell in the new number's block.
+    const startRowIndex = rowIndex - (rowIndex % 3);
+    const startColumnIndex = columnIndex - (columnIndex % 3);
+
+    // Checks every cell in the block for the number.
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (number === matrix[startRowIndex + i][startColumnIndex + j]) return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * This function checks for instances of a number in a row.
+ * @param {*} matrix The matrix of the Sudoku board.
+ * @param {*} rowIndex The row index of the newly placed number.
+ * @param {*} columnIndex The column index of the newly placed number.
+ * @param {*} number The number to look for.
+ * @returns True if the number is not found, false if it is.
+ */
+function checkRow(matrix, rowIndex, columnIndex, number) {
+    // Checks every cell in the row for the number.
+    for (let i = 0; i < 9; i++) {
+        if (number === matrix[rowIndex][i]) return false;
+    }
+    return true;
+}
+
+/**
+ * This function checks for instances of a number in a column.
+ * @param {*} matrix The matrix of the Sudoku board.
+ * @param {*} rowIndex The row index of the newly placed number.
+ * @param {*} columnIndex The column index of the newly placed number.
+ * @param {*} number The number to look for.
+ * @returns True if the number is not found, false if it is.
+ */
+function checkColumn(matrix, rowIndex, columnIndex, number) {
+    // Checks every cell in the column for the number.
+    for (let j = 0; j < 9; j++) {
+        if (number === matrix[j][columnIndex]) return false;
+    }
+    return true;
+}
+
 // Function to check if it is safe to place num at mat[row][col]
 function isSafe(mat, row, col, num) {
-    
-    // Check if num exists in the row
-    for (let x = 0; x < 9; x++)
-        if (mat[row][x] === num)
-            return false;
-
-    // Check if num exists in the col
-    for (let x = 0; x < 9; x++)
-        if (mat[x][col] === num)
-            return false;
-
-    // Check if num exists in the 3x3 sub-matrix
-    const startRow = row - (row % 3),
-          startCol = col - (col % 3);
-
-    for (let i = 0; i < 3; i++)
-        for (let j = 0; j < 3; j++)
-            if (mat[i + startRow][j + startCol] === num)
-                return false;
-
-    return true;
+    return (checkRow(mat, row, col, num) && checkColumn(mat, row, col, num) && checkBlock(mat, row, col, num));
 }
 
 // Function to solve the Sudoku problem
