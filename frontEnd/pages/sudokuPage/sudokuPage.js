@@ -373,15 +373,15 @@ async function updateStrategyPopup() {
     let numericScore;
 
     if (typeof data === "number") {
-        proficiencyText.textContent = data.toFixed(1);
+        proficiencyText.textContent = data.toFixed(0);
         numericScore = data;
 
     } else if (data.score !== undefined) {
-        proficiencyText.textContent = Number(data.score).toFixed(1);
+        proficiencyText.textContent = Number(data.score).toFixed(0);
         numericScore = Number(data.score);
 
     } else if (data.proficiency !== undefined) {
-        proficiencyText.textContent = Number(data.proficiency).toFixed(1);
+        proficiencyText.textContent = Number(data.proficiency).toFixed(0);
         numericScore = Number(data.proficiency);
     } else {
         proficiencyText.textContent = JSON.stringify(data);
@@ -551,4 +551,4 @@ nextSudokuBtn.addEventListener("click", () => {
 
 const proficiencyScore = await showProficiency();
 
-document.getElementById("boardProficiencyScore").textContent = `Current proficiency: ${Math.floor(proficiencyScore)}/10`;
+document.getElementById("boardProficiencyScore").textContent = `Current proficiency: ${proficiencyScore.toFixed(1)}/10`;
